@@ -1,0 +1,14 @@
+﻿<Window x:Class="MiDEWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MiDEWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="{Binding Path=ViewportHeight}" 
+        WindowState="Maximized" MinWidth="1024" MinHeight="800"
+        Width="{Binding Path=ViewportWidth}">
+    <Grid Background="OldLace">
+        <Frame Source="Pages/Home.xaml"/>
+    </Grid>
+</Window>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,29 +24,47 @@ namespace MiDEWPF.Pages
     {
         List<string> SelectionArray = new List<string>();
         List<string> ExclusionArray = new List<string>();
+        List<string> PopArray = new List<string>();
+        List<string> TypeArray = new List<string>();
+        
+
+        
 
         public Home()
         {
             InitializeComponent();
             
             MiDEDataSet ds = ((MiDEDataSet)(FindResource("mideDataSet")));
-           
-            CollectionViewSource cafeViewSource = ((CollectionViewSource)(FindResource("buildingMenuViewSource")));
-            CollectionViewSource sFactorViewSource = ((CollectionViewSource)(FindResource("sFactorViewSource")));
-            CollectionViewSource sGFactorViewSource = ((CollectionViewSource)(FindResource("sGFactorViewSource")));
-            CollectionViewSource eFactorViewSource = ((CollectionViewSource)(FindResource("eFactorViewSource")));
+
+            //CollectionViewSource buildingViewSource = ((CollectionViewSource)(FindResource("buildingMenuViewSource")));
+            //CollectionViewSource sFactorViewSource = ((CollectionViewSource)(FindResource("sFactorViewSource")));
+            //CollectionViewSource sGFactorViewSource = ((CollectionViewSource)(FindResource("sGFactorViewSource")));
+            //CollectionViewSource eFactorViewSource = ((CollectionViewSource)(FindResource("eFactorViewSource")));
 
             MiDEDataSetTableAdapters.MiDEBuildingsTableAdapter adapter = new MiDEDataSetTableAdapters.MiDEBuildingsTableAdapter();
+            MiDEDataSetTableAdapters.MiDEPopulationTableAdapter padapter = new MiDEDataSetTableAdapters.MiDEPopulationTableAdapter();
             MiDEDataSetTableAdapters.MiDESValuesTableAdapter sadapter = new MiDEDataSetTableAdapters.MiDESValuesTableAdapter();
             MiDEDataSetTableAdapters.MiDEStrategyGroupsTableAdapter stadapter = new MiDEDataSetTableAdapters.MiDEStrategyGroupsTableAdapter();
             MiDEDataSetTableAdapters.MiDEEValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
 
             adapter.Fill(ds.MiDEBuildings);
+            padapter.Fill(ds.MiDEPopulation);
             sadapter.Fill(ds.MiDESValues);
             stadapter.Fill(ds.MiDEStrategyGroups);
             eadapter.Fill(ds.MiDEEValues);
-            
+
+            PopArray.Add("< 500");
+            PopArray.Add("500 - 999");
+            PopArray.Add("1000 - 1499");
+            PopArray.Add("> 1500");
+
+            TypeArray.Add("Executives");
+            TypeArray.Add("Engineers");
+            TypeArray.Add("Sales");
+            TypeArray.Add("Marketing");
+            TypeArray.Add("Support");
         }
+
 
         private void selectBuildingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

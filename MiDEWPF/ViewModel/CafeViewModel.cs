@@ -48,7 +48,6 @@ namespace MiDEWPF.ViewModel
 
             Cafes = cafes;*/
         }
-
         
     }
 }

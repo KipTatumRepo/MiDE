@@ -4,6 +4,43 @@
              xmlns:local="clr-namespace:MiDEWPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <LinearGradientBrush x:Key="ButtonGradientBrush" StartPoint="0,1" EndPoint="0,0">
+            <GradientStop Color="ForestGreen" Offset="0" />
+            <GradientStop Color="LightGreen" Offset="1" />
+        </LinearGradientBrush>
+        <Style x:Key="Buttons" TargetType="{x:Type Button}" >
+            <Setter Property="Width" Value="125" />
+            <Setter Property="Height" Value="75" />
+            <Setter Property="Background" Value="{StaticResource ButtonGradientBrush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True" 
+                              RenderTransformOrigin="0.5,0.5" x:Name="ButtonGrid">
+                            <Rectangle x:Name="innerRectangle" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                               Stroke="Transparent" StrokeThickness="5" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <DockPanel Name="myContentPresenterDockPanel">
+                                <ContentPresenter x:Name="myContentPresenter" Margin="20" Content="{TemplateBinding  Content}" TextBlock.Foreground="Black"
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </DockPanel>
+                        </Grid>
+                        <!--what happens at various events-->
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property ="Rectangle.Stroke" TargetName="innerRectangle" Value="LightGreen" />
+                            </Trigger>
+                            <Trigger Property ="IsPressed" Value ="True">
+                                <Setter TargetName="ButtonGrid" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
          
     </Application.Resources>
 </Application>

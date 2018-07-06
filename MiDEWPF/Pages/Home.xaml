@@ -17,6 +17,7 @@
         <CollectionViewSource x:Key="sFactorViewSource" Source="{Binding MiDESValues, Source={StaticResource mideDataSet}}"/>
         <CollectionViewSource x:Key="sGFactorViewSource" Source="{Binding MiDEStrategyGroups, Source={StaticResource mideDataSet}}"/>
         <CollectionViewSource x:Key="eFactorViewSource" Source="{Binding MiDEEValues, Source={StaticResource mideDataSet}}"/>
+        
     </Page.Resources>
 
     <Grid Margin="5,5,5,5" Width="{Binding Path=ViewportWidth}">
@@ -37,27 +38,30 @@
         </StackPanel>
         <!-- Stack Panel for Various Selection Boxes-->
         <StackPanel x:Name="inputOptions" HorizontalAlignment="Left" Height="179" VerticalAlignment="Top" Width="619" Margin="180,177,0,0" >
-            <Menu Name="buildingMenu" HorizontalAlignment="Left" RenderTransformOrigin="-1.937,1.76" Height="20" Margin="0,10,0,0" Width="200">
-                <MenuItem ItemsSource="{Binding Source={StaticResource buildingMenuViewSource}}" DisplayMemberPath="BuildingName" >
-                    <!-- <MenuItem ItemsSource="{Binding Path=Cafes}" DisplayMemberPath="CafeName" CommandParameter="CafeName"> -->
-                    <MenuItem.Resources>
+            <Menu Name="buildingMenu" DataContext="vm" HorizontalAlignment="Left" RenderTransformOrigin="-1.937,1.76" Height="20" Margin="0,10,0,0" Width="100" >
+                <MenuItem Header="_Select a Building">
+                    <MenuItem Header="{Binding Path=CafeName}"/>
+
+
+                    <!--<MenuItem ItemsSource="{Binding Source={StaticResource buildingMenuViewSource}}" DisplayMemberPath="BuildingName">-->
+                    <!--<MenuItem.Resources>
                         <Style TargetType="{x:Type MenuItem}">
                             <Setter Property="Command" Value="{Binding Path=Command}"/>
                         </Style>
                     </MenuItem.Resources>
                     <MenuItem.Header>
-
                         <StackPanel Orientation="Horizontal">
                             <Label Padding="0" Width="180">_Select a Building</Label>
                             <Border>
-                                <!-- The toggle button looks identical to the one used on a combo box because I based the definition below on the relevant portion of the  combo box's default control template. -->
+                       comment me out The toggle button looks identical to the one used on a combo box because I based the definition below on the relevant portion of the  combo box's default control template. 
                                 <ToggleButton IsChecked="False" IsHitTestVisible="False" BorderBrush="{TemplateBinding Border.BorderBrush}" Background="{TemplateBinding Panel.Background}">
                                     <ToggleButton.Style>
                                         <Style TargetType="{x:Type ToggleButton}">
                                             <Setter Property="OverridesDefaultStyle" Value="True" />
-                                            <!-- The toggle control just needs visually appear. It doesn't  need to receive focus or be a tab stop. -->
+                                       comment me out The toggle control just needs visually appear. It doesn't  need to receive focus or be a tab stop. 
                                             <Setter Property="Focusable" Value="False" />
                                             <Setter Property="IsTabStop" Value="False" />
+                                            
                                             <Setter Property="Template">
                                                 <Setter.Value>
                                                     <ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -70,7 +74,7 @@
                                 </ToggleButton>
                             </Border>
                         </StackPanel>
-                    </MenuItem.Header >
+                    </MenuItem.Header >-->
                 </MenuItem>
             </Menu>
             <ComboBox Name="selectBuildingCB" Text="Select Building" Margin="0,10,0,0" Width="200" IsEditable="True" IsReadOnly="True" Height="20" HorizontalAlignment="Left" 

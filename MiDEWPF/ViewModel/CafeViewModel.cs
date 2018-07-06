@@ -12,33 +12,30 @@ namespace MiDEWPF.ViewModel
 {
     public class CafeViewModel
     {
-        SqlCommand cmd;
-        SqlDataReader reader;
+        
         public ObservableCollection<Cafe> Cafes
         {
             get;
             set;
         }
 
+        public ObservableCollection<Population> Populations
+        {
+            get;
+            set;
+        }
+
+        public ObservableCollection<PopulationType> PopulationTypes
+        {
+            get;
+            set;
+        }
+
+        
         public void LoadCafes()
         {
-            SqlConnection conn = ConnectionHelper.GetConn();
-            conn.Open();
-            string sqlString = "SELECT CafeName FROM MiDECafes";
-            cmd = new SqlCommand(sqlString, conn);
-            reader = cmd.ExecuteReader();
 
-            ObservableCollection<string> cafes = new ObservableCollection<string>();
-            while (reader.HasRows)
-            {
-                string value = reader.GetValue(1).ToString();
-
-                cafes.Add(value);
-            }
-
-            //Cafes = reader;
-            //conn.Close();
-            /*ObservableCollection<Cafe> cafes = new ObservableCollection<Cafe>();
+            ObservableCollection<Cafe> cafes = new ObservableCollection<Cafe>();
 
             cafes.Add(new Cafe { CafeName = "H" });
             cafes.Add(new Cafe { CafeName = "83" });
@@ -46,8 +43,35 @@ namespace MiDEWPF.ViewModel
             cafes.Add(new Cafe { CafeName = "Millenium" });
             cafes.Add(new Cafe { CafeName = "Samm-C" });
 
-            Cafes = cafes;*/
+            Cafes = cafes;
         }
-        
+
+        public void LoadPopulations()
+        {
+            ObservableCollection<Population> populations = new ObservableCollection<Population>();
+
+            populations.Add(new Population { PopAmount = "< 500" });
+            populations.Add(new Population { PopAmount = "500 - 999" });
+            populations.Add(new Population { PopAmount = "1000 - 1299" });
+            populations.Add(new Population { PopAmount = "1300 - 1500" });
+            populations.Add(new Population { PopAmount = "> 1500" });
+
+            Populations = populations;
+        }
+
+        public void LoadPopulationTypes()
+        {
+            ObservableCollection<PopulationType> populationtypes = new ObservableCollection<PopulationType>();
+
+            populationtypes.Add(new PopulationType { PopType = "Executive" });
+            populationtypes.Add(new PopulationType { PopType = "Marketing" });
+            populationtypes.Add(new PopulationType { PopType = "Sales" });
+            populationtypes.Add(new PopulationType { PopType = "Engineers" });
+            populationtypes.Add(new PopulationType { PopType = "Support" });
+
+            PopulationTypes = populationtypes;
+        }
+
+
     }
 }

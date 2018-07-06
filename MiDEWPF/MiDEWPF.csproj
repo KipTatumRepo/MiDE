@@ -59,6 +59,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MiDEDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cafe.cs" />
+    <Compile Include="Models\Population.cs" />
+    <Compile Include="Models\PopulationType.cs" />
+    <Compile Include="ViewModel\BuildingSelections.cs" />
     <Compile Include="Resources\ConnectionHelper.cs" />
     <Compile Include="ViewModel\CafeViewModel.cs" />
     <Page Include="MainWindow.xaml">
@@ -79,7 +83,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\cafecombobox.cs" />
     <Compile Include="Pages\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MiDEWPF.Models;
 using MiDEWPF.ViewModel;
 
 namespace MiDEWPF.Pages
@@ -24,10 +26,7 @@ namespace MiDEWPF.Pages
     {
         List<string> SelectionArray = new List<string>();
         List<string> ExclusionArray = new List<string>();
-        List<string> PopArray = new List<string>();
-        List<string> TypeArray = new List<string>();
-        
-
+        public ObservableCollection<CafeViewModel> MenuItems { get; set; }
         
 
         public Home()
@@ -35,11 +34,6 @@ namespace MiDEWPF.Pages
             InitializeComponent();
             
             MiDEDataSet ds = ((MiDEDataSet)(FindResource("mideDataSet")));
-
-            //CollectionViewSource buildingViewSource = ((CollectionViewSource)(FindResource("buildingMenuViewSource")));
-            //CollectionViewSource sFactorViewSource = ((CollectionViewSource)(FindResource("sFactorViewSource")));
-            //CollectionViewSource sGFactorViewSource = ((CollectionViewSource)(FindResource("sGFactorViewSource")));
-            //CollectionViewSource eFactorViewSource = ((CollectionViewSource)(FindResource("eFactorViewSource")));
 
             MiDEDataSetTableAdapters.MiDEBuildingsTableAdapter adapter = new MiDEDataSetTableAdapters.MiDEBuildingsTableAdapter();
             MiDEDataSetTableAdapters.MiDEPopulationTableAdapter padapter = new MiDEDataSetTableAdapters.MiDEPopulationTableAdapter();
@@ -53,18 +47,14 @@ namespace MiDEWPF.Pages
             stadapter.Fill(ds.MiDEStrategyGroups);
             eadapter.Fill(ds.MiDEEValues);
 
-            PopArray.Add("< 500");
-            PopArray.Add("500 - 999");
-            PopArray.Add("1000 - 1499");
-            PopArray.Add("> 1500");
+           MenuItems = new ObservableCollection<CafeViewModel>
+           {
 
-            TypeArray.Add("Executives");
-            TypeArray.Add("Engineers");
-            TypeArray.Add("Sales");
-            TypeArray.Add("Marketing");
-            TypeArray.Add("Support");
+           }
         }
+        
 
+        
 
         private void selectBuildingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

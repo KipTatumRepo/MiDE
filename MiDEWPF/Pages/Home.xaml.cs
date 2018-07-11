@@ -24,15 +24,14 @@ namespace MiDEWPF.Pages
     /// </summary>
     public partial class Home : Page
     {
-        List<string> SelectionArray = new List<string>();
-        List<string> ExclusionArray = new List<string>();
-        public ObservableCollection<CafeViewModel> MenuItems { get; set; }
-        
+        public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
+
 
         public Home()
         {
+
             InitializeComponent();
-            
+
             MiDEDataSet ds = ((MiDEDataSet)(FindResource("mideDataSet")));
 
             MiDEDataSetTableAdapters.MiDEBuildingsTableAdapter adapter = new MiDEDataSetTableAdapters.MiDEBuildingsTableAdapter();
@@ -47,14 +46,1014 @@ namespace MiDEWPF.Pages
             stadapter.Fill(ds.MiDEStrategyGroups);
             eadapter.Fill(ds.MiDEEValues);
 
-           MenuItems = new ObservableCollection<CafeViewModel>
-           {
+            #region Building Menu Creation
+            MenuItems = new ObservableCollection<MenuItemViewModel>
+            {
+               
+                new MenuItemViewModel { Header = "Select a Building",
+                    MenuItems = new ObservableCollection<MenuItemViewModel>
+                        {
+                            new MenuItemViewModel { Header = "Building 4",
+                            MenuItems = new ObservableCollection<MenuItemViewModel>
+                                {
+                                    new MenuItemViewModel { Header = "< 500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "500 - 999",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1000 - 1249",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                        }
+                                    },
+                                    new MenuItemViewModel { Header = "1250 - 1499",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "> 1500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                        }
+                                    }
+                                }
+                            },
+                            new MenuItemViewModel { Header = "Building 9",
+                            MenuItems = new ObservableCollection<MenuItemViewModel>
+                                {
+                                    new MenuItemViewModel { Header = "< 500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "500 - 999",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1000 - 1249",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1250 - 1499",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "> 1500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    }
+                                }
+                            },
+                            new MenuItemViewModel { Header = "Building 16",
+                            MenuItems = new ObservableCollection<MenuItemViewModel>
+                                {
+                                    new MenuItemViewModel { Header = "< 500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "500 - 999",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1000 - 1249",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1250 - 1499",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "> 1500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    }
+                                }
+                            },
+                            new MenuItemViewModel { Header = "Building 25",
+                            MenuItems = new ObservableCollection<MenuItemViewModel>
+                                {
+                                    new MenuItemViewModel { Header = "< 500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "500 - 999",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1000 - 1249",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1250 - 1499",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "> 1500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    }
+                                }
+                            },
+                            new MenuItemViewModel { Header = "Building 26",
+                            MenuItems = new ObservableCollection<MenuItemViewModel>
+                                {
+                                    new MenuItemViewModel { Header = "< 500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "500 - 999",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1000 - 1249",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1250 - 1499",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "> 1500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    }
+                                }
+                            },
+                            new MenuItemViewModel { Header = "Building 31",
+                            MenuItems = new ObservableCollection<MenuItemViewModel>
+                                {
+                                    new MenuItemViewModel { Header = "< 500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "500 - 999",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1000 - 1249",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1250 - 1499",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "> 1500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    }
+                                }
+                            },
+                            new MenuItemViewModel { Header = "Building 36",
+                            MenuItems = new ObservableCollection<MenuItemViewModel>
+                                {
+                                    new MenuItemViewModel { Header = "< 500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "500 - 999",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1000 - 1249",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1250 - 1499",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "> 1500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    }
+                                }
+                            },
+                            new MenuItemViewModel { Header = "Building 41",
+                            MenuItems = new ObservableCollection<MenuItemViewModel>
+                                {
+                                    new MenuItemViewModel { Header = "< 500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "500 - 999",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1000 - 1249",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1250 - 1499",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "> 1500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    }
+                                }
+                            },
+                            new MenuItemViewModel { Header = "Building 43",
+                            MenuItems = new ObservableCollection<MenuItemViewModel>
+                                {
+                                    new MenuItemViewModel { Header = "< 500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "500 - 999",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1000 - 1249",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1250 - 1499",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "> 1500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    }
+                                }
+                            },
+                            new MenuItemViewModel { Header = "Building 50",
+                            MenuItems = new ObservableCollection<MenuItemViewModel>
+                                {
+                                    new MenuItemViewModel { Header = "< 500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "500 - 999",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1000 - 1249",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1250 - 1499",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "> 1500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    }
+                                }
+                            },
+                            new MenuItemViewModel { Header = "Building 83",
+                            MenuItems = new ObservableCollection<MenuItemViewModel>
+                                {
+                                    new MenuItemViewModel { Header = "< 500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "500 - 999",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1000 - 1249",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1250 - 1499",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "> 1500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    }
+                                }
+                            },
+                            new MenuItemViewModel { Header = "Building 86",
+                            MenuItems = new ObservableCollection<MenuItemViewModel>
+                                {
+                                    new MenuItemViewModel { Header = "< 500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "500 - 999",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1000 - 1249",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1250 - 1499",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "> 1500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    }
+                                }
+                            },
+                            new MenuItemViewModel { Header = "Building 92",
+                            MenuItems = new ObservableCollection<MenuItemViewModel>
+                                {
+                                    new MenuItemViewModel { Header = "< 500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "500 - 999",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1000 - 1249",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1250 - 1499",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "> 1500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    }
+                                }
+                            },
+                            new MenuItemViewModel { Header = "Building 99",
+                            MenuItems = new ObservableCollection<MenuItemViewModel>
+                                {
+                                    new MenuItemViewModel { Header = "< 500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "500 - 999",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1000 - 1249",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1250 - 1499",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "> 1500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    }
+                                }
+                            },
+                            new MenuItemViewModel { Header = "Building 109",
+                            MenuItems = new ObservableCollection<MenuItemViewModel>
+                                {
+                                    new MenuItemViewModel { Header = "< 500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "500 - 999",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1000 - 1249",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1250 - 1499",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "> 1500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    }
+                                }
+                            },
+                            new MenuItemViewModel { Header = "Building 112",
+                            MenuItems = new ObservableCollection<MenuItemViewModel>
+                                {
+                                    new MenuItemViewModel { Header = "< 500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "500 - 999",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1000 - 1249",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1250 - 1499",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "> 1500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    }
+                                }
+                            },
+                            new MenuItemViewModel { Header = "Building 121",
+                            MenuItems = new ObservableCollection<MenuItemViewModel>
+                                {
+                                    new MenuItemViewModel { Header = "< 500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "500 - 999",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1000 - 1249",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1250 - 1499",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "> 1500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    }
+                                }
+                            },
+                            new MenuItemViewModel { Header = "Studio H",
+                            MenuItems = new ObservableCollection<MenuItemViewModel>
+                                {
+                                    new MenuItemViewModel { Header = "< 500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "500 - 999",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1000 - 1249",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "1250 - 1499",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    },
+                                    new MenuItemViewModel { Header = "> 1500",
+                                        MenuItems = new ObservableCollection<MenuItemViewModel>
+                                        {
+                                            new MenuItemViewModel {Header = "Executives" },
+                                            new MenuItemViewModel {Header = "Engineers" },
+                                            new MenuItemViewModel {Header = "Sales" },
+                                            new MenuItemViewModel {Header = "Marketing"},
+                                            new MenuItemViewModel {Header = "Support"}
+                                          }
+                                    }
+                                }
+                            }
+                    }
 
-           }
+
+                }
+
+            };
+            
+            buildingMenu.DataContext = this;
+            
         }
-        
-
-        
+        #endregion
 
         private void selectBuildingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -84,6 +1083,11 @@ namespace MiDEWPF.Pages
         {
             string add = mitigationExclusionCB.SelectedValue.ToString();
             exclusionSelectionListBox.Items.Add(add);
+        }
+
+        private void buildingMenu_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+           
         }
     }
 }

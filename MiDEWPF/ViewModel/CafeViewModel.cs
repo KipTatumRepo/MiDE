@@ -7,12 +7,14 @@ using System.Collections.ObjectModel;
 using MiDEWPF.Models;
 using MiDEWPF.Resources;
 using System.Data.SqlClient;
+using System.ComponentModel;
 
 namespace MiDEWPF.ViewModel
 {
-    public class CafeViewModel
+    public class CafeViewModel : INotifyPropertyChanged
     {
-        
+       
+
         public ObservableCollection<Cafe> Cafes
         {
             get;
@@ -25,13 +27,12 @@ namespace MiDEWPF.ViewModel
             set;
         }
 
-        public ObservableCollection<PopulationType> PopulationTypes
+       /* public ObservableCollection<PopulationType> PopulationTypes
         {
             get;
             set;
-        }
+        }*/
 
-        
         public void LoadCafes()
         {
 
@@ -46,7 +47,7 @@ namespace MiDEWPF.ViewModel
             Cafes = cafes;
         }
 
-        public void LoadPopulations()
+        /*public void LoadPopulations()
         {
             ObservableCollection<Population> populations = new ObservableCollection<Population>();
 
@@ -57,9 +58,9 @@ namespace MiDEWPF.ViewModel
             populations.Add(new Population { PopAmount = "> 1500" });
 
             Populations = populations;
-        }
+        }*/
 
-        public void LoadPopulationTypes()
+       /* public void LoadPopulationTypes()
         {
             ObservableCollection<PopulationType> populationtypes = new ObservableCollection<PopulationType>();
 
@@ -70,8 +71,8 @@ namespace MiDEWPF.ViewModel
             populationtypes.Add(new PopulationType { PopType = "Support" });
 
             PopulationTypes = populationtypes;
-        }
+        }*/
 
-
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

@@ -59,12 +59,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MiDEDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Models\BuildingMenu.cs" />
     <Compile Include="Models\Cafe.cs" />
+    <Compile Include="Models\ItemMenu.cs" />
+    <Compile Include="Models\MenuCommand.cs" />
     <Compile Include="Models\Population.cs" />
-    <Compile Include="Models\PopulationType.cs" />
-    <Compile Include="ViewModel\BuildingSelections.cs" />
+    <Compile Include="Models\PopulationMenu.cs" />
     <Compile Include="Resources\ConnectionHelper.cs" />
     <Compile Include="ViewModel\CafeViewModel.cs" />
+    <Compile Include="ViewModel\CommandViewModel.cs" />
+    <Compile Include="ViewModel\MenuItemViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

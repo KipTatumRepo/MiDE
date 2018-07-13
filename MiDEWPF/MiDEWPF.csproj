@@ -62,6 +62,7 @@
     <Compile Include="Models\BuildingMenu.cs" />
     <Compile Include="Models\Cafe.cs" />
     <Compile Include="Models\ItemMenu.cs" />
+    <Compile Include="Models\ListBoxData.cs" />
     <Compile Include="Models\MenuCommand.cs" />
     <Compile Include="Models\NewButton.cs" />
     <Compile Include="Models\Population.cs" />

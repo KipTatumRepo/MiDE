@@ -63,8 +63,12 @@
     <Compile Include="Models\Cafe.cs" />
     <Compile Include="Models\ItemMenu.cs" />
     <Compile Include="Models\MenuCommand.cs" />
+    <Compile Include="Models\NewButton.cs" />
     <Compile Include="Models\Population.cs" />
     <Compile Include="Models\PopulationMenu.cs" />
+    <Compile Include="Pages\MiDESelection.xaml.cs">
+      <DependentUpon>MiDESelection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\ConnectionHelper.cs" />
     <Compile Include="ViewModel\CafeViewModel.cs" />
     <Compile Include="ViewModel\CommandViewModel.cs" />
@@ -82,6 +86,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MiDESelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

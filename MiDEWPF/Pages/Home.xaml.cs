@@ -1089,5 +1089,11 @@ namespace MiDEWPF.Pages
         {
            
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(
+                new Uri("Pages/MiDESelection.xaml", UriKind.Relative));
+        }
     }
 }

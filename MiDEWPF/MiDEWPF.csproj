@@ -67,6 +67,9 @@
     <Compile Include="Models\NewButton.cs" />
     <Compile Include="Models\Population.cs" />
     <Compile Include="Models\PopulationMenu.cs" />
+    <Compile Include="Pages\MiDEResults.xaml.cs">
+      <DependentUpon>MiDEResults.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\MiDESelection.xaml.cs">
       <DependentUpon>MiDESelection.xaml</DependentUpon>
     </Compile>
@@ -87,6 +90,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MiDEResults.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

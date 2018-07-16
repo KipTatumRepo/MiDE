@@ -45,7 +45,7 @@
         
 
         <Style x:Key="mButton" TargetType="{x:Type Button}" >
-            <Setter Property="Width" Value="100" />
+            <!--<Setter Property="Width" Value="100" />-->
             <Setter Property="Height" Value="75" />
             <Setter Property="Background" Value="{StaticResource ButtonGradientBrush}" />
             <Setter Property="Template">

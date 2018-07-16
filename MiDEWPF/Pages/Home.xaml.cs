@@ -125,7 +125,6 @@ namespace MiDEWPF.Pages
             var svalue = ds.MiDESValues.Rows[0][2].ToString();
             int Svalue = int.Parse(svalue);
             
-           // MessageBox.Show(svalue);
             SValues.Add(Svalue);
             SelectionListBox.Items.Add(add);
             SelectionBox.Add(add);

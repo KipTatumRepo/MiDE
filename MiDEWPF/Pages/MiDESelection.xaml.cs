@@ -34,6 +34,11 @@ namespace MiDEWPF.Pages
         MiDEDataSet ds = new MiDEDataSet();
         
         List<int> Buttons = new List<int>();
+
+        //Random Number Generator for testing purposes
+        Random random = new Random();
+        int row;
+        List<int> dispose = new List<int>();
         
         public MiDESelection()
         {
@@ -49,7 +54,6 @@ namespace MiDEWPF.Pages
 
 
             SValue = Home.SValuesSum;
-            MessageBox.Show(SValue.ToString());
             ScenarioNumber = newhome.ScenarioNumber;
             ScenarioNumber--;
 
@@ -73,44 +77,73 @@ namespace MiDEWPF.Pages
 
             if(SValue < 10)
             {
+                //for demo purposes a random number is generated to select rows from DB, for production need to get rid of 
+                //row variable assignment and change [row] back to [i]
                 for(int c = 0; c <= 2; c++)
                 {
-                    NewButton button = new NewButton();
-                    button.Content = ds.MiDEEValues.Rows[i][1].ToString();
-                    button.Bid = i;
-                    button.Style = style;
-                    mitigationDisplay.Children.Add(button);
-                    i++;
-                    content.Add(button.Content.ToString());
-                    Buttons.Add(button.Bid);
+                    row = random.Next(1, 25);
+                    if (dispose.Contains(row))
+                    {
+                        row = random.Next(1, 25);
+                    }
+                    else
+                    { 
+                        NewButton button = new NewButton();
+                        button.Content = ds.MiDEEValues.Rows[row][1].ToString();
+                        button.Bid = i;
+                        button.Style = style;
+                        mitigationDisplay.Children.Add(button);
+                        i++;
+                        content.Add(button.Content.ToString());
+                        Buttons.Add(button.Bid);
+                        dispose.Add(row);
+                    }
                 }
             }
             else if(SValue >= 10 && SValue <= 29)
             {
                 for(int c = 0; c <= 4; c++)
                 {
-                    NewButton button = new NewButton();
-                    button.Content = ds.MiDEEValues.Rows[i][1].ToString();
-                    button.Bid = i;
-                    button.Style = style;
-                    mitigationDisplay.Children.Add(button);
-                    i++;
-                    content.Add(button.Content.ToString());
-                    Buttons.Add(button.Bid);
+                    row = random.Next(1, 25);
+                    if (dispose.Contains(row))
+                    {
+                        row = random.Next(1, 25);
+                    }
+                    else
+                    {
+                        NewButton button = new NewButton();
+                        button.Content = ds.MiDEEValues.Rows[row][1].ToString();
+                        button.Bid = i;
+                        button.Style = style;
+                        mitigationDisplay.Children.Add(button);
+                        i++;
+                        content.Add(button.Content.ToString());
+                        Buttons.Add(button.Bid);
+                        dispose.Add(row);
+                    }
                 }
             }
             else if(SValue >= 30)
             {
                 for(int c = 0; c <= 10; c++)
                 {
-                    NewButton button = new NewButton();
-                    button.Content = ds.MiDEEValues.Rows[i][1].ToString();
-                    button.Bid = i;
-                    button.Style = style;
-                    mitigationDisplay.Children.Add(button);
-                    i++;
-                    content.Add(button.Content.ToString());
-                    Buttons.Add(button.Bid);
+                    row = random.Next(1, 25);
+                    if (dispose.Contains(row))
+                    {
+                        row = random.Next(1, 25);
+                    }
+                    else
+                    {
+                        NewButton button = new NewButton();
+                        button.Content = ds.MiDEEValues.Rows[row][1].ToString();
+                        button.Bid = i;
+                        button.Style = style;
+                        mitigationDisplay.Children.Add(button);
+                        i++;
+                        content.Add(button.Content.ToString());
+                        Buttons.Add(button.Bid);
+                        dispose.Add(row);
+                    }
                 }
             }
        

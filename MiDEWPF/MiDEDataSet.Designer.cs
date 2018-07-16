@@ -1334,7 +1334,7 @@ namespace MiDEWPF {
             
             private global::System.Data.DataColumn columnpopid;
             
-            private global::System.Data.DataColumn columnPopAmout;
+            private global::System.Data.DataColumn columnPopAmount;
             
             private global::System.Data.DataColumn columntableId;
             
@@ -1381,9 +1381,9 @@ namespace MiDEWPF {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn PopAmoutColumn {
+            public global::System.Data.DataColumn PopAmountColumn {
                 get {
-                    return this.columnPopAmout;
+                    return this.columnPopAmount;
                 }
             }
             
@@ -1432,11 +1432,11 @@ namespace MiDEWPF {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public MiDEPopulationRow AddMiDEPopulationRow(string PopAmout, short tableId) {
+            public MiDEPopulationRow AddMiDEPopulationRow(string PopAmount, short tableId) {
                 MiDEPopulationRow rowMiDEPopulationRow = ((MiDEPopulationRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        PopAmout,
+                        PopAmount,
                         tableId};
                 rowMiDEPopulationRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMiDEPopulationRow);
@@ -1461,7 +1461,7 @@ namespace MiDEWPF {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             internal void InitVars() {
                 this.columnpopid = base.Columns["popid"];
-                this.columnPopAmout = base.Columns["PopAmout"];
+                this.columnPopAmount = base.Columns["PopAmount"];
                 this.columntableId = base.Columns["tableId"];
             }
             
@@ -1470,8 +1470,8 @@ namespace MiDEWPF {
             private void InitClass() {
                 this.columnpopid = new global::System.Data.DataColumn("popid", typeof(short), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnpopid);
-                this.columnPopAmout = new global::System.Data.DataColumn("PopAmout", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPopAmout);
+                this.columnPopAmount = new global::System.Data.DataColumn("PopAmount", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPopAmount);
                 this.columntableId = new global::System.Data.DataColumn("tableId", typeof(short), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columntableId);
                 this.columnpopid.AutoIncrement = true;
@@ -1479,7 +1479,7 @@ namespace MiDEWPF {
                 this.columnpopid.AutoIncrementStep = -1;
                 this.columnpopid.AllowDBNull = false;
                 this.columnpopid.ReadOnly = true;
-                this.columnPopAmout.MaxLength = 50;
+                this.columnPopAmount.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2739,17 +2739,17 @@ namespace MiDEWPF {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string PopAmout {
+            public string PopAmount {
                 get {
                     try {
-                        return ((string)(this[this.tableMiDEPopulation.PopAmoutColumn]));
+                        return ((string)(this[this.tableMiDEPopulation.PopAmountColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PopAmout\' in table \'MiDEPopulation\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'PopAmount\' in table \'MiDEPopulation\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableMiDEPopulation.PopAmoutColumn] = value;
+                    this[this.tableMiDEPopulation.PopAmountColumn] = value;
                 }
             }
             
@@ -2771,14 +2771,14 @@ namespace MiDEWPF {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsPopAmoutNull() {
-                return this.IsNull(this.tableMiDEPopulation.PopAmoutColumn);
+            public bool IsPopAmountNull() {
+                return this.IsNull(this.tableMiDEPopulation.PopAmountColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetPopAmoutNull() {
-                this[this.tableMiDEPopulation.PopAmoutColumn] = global::System.Convert.DBNull;
+            public void SetPopAmountNull() {
+                this[this.tableMiDEPopulation.PopAmountColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4129,15 +4129,15 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "MiDEPopulation";
             tableMapping.ColumnMappings.Add("popid", "popid");
-            tableMapping.ColumnMappings.Add("PopAmout", "PopAmout");
+            tableMapping.ColumnMappings.Add("PopAmount", "PopAmount");
             tableMapping.ColumnMappings.Add("tableId", "tableId");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[MiDEPopulation] ([PopAmout], [tableId]) VALUES (@PopAmout, @ta" +
-                "bleId)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[MiDEPopulation] ([PopAmount], [tableId]) VALUES (@PopAmount, @" +
+                "tableId)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PopAmout", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PopAmout", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PopAmount", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PopAmount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@tableId", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "tableId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -4154,7 +4154,7 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT popid, PopAmout, tableId FROM dbo.MiDEPopulation";
+            this._commandCollection[0].CommandText = "SELECT popid, PopAmount, tableId FROM dbo.MiDEPopulation";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -4215,12 +4215,12 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string PopAmout, global::System.Nullable<short> tableId) {
-            if ((PopAmout == null)) {
+        public virtual int Insert(string PopAmount, global::System.Nullable<short> tableId) {
+            if ((PopAmount == null)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(PopAmout));
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(PopAmount));
             }
             if ((tableId.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((short)(tableId.Value));
@@ -4618,11 +4618,17 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT sid, svariable, svalue FROM dbo.MiDESValues";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT        svalue\r\nFROM            MiDESValues\r\nWHERE        (svariable = @add" +
+                ")";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@add", global::System.Data.SqlDbType.VarChar, 500, global::System.Data.ParameterDirection.Input, 0, 0, "svariable", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4644,6 +4650,42 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual MiDEDataSet.MiDESValuesDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            MiDEDataSet.MiDESValuesDataTable dataTable = new MiDEDataSet.MiDESValuesDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillBySValue(MiDEDataSet.MiDESValuesDataTable dataTable, string add) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((add == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(add));
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual MiDEDataSet.MiDESValuesDataTable GetDataBySValue(string add) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((add == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(add));
+            }
             MiDEDataSet.MiDESValuesDataTable dataTable = new MiDEDataSet.MiDESValuesDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -4930,7 +4972,7 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual MiDEDataSet.MiDEWriteDataTable GetDataByScenarioNumber(int ScenarioNumber) {
+        public virtual MiDEDataSet.MiDEWriteDataTable GetDataBy(int ScenarioNumber) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ScenarioNumber));
             MiDEDataSet.MiDEWriteDataTable dataTable = new MiDEDataSet.MiDEWriteDataTable();
@@ -4956,7 +4998,7 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual MiDEDataSet.MiDEWriteDataTable GetDataForExclusionListBox(int ScenarioNumber) {
+        public virtual MiDEDataSet.MiDEWriteDataTable GetDataBy1(int ScenarioNumber) {
             this.Adapter.SelectCommand = this.CommandCollection[2];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ScenarioNumber));
             MiDEDataSet.MiDEWriteDataTable dataTable = new MiDEDataSet.MiDEWriteDataTable();

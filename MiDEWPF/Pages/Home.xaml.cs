@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MiDEWPF.Models;
+using MiDEWPF.Resources;
 using MiDEWPF.ViewModel;
 
 namespace MiDEWPF.Pages
@@ -27,8 +29,11 @@ namespace MiDEWPF.Pages
         public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
         List<string> SelectionBox = new List<string>();
         List<string> ExclusionBox = new List<string>();
-        int i = 1;
+        List<int> SValues = new List<int>();
+        int i = 0;
+        int j = 0;
         public int ScenarioNumber;
+        
 
         public Home()
         {
@@ -41,6 +46,7 @@ namespace MiDEWPF.Pages
             MiDEDataSetTableAdapters.MiDEPopulationTableAdapter padapter = new MiDEDataSetTableAdapters.MiDEPopulationTableAdapter();
             MiDEDataSetTableAdapters.MiDEPopTypeTableAdapter ptadapter = new MiDEDataSetTableAdapters.MiDEPopTypeTableAdapter();
             MiDEDataSetTableAdapters.MiDESValuesTableAdapter sadapter = new MiDEDataSetTableAdapters.MiDESValuesTableAdapter();
+            
             MiDEDataSetTableAdapters.MiDEStrategyGroupsTableAdapter stadapter = new MiDEDataSetTableAdapters.MiDEStrategyGroupsTableAdapter();
             MiDEDataSetTableAdapters.MiDEEValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
             MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
@@ -60,108 +66,170 @@ namespace MiDEWPF.Pages
         }
         //int realLastValue = int(lastvalue);
         //TODO Figure out how to implement Menu style box for this menu 
-      
-
         //buildingMenu.DataContext = this;
 
-        
- 
-
-        /*private void selectedVacatingBuildingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //Add selections to appropriate list box when selection is changed
+        private void selectedVacatingBuildingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string add = selectedVacatingBuildingCB.SelectedValue.ToString();
-            MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
 
-            selectedVacatingBuildingCB.Items.Add(add);
-            wadapter.Insert(ScenarioNumber, add, null, null);
-
+            SelectionListBox.Items.Add(add);
             SelectionBox.Add(add);
+            return;
         }
 
         private void selectedPopRangeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string add = selectedPopRangeCB.SelectedValue.ToString();
-            MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
 
-            selectionListBox.Items.Add(add);
-            wadapter.Insert(ScenarioNumber, add, null, null);
-
+            SelectionListBox.Items.Add(add);
             SelectionBox.Add(add);
+            return;
         }
 
         private void selectedPopTypeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string add = selectBuildingCB.SelectedValue.ToString();
-            MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
+            string add = selectedPopTypeCB.SelectedValue.ToString();
 
-            selectedPopTypeCB.Items.Add(add);
-            wadapter.Insert(ScenarioNumber, add, null, null);
-
+            SelectionListBox.Items.Add(add);
             SelectionBox.Add(add);
-        }*/
+            return;
+        }
 
         private void selectBuildingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string add = selectBuildingCB.SelectedValue.ToString();
-            MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
 
-            selectionListBox.Items.Add(add);
-            wadapter.Insert(ScenarioNumber, add, null, null);
-
+            SelectionListBox.Items.Add(add);
             SelectionBox.Add(add);
+            return;
         }
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             string add = datePicker.SelectedDate.ToString();
-            MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
 
-            selectionListBox.Items.Add(add);
-
-            wadapter.Insert(ScenarioNumber, add, null, null);
+            SelectionListBox.Items.Add(add);
             SelectionBox.Add(add);
+            return;
         }
 
         private void sFactors_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string add = sFactorCB.SelectedValue.ToString();
-            MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
+            MiDEDataSetTableAdapters.MiDESValuesTableAdapter svadapter = new MiDEDataSetTableAdapters.MiDESValuesTableAdapter();
+            //string add = sFactorCB.SelectedValue.ToString();
+            //svadapter.FillBySValue();
 
-            selectionListBox.Items.Add(add);
-
-            wadapter.Insert(ScenarioNumber, add, null, null);
+            SelectionListBox.Items.Add(add);
             SelectionBox.Add(add);
+
+            // when a new item is added to Selection list box, select it and show it
+            // this will keep the last item highlighted and as the list grows beyond
+            // the view of the list box, the last item will always be shown
+            SelectionListBox.SelectedIndex = SelectionListBox.Items.Count - 1;
+            SelectionListBox.ScrollIntoView(SelectionListBox.SelectedItem);
+            return;
         }
 
         private void selectExclusionCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string add = strategyExclusionCB.SelectedValue.ToString();
-            MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
-            exclusionListBox.Items.Add(add);
 
-            wadapter.Insert(ScenarioNumber, null, add, null);
+            ExclusionListBox.Items.Add(add);
             ExclusionBox.Add(add);
+
+            // when a new item is added to Exclusion list box, select it and show it
+            // this will keep the last item highlighted and as the list grows beyond
+            // the view of the list box, the last item will always be shown
+            ExclusionListBox.SelectedIndex = ExclusionListBox.Items.Count - 1;
+            ExclusionListBox.ScrollIntoView(ExclusionListBox.SelectedItem);
+            return;
         }
 
         private void mitigationExclusion_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string add = mitigationExclusionCB.SelectedValue.ToString();
-            MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
-            exclusionListBox.Items.Add(add);
 
-            wadapter.Insert(ScenarioNumber, null, add, null);
+            ExclusionListBox.Items.Add(add);
             ExclusionBox.Add(add);
+
+            // when a new item is added to Exclusion list box, select it and show it
+            // this will keep the last item highlighted and as the list grows beyond
+            // the view of the list box, the last item will always be shown
+            ExclusionListBox.SelectedIndex = ExclusionListBox.Items.Count - 1;
+            ExclusionListBox.ScrollIntoView(ExclusionListBox.SelectedItem);
+            return;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        
+
+
+        //Buttons for clearing boxed and handling click events
+        private void ClearAllScenario_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Delete All Current Selections?");
+            SelectionListBox.Items.Clear();
+            SelectionBox.Clear();
+            return;
+        }
+
+        private void ClearLastScenario_Click(object sender, RoutedEventArgs e)
         {
 
-            // MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
-            //wadapter.InsertQuery(SelectionBox, ExclusionBox, null);
+            SelectionListBox.SelectedIndex = SelectionListBox.Items.Count - 1;
+            int currentIterator = SelectionListBox.Items.Count - 1;
+            SelectionListBox.SelectedItem = SelectionListBox.Items.Count - 1;
+           
+            MessageBox.Show("Remove " + SelectionListBox.SelectedItem + "?");
+            SelectionListBox.Items.RemoveAt(SelectionListBox.SelectedIndex);
+            SelectionBox.RemoveAt(currentIterator);
+            return;
+        }
+
+        private void ClearAllExclusion_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Delete All Current Selections?");
+            ExclusionListBox.Items.Clear();
+            ExclusionBox.Clear();
+            return;
+        }
+
+        private void ClearLastExclusion_Click(object sender, RoutedEventArgs e)
+        {
+
+            ExclusionListBox.SelectedIndex = ExclusionListBox.Items.Count - 1;
+            int currentIterator = ExclusionListBox.Items.Count - 1;
+            ExclusionListBox.SelectedItem = ExclusionListBox.Items.Count - 1;
+            
+            MessageBox.Show("Remove " + ExclusionListBox.SelectedItem + "?");
+            ExclusionListBox.Items.RemoveAt(ExclusionListBox.SelectedIndex);
+            ExclusionBox.RemoveAt(currentIterator);
+            return;
+        }
+
+        //write to DB and Navigate to next page
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
+
+            foreach (var item in SelectionBox)
+            {
+                string currentIterator = SelectionBox[i].ToString();
+                wadapter.Insert(ScenarioNumber, currentIterator, null, null);
+                i++;
+            }
+
+            foreach (var item in ExclusionBox)
+            {
+                string currentIterator = ExclusionBox[j].ToString();
+                wadapter.Insert(ScenarioNumber, null, currentIterator, null);
+                j++;
+            }
 
             NavigationService.Navigate(
                 new Uri("Pages/MiDESelection.xaml", UriKind.Relative));
         }
+
 
     }
     

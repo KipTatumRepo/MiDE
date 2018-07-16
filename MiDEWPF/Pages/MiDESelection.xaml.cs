@@ -28,6 +28,7 @@ namespace MiDEWPF.Pages
         Home newhome = new Home();
         int ScenarioNumber;
         SqlCommand Cmd;
+        int SValue;
 
         List<String> content = new List<string>();
         MiDEDataSet ds = new MiDEDataSet();
@@ -45,9 +46,10 @@ namespace MiDEWPF.Pages
             MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter2 = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
             eadapter.Fill(ds.MiDEEValues);
             wadapter.Fill(ds.MiDEWrite);
-           
-            
 
+
+            SValue = Home.SValuesSum;
+            MessageBox.Show(SValue.ToString());
             ScenarioNumber = newhome.ScenarioNumber;
             ScenarioNumber--;
 
@@ -69,7 +71,50 @@ namespace MiDEWPF.Pages
             currentExclusionLB.ItemsSource = dt.DefaultView;
             conn.Close();
 
-            foreach (var item in ds.MiDEEValues)
+            if(SValue < 10)
+            {
+                for(int c = 0; c <= 2; c++)
+                {
+                    NewButton button = new NewButton();
+                    button.Content = ds.MiDEEValues.Rows[i][1].ToString();
+                    button.Bid = i;
+                    button.Style = style;
+                    mitigationDisplay.Children.Add(button);
+                    i++;
+                    content.Add(button.Content.ToString());
+                    Buttons.Add(button.Bid);
+                }
+            }
+            else if(SValue >= 10 && SValue <= 29)
+            {
+                for(int c = 0; c <= 4; c++)
+                {
+                    NewButton button = new NewButton();
+                    button.Content = ds.MiDEEValues.Rows[i][1].ToString();
+                    button.Bid = i;
+                    button.Style = style;
+                    mitigationDisplay.Children.Add(button);
+                    i++;
+                    content.Add(button.Content.ToString());
+                    Buttons.Add(button.Bid);
+                }
+            }
+            else if(SValue >= 30)
+            {
+                for(int c = 0; c <= 10; c++)
+                {
+                    NewButton button = new NewButton();
+                    button.Content = ds.MiDEEValues.Rows[i][1].ToString();
+                    button.Bid = i;
+                    button.Style = style;
+                    mitigationDisplay.Children.Add(button);
+                    i++;
+                    content.Add(button.Content.ToString());
+                    Buttons.Add(button.Bid);
+                }
+            }
+       
+            /*foreach (var item in ds.MiDEEValues)
             {
                 NewButton button = new NewButton();
                 button.Content = ds.MiDEEValues.Rows[i][1].ToString();
@@ -79,7 +124,7 @@ namespace MiDEWPF.Pages
                 i++;
                 content.Add(button.Content.ToString());
                 Buttons.Add(button.Bid);
-            }
+            }*/
             AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
         }
 

@@ -30,6 +30,7 @@ namespace MiDEWPF.Pages
         List<string> SelectionBox = new List<string>();
         List<string> ExclusionBox = new List<string>();
         List<int> SValues = new List<int>();
+        public static int SValuesSum;
         int i = 0;
         int j = 0;
         public int ScenarioNumber;
@@ -46,7 +47,6 @@ namespace MiDEWPF.Pages
             MiDEDataSetTableAdapters.MiDEPopulationTableAdapter padapter = new MiDEDataSetTableAdapters.MiDEPopulationTableAdapter();
             MiDEDataSetTableAdapters.MiDEPopTypeTableAdapter ptadapter = new MiDEDataSetTableAdapters.MiDEPopTypeTableAdapter();
             MiDEDataSetTableAdapters.MiDESValuesTableAdapter sadapter = new MiDEDataSetTableAdapters.MiDESValuesTableAdapter();
-            
             MiDEDataSetTableAdapters.MiDEStrategyGroupsTableAdapter stadapter = new MiDEDataSetTableAdapters.MiDEStrategyGroupsTableAdapter();
             MiDEDataSetTableAdapters.MiDEEValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
             MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
@@ -62,6 +62,7 @@ namespace MiDEWPF.Pages
             last = wadapter.GetDataByLast();
             int lastvalue = (int)last.Rows[0][1];
             ScenarioNumber = lastvalue + 1;
+            
 
         }
         //int realLastValue = int(lastvalue);
@@ -116,10 +117,16 @@ namespace MiDEWPF.Pages
 
         private void sFactors_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            MiDEDataSet ds = new MiDEDataSet();
             MiDEDataSetTableAdapters.MiDESValuesTableAdapter svadapter = new MiDEDataSetTableAdapters.MiDESValuesTableAdapter();
-            //string add = sFactorCB.SelectedValue.ToString();
-            //svadapter.FillBySValue();
+            string add = sFactorCB.SelectedValue.ToString();
+            svadapter.FillBySValue(ds.MiDESValues, add);
 
+            var svalue = ds.MiDESValues.Rows[0][2].ToString();
+            int Svalue = int.Parse(svalue);
+            
+           // MessageBox.Show(svalue);
+            SValues.Add(Svalue);
             SelectionListBox.Items.Add(add);
             SelectionBox.Add(add);
 
@@ -128,7 +135,7 @@ namespace MiDEWPF.Pages
             // the view of the list box, the last item will always be shown
             SelectionListBox.SelectedIndex = SelectionListBox.Items.Count - 1;
             SelectionListBox.ScrollIntoView(SelectionListBox.SelectedItem);
-            return;
+            
         }
 
         private void selectExclusionCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -211,6 +218,7 @@ namespace MiDEWPF.Pages
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
+            SValuesSum = SValues.Sum();
 
             foreach (var item in SelectionBox)
             {

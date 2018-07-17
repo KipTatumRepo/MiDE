@@ -26,21 +26,26 @@ namespace MiDEWPF.Pages
     /// </summary>
     public partial class Home : Page
     {
-        public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
+        #region Page Variables
+        //TODO This will be needed for menu style
+        //public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
         List<string> SelectionBox = new List<string>();
         List<string> ExclusionBox = new List<string>();
         List<int> SValues = new List<int>();
-        public static int SValuesSum;
         int i = 0;
         int j = 0;
+        #endregion
+        #region Global Variables
+        public static int SValuesSum;
         public int ScenarioNumber;
-        
+        #endregion
 
         public Home()
         {
 
             InitializeComponent();
 
+            #region Get Data
             MiDEDataSet ds = ((MiDEDataSet)(FindResource("mideDataSet")));
 
             MiDEDataSetTableAdapters.MiDEBuildingsTableAdapter adapter = new MiDEDataSetTableAdapters.MiDEBuildingsTableAdapter();
@@ -57,18 +62,24 @@ namespace MiDEWPF.Pages
             sadapter.Fill(ds.MiDESValues);
             stadapter.Fill(ds.MiDEStrategyGroups);
             eadapter.Fill(ds.MiDEEValues);
+            #endregion
 
+            #region Generate ScenarioNumber
+            //For generating a scenario number, get the last value in the writeDB and add 1
             DataTable last;
             last = wadapter.GetDataByLast();
             int lastvalue = (int)last.Rows[0][1];
             ScenarioNumber = lastvalue + 1;
-            
+            #endregion
 
         }
+        #region TODO
         //int realLastValue = int(lastvalue);
         //TODO Figure out how to implement Menu style box for this menu 
         //buildingMenu.DataContext = this;
+        #endregion
 
+        #region Handling Combobox Selections
         //Add selections to appropriate list box when selection is changed
         private void selectedVacatingBuildingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -166,10 +177,9 @@ namespace MiDEWPF.Pages
             ExclusionListBox.ScrollIntoView(ExclusionListBox.SelectedItem);
             return;
         }
+        #endregion
 
-        
-
-
+        #region Button Events
         //Buttons for clearing boxed and handling click events
         private void ClearAllScenario_Click(object sender, RoutedEventArgs e)
         {
@@ -216,7 +226,7 @@ namespace MiDEWPF.Pages
         }
 
         //write to DB and Navigate to next page
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
             SValuesSum = SValues.Sum();
@@ -238,8 +248,6 @@ namespace MiDEWPF.Pages
             NavigationService.Navigate(
                 new Uri("Pages/MiDESelection.xaml", UriKind.Relative));
         }
-
-
+        #endregion
     }
-    
 }

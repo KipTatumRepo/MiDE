@@ -24,43 +24,41 @@ namespace MiDEWPF.Pages
     /// </summary>
     public partial class MiDESelection : Page
     {
+        #region Local Variables
         int i = 0;
-        Home newhome = new Home();
         int ScenarioNumber;
         SqlCommand Cmd;
         int SValue;
-        public static int EValuesSum;
-
         List<String> content = new List<string>();
-        public List<int> EValues = new List<int>();
         MiDEDataSet ds = new MiDEDataSet();
-        
         List<int> Buttons = new List<int>();
-
-        //Random Number Generator for testing purposes
         Random random = new Random();
         int row;
         List<int> dispose = new List<int>();
+        #endregion
+
+        #region Global Variables
+        public static int EValuesSum;
+        public List<int> EValues = new List<int>();
+        Home newhome = new Home();
+        #endregion
+
+        //Random Number Generator for testing purposes
+        
         
         public MiDESelection()
         {
+            //import style for buttons
             Style style = FindResource("mButton") as Style;
             
             InitializeComponent();
-            
+
+            #region Get Data
             MiDEDataSetTableAdapters.MiDEEValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
             MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
             MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter2 = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
             eadapter.Fill(ds.MiDEEValues);
             wadapter.Fill(ds.MiDEWrite);
-
-
-            SValue = Home.SValuesSum;
-            ScenarioNumber = newhome.ScenarioNumber;
-            ScenarioNumber--;
-
-            wadapter.FillByScenarioNumber(ds.MiDEWrite, ScenarioNumber);
-            currentScenarioLB.ItemsSource = ds.MiDEWrite;
 
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
@@ -75,6 +73,17 @@ namespace MiDEWPF.Pages
             currentExclusionLB.ItemsSource = dt.DefaultView;
             conn.Close();
 
+            wadapter.FillByScenarioNumber(ds.MiDEWrite, ScenarioNumber);
+            currentScenarioLB.ItemsSource = ds.MiDEWrite;
+            #endregion
+
+            //Get sum of S values and current Scenario Number from Home page.  For some reason it increments by 1 before coming here
+            //so we have to subtract 1 to make sure it all matches
+            SValue = Home.SValuesSum;
+            ScenarioNumber = newhome.ScenarioNumber;
+            ScenarioNumber--;
+
+            
             if(SValue < 10)
             {
                 //for demo purposes a random number is generated to select rows from DB, for production need to get rid of 
@@ -158,9 +167,9 @@ namespace MiDEWPF.Pages
                 content.Add(button.Content.ToString());
                 Buttons.Add(button.Bid);
             }*/
-            AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
+            //AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
         }
-
+        #region Button Events
         void button_Click(object sender, RoutedEventArgs e)
         {
             string idk = e.OriginalSource.ToString();
@@ -415,5 +424,6 @@ namespace MiDEWPF.Pages
             EValues.RemoveAt(currentIterator);
             return;
         }
+        #endregion
     }
 }

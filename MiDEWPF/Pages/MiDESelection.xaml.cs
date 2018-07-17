@@ -26,6 +26,7 @@ namespace MiDEWPF.Pages
     {
         #region Local Variables
         int i = 0;
+        int b = 0;
         int ScenarioNumber;
         SqlCommand Cmd;
         int SValue;
@@ -90,84 +91,116 @@ namespace MiDEWPF.Pages
                 //row variable assignment and change [row] back to [i]
                 for(int c = 0; c <= 2; c++)
                 {
-                    row = random.Next(1, 24);
+                    row = random.Next(27);
                     if (dispose.Contains(row))
                     {
-                        row = random.Next(1, 24);
+                        row = random.Next(27);
                     }
                     else
                     { 
                         NewButton button = new NewButton();
                         button.Content = ds.MiDEEValues.Rows[row][1].ToString();
-                        button.Bid = i;
+                        //button.Bid = i;
                         button.Style = style;
                         mitigationDisplay.Children.Add(button);
                         i++;
                         content.Add(button.Content.ToString());
-                        Buttons.Add(button.Bid);
+                        //Buttons.Add(button.Bid);
                         dispose.Add(row);
+                        
                     }
                 }
+                NewButton FinalButton = new NewButton();
+                FinalButton.Content = ds.MiDEEValues.Rows[26][1].ToString();
+                //FinalButton.Bid = i;
+                FinalButton.Style = style;
+                mitigationDisplay.Children.Add(FinalButton);
+                i++;
+                content.Add(FinalButton.Content.ToString());
+                //Buttons.Add(FinalButton.Bid);
+                
             }
             else if(SValue >= 10 && SValue <= 29)
             {
                 for(int c = 0; c <= 4; c++)
                 {
-                    row = random.Next(1, 24);
+                    row = random.Next(27);
                     if (dispose.Contains(row))
                     {
-                        row = random.Next(1, 24);
+                        row = random.Next(27);
                     }
                     else
                     {
                         NewButton button = new NewButton();
                         button.Content = ds.MiDEEValues.Rows[row][1].ToString();
-                        button.Bid = i;
+                        //button.Bid = i;
                         button.Style = style;
                         mitigationDisplay.Children.Add(button);
                         i++;
                         content.Add(button.Content.ToString());
-                        Buttons.Add(button.Bid);
+                        //Buttons.Add(button.Bid);
                         dispose.Add(row);
+                        
                     }
                 }
+                NewButton FinalButton = new NewButton();
+                FinalButton.Content = ds.MiDEEValues.Rows[26][1].ToString();
+                //FinalButton.Bid = i;
+                FinalButton.Style = style;
+                mitigationDisplay.Children.Add(FinalButton);
+                i++;
+                content.Add(FinalButton.Content.ToString());
+                //Buttons.Add(FinalButton.Bid);
+                
             }
             else if(SValue >= 30)
             {
-                for(int c = 0; c <= 10; c++)
+                for(int c = 0; c < 10; c++)
                 {
-                    row = random.Next(1, 24);
+                    row = random.Next(27);
                     if (dispose.Contains(row))
                     {
-                        row = random.Next(1, 24);
+                        row = random.Next(27);
                     }
                     else
                     {
                         NewButton button = new NewButton();
                         button.Content = ds.MiDEEValues.Rows[row][1].ToString();
-                        button.Bid = i;
+                       
                         button.Style = style;
                         mitigationDisplay.Children.Add(button);
-                        i++;
+                        
                         content.Add(button.Content.ToString());
-                        Buttons.Add(button.Bid);
+                        
                         dispose.Add(row);
+                        
                     }
                 }
+
+                NewButton FinalButton = new NewButton();
+                FinalButton.Content = ds.MiDEEValues.Rows[26][1].ToString();
+                
+                FinalButton.Style = style;
+                mitigationDisplay.Children.Add(FinalButton);
+                i++;
+                content.Add(FinalButton.Content.ToString());
+               
+                
             }
-       
-            /*foreach (var item in ds.MiDEEValues)
+            
+            //foreach (var item in ds.MiDEEValues)
+            /*for(int q = 0; q <= 26; q++)
             {
                 NewButton button = new NewButton();
-                button.Content = ds.MiDEEValues.Rows[i][1].ToString();
-                button.Bid = i;
+                button.Content = ds.MiDEEValues.Rows[q][1].ToString();
+                button.Bid = q;
                 button.Style = style;
                 mitigationDisplay.Children.Add(button); 
-                i++;
+                b++;
                 content.Add(button.Content.ToString());
                 Buttons.Add(button.Bid);
             }*/
-            //AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
+            AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
         }
         #region Button Events
         void button_Click(object sender, RoutedEventArgs e)
@@ -183,16 +216,14 @@ namespace MiDEWPF.Pages
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
-            else if (idk == bbase + "Full Service Pop-Ups")
+            else if (idk == bbase + "Permanent Pop-Up")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[1][1].ToString());
                 var evalue = ds.MiDEEValues.Rows[1][2].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
             else if (idk == bbase + "Food Delivery Service")
             {
@@ -201,7 +232,6 @@ namespace MiDEWPF.Pages
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
             else if (idk == bbase + "Increase DTO Offerings/Stations")
             {
@@ -210,7 +240,6 @@ namespace MiDEWPF.Pages
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
             else if (idk == bbase + "Market@ Product Expansion")
             {
@@ -219,7 +248,6 @@ namespace MiDEWPF.Pages
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
             else if (idk == bbase + "Grab & Go ")
             {
@@ -228,7 +256,6 @@ namespace MiDEWPF.Pages
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
             else if (idk == bbase + "Simplify Existing Concepts")
             {
@@ -237,160 +264,166 @@ namespace MiDEWPF.Pages
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-               
             }
-            else if (idk == bbase + "Leveraging Ambassadors")
+            else if (idk == bbase + "Customer/Stakeholder Pre-Meetings")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[7][1].ToString());
                 var evalue = ds.MiDEEValues.Rows[7][2].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
-            else if (idk == bbase + "Customer/Stakeholder Pre-Meetings")
+            else if (idk == bbase + "Station Awareness Comms")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[8][1].ToString());
                 var evalue = ds.MiDEEValues.Rows[8][2].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
-            else if (idk == bbase + "Station Awareness Comms")
+            else if (idk == bbase + "Readiness Tours")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[9][1].ToString());
                 var evalue = ds.MiDEEValues.Rows[9][2].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
-            else if (idk == bbase + "Readiness Tours")
+            else if (idk == bbase + "LTO Beverages")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[10][1].ToString());
                 var evalue = ds.MiDEEValues.Rows[10][2].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
-            else if (idk == bbase + "LTO Beverages")
+            else if (idk == bbase + "Dedicated Shuttles")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[11][1].ToString());
                 var evalue = ds.MiDEEValues.Rows[11][2].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
-            else if (idk == bbase + "Dedicated Shuttles")
+            else if (idk == bbase + "Temp/Additional Water Stations")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[12][1].ToString());
                 var evalue = ds.MiDEEValues.Rows[12][2].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
-            else if (idk == bbase + "Temp/Additional Water Stations")
+            else if (idk == bbase + "Extended Service Times")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[13][1].ToString());
                 var evalue = ds.MiDEEValues.Rows[13][2].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
-            else if (idk == bbase + "Extended Service Times")
+            else if (idk == bbase + "Discounts for Off-Time Service")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[14][1].ToString());
                 var evalue = ds.MiDEEValues.Rows[14][2].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
-            else if (idk == bbase + "Discounts for Off-Time Service")
+            else if (idk == bbase + "Replace Static Station(Local Brand)")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[15][1].ToString());
                 var evalue = ds.MiDEEValues.Rows[15][2].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
-            else if (idk == bbase + "Temp Service Pop-Ups")
+            else if (idk == bbase + "Welcome Events")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[16][1].ToString());
                 var evalue = ds.MiDEEValues.Rows[16][2].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
-            else if (idk == bbase + "Welcome Events")
+            else if (idk == bbase + "Goodbye Parties")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[17][1].ToString());
                 var evalue = ds.MiDEEValues.Rows[17][2].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
-            else if (idk == bbase + "Goodbye Parties")
+            else if (idk == bbase + "Welcome Parties")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[18][1].ToString());
                 var evalue = ds.MiDEEValues.Rows[18][2].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
-            else if (idk == bbase + "Welcome Parties")
+            else if (idk == bbase + "Move Survival Kit")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[19][1].ToString());
                 var evalue = ds.MiDEEValues.Rows[19][2].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
-            else if (idk == bbase + "Move Survival Kit")
+            else if (idk == bbase + "Station Sampling")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[20][1].ToString());
                 var evalue = ds.MiDEEValues.Rows[20][2].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
-            else if (idk == bbase + "Station Sampling")
+            else if (idk == bbase + "Utilize Atrium & Non-Standard Spaces")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[21][1].ToString());
                 var evalue = ds.MiDEEValues.Rows[21][2].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
-            else if (idk == bbase + "Utilize Atrium & Non-Standard Spaces")
+            else if (idk == bbase + "Replace Static Station(Our Concepts)")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[22][1].ToString());
                 var evalue = ds.MiDEEValues.Rows[22][2].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
             }
-            else if (idk == bbase + "Replace Static Station")
+            else if (idk == bbase + "Temporary Pop-Up")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[23][1].ToString());
                 var evalue = ds.MiDEEValues.Rows[23][2].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
-                
+            }
+            else if (idk == bbase + "Mobile Pop-Up")
+            {
+                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[24][1].ToString());
+                var evalue = ds.MiDEEValues.Rows[24][2].ToString();
+                int Evalue = int.Parse(evalue);
+
+                EValues.Add(Evalue);
+            }
+            else if (idk == bbase + "Nextep Bank Install")
+            {
+                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[25][1].ToString());
+                var evalue = ds.MiDEEValues.Rows[25][2].ToString();
+                int Evalue = int.Parse(evalue);
+
+                EValues.Add(Evalue);
+            }
+            else if (idk == bbase + "Linebusting")
+            {
+                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[26][1].ToString());
+                var evalue = ds.MiDEEValues.Rows[26][2].ToString();
+                int Evalue = int.Parse(evalue);
+
+                EValues.Add(Evalue);
             }
 
             #endregion

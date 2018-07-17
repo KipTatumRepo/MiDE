@@ -772,9 +772,13 @@ namespace MiDEWPF {
             
             private global::System.Data.DataColumn columneid;
             
-            private global::System.Data.DataColumn columnevariable;
+            private global::System.Data.DataColumn columnEVariable;
             
-            private global::System.Data.DataColumn columnevalue;
+            private global::System.Data.DataColumn columnEvalue;
+            
+            private global::System.Data.DataColumn columnCostMoney;
+            
+            private global::System.Data.DataColumn columnCostEffort;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
@@ -819,17 +823,33 @@ namespace MiDEWPF {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn evariableColumn {
+            public global::System.Data.DataColumn EVariableColumn {
                 get {
-                    return this.columnevariable;
+                    return this.columnEVariable;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn evalueColumn {
+            public global::System.Data.DataColumn EvalueColumn {
                 get {
-                    return this.columnevalue;
+                    return this.columnEvalue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn CostMoneyColumn {
+                get {
+                    return this.columnCostMoney;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn CostEffortColumn {
+                get {
+                    return this.columnCostEffort;
                 }
             }
             
@@ -870,12 +890,14 @@ namespace MiDEWPF {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public MiDEEValuesRow AddMiDEEValuesRow(string evariable, short evalue) {
+            public MiDEEValuesRow AddMiDEEValuesRow(string EVariable, short Evalue, short CostMoney, short CostEffort) {
                 MiDEEValuesRow rowMiDEEValuesRow = ((MiDEEValuesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        evariable,
-                        evalue};
+                        EVariable,
+                        Evalue,
+                        CostMoney,
+                        CostEffort};
                 rowMiDEEValuesRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMiDEEValuesRow);
                 return rowMiDEEValuesRow;
@@ -899,8 +921,10 @@ namespace MiDEWPF {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             internal void InitVars() {
                 this.columneid = base.Columns["eid"];
-                this.columnevariable = base.Columns["evariable"];
-                this.columnevalue = base.Columns["evalue"];
+                this.columnEVariable = base.Columns["EVariable"];
+                this.columnEvalue = base.Columns["Evalue"];
+                this.columnCostMoney = base.Columns["CostMoney"];
+                this.columnCostEffort = base.Columns["CostEffort"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -908,16 +932,20 @@ namespace MiDEWPF {
             private void InitClass() {
                 this.columneid = new global::System.Data.DataColumn("eid", typeof(short), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columneid);
-                this.columnevariable = new global::System.Data.DataColumn("evariable", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnevariable);
-                this.columnevalue = new global::System.Data.DataColumn("evalue", typeof(short), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnevalue);
+                this.columnEVariable = new global::System.Data.DataColumn("EVariable", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEVariable);
+                this.columnEvalue = new global::System.Data.DataColumn("Evalue", typeof(short), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEvalue);
+                this.columnCostMoney = new global::System.Data.DataColumn("CostMoney", typeof(short), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCostMoney);
+                this.columnCostEffort = new global::System.Data.DataColumn("CostEffort", typeof(short), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCostEffort);
                 this.columneid.AutoIncrement = true;
                 this.columneid.AutoIncrementSeed = -1;
                 this.columneid.AutoIncrementStep = -1;
                 this.columneid.AllowDBNull = false;
                 this.columneid.ReadOnly = true;
-                this.columnevariable.MaxLength = 500;
+                this.columnEVariable.MaxLength = 500;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2575,58 +2603,114 @@ namespace MiDEWPF {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string evariable {
+            public string EVariable {
                 get {
                     try {
-                        return ((string)(this[this.tableMiDEEValues.evariableColumn]));
+                        return ((string)(this[this.tableMiDEEValues.EVariableColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'evariable\' in table \'MiDEEValues\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'EVariable\' in table \'MiDEEValues\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableMiDEEValues.evariableColumn] = value;
+                    this[this.tableMiDEEValues.EVariableColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public short evalue {
+            public short Evalue {
                 get {
                     try {
-                        return ((short)(this[this.tableMiDEEValues.evalueColumn]));
+                        return ((short)(this[this.tableMiDEEValues.EvalueColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'evalue\' in table \'MiDEEValues\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Evalue\' in table \'MiDEEValues\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableMiDEEValues.evalueColumn] = value;
+                    this[this.tableMiDEEValues.EvalueColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsevariableNull() {
-                return this.IsNull(this.tableMiDEEValues.evariableColumn);
+            public short CostMoney {
+                get {
+                    try {
+                        return ((short)(this[this.tableMiDEEValues.CostMoneyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CostMoney\' in table \'MiDEEValues\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMiDEEValues.CostMoneyColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetevariableNull() {
-                this[this.tableMiDEEValues.evariableColumn] = global::System.Convert.DBNull;
+            public short CostEffort {
+                get {
+                    try {
+                        return ((short)(this[this.tableMiDEEValues.CostEffortColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CostEffort\' in table \'MiDEEValues\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMiDEEValues.CostEffortColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsevalueNull() {
-                return this.IsNull(this.tableMiDEEValues.evalueColumn);
+            public bool IsEVariableNull() {
+                return this.IsNull(this.tableMiDEEValues.EVariableColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetevalueNull() {
-                this[this.tableMiDEEValues.evalueColumn] = global::System.Convert.DBNull;
+            public void SetEVariableNull() {
+                this[this.tableMiDEEValues.EVariableColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsEvalueNull() {
+                return this.IsNull(this.tableMiDEEValues.EvalueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetEvalueNull() {
+                this[this.tableMiDEEValues.EvalueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsCostMoneyNull() {
+                return this.IsNull(this.tableMiDEEValues.CostMoneyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetCostMoneyNull() {
+                this[this.tableMiDEEValues.CostMoneyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsCostEffortNull() {
+                return this.IsNull(this.tableMiDEEValues.CostEffortColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetCostEffortNull() {
+                this[this.tableMiDEEValues.CostEffortColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -3653,16 +3737,20 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "MiDEEValues";
             tableMapping.ColumnMappings.Add("eid", "eid");
-            tableMapping.ColumnMappings.Add("evariable", "evariable");
-            tableMapping.ColumnMappings.Add("evalue", "evalue");
+            tableMapping.ColumnMappings.Add("EVariable", "EVariable");
+            tableMapping.ColumnMappings.Add("Evalue", "Evalue");
+            tableMapping.ColumnMappings.Add("CostMoney", "CostMoney");
+            tableMapping.ColumnMappings.Add("CostEffort", "CostEffort");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[MiDEEValues] ([evariable], [evalue]) VALUES (@evariable, @eval" +
-                "ue)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[MiDEEValues] ([EVariable], [Evalue], [CostMoney], [CostEffort]" +
+                ") VALUES (@EVariable, @Evalue, @CostMoney, @CostEffort)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@evariable", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "evariable", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@evalue", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "evalue", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EVariable", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EVariable", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Evalue", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Evalue", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CostMoney", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CostMoney", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CostEffort", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CostEffort", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3678,7 +3766,7 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT eid, evariable, evalue FROM dbo.MiDEEValues";
+            this._commandCollection[0].CommandText = "SELECT eid, EVariable, Evalue, CostMoney, CostEffort FROM dbo.MiDEEValues";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -3739,18 +3827,30 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string evariable, global::System.Nullable<short> evalue) {
-            if ((evariable == null)) {
+        public virtual int Insert(string EVariable, global::System.Nullable<short> Evalue, global::System.Nullable<short> CostMoney, global::System.Nullable<short> CostEffort) {
+            if ((EVariable == null)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(evariable));
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(EVariable));
             }
-            if ((evalue.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((short)(evalue.Value));
+            if ((Evalue.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((short)(Evalue.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((CostMoney.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((short)(CostMoney.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((CostEffort.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((short)(CostEffort.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -4678,7 +4778,7 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual MiDEDataSet.MiDESValuesDataTable GetDataBySValue(string add) {
+        public virtual MiDEDataSet.MiDESValuesDataTable GetDataBy(string add) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
             if ((add == null)) {
                 this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;

@@ -770,7 +770,9 @@ namespace MiDEWPF {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class MiDEEValuesDataTable : global::System.Data.TypedTableBase<MiDEEValuesRow> {
             
-            private global::System.Data.DataColumn columneid;
+            private global::System.Data.DataColumn columnEId;
+            
+            private global::System.Data.DataColumn columnStId;
             
             private global::System.Data.DataColumn columnEVariable;
             
@@ -815,9 +817,17 @@ namespace MiDEWPF {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn eidColumn {
+            public global::System.Data.DataColumn EIdColumn {
                 get {
-                    return this.columneid;
+                    return this.columnEId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn StIdColumn {
+                get {
+                    return this.columnStId;
                 }
             }
             
@@ -890,10 +900,11 @@ namespace MiDEWPF {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public MiDEEValuesRow AddMiDEEValuesRow(string EVariable, short Evalue, short CostMoney, short CostEffort) {
+            public MiDEEValuesRow AddMiDEEValuesRow(short StId, string EVariable, short Evalue, short CostMoney, short CostEffort) {
                 MiDEEValuesRow rowMiDEEValuesRow = ((MiDEEValuesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
+                        StId,
                         EVariable,
                         Evalue,
                         CostMoney,
@@ -920,7 +931,8 @@ namespace MiDEWPF {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             internal void InitVars() {
-                this.columneid = base.Columns["eid"];
+                this.columnEId = base.Columns["EId"];
+                this.columnStId = base.Columns["StId"];
                 this.columnEVariable = base.Columns["EVariable"];
                 this.columnEvalue = base.Columns["Evalue"];
                 this.columnCostMoney = base.Columns["CostMoney"];
@@ -930,8 +942,10 @@ namespace MiDEWPF {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             private void InitClass() {
-                this.columneid = new global::System.Data.DataColumn("eid", typeof(short), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columneid);
+                this.columnEId = new global::System.Data.DataColumn("EId", typeof(short), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEId);
+                this.columnStId = new global::System.Data.DataColumn("StId", typeof(short), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStId);
                 this.columnEVariable = new global::System.Data.DataColumn("EVariable", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnEVariable);
                 this.columnEvalue = new global::System.Data.DataColumn("Evalue", typeof(short), null, global::System.Data.MappingType.Element);
@@ -940,11 +954,11 @@ namespace MiDEWPF {
                 base.Columns.Add(this.columnCostMoney);
                 this.columnCostEffort = new global::System.Data.DataColumn("CostEffort", typeof(short), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCostEffort);
-                this.columneid.AutoIncrement = true;
-                this.columneid.AutoIncrementSeed = -1;
-                this.columneid.AutoIncrementStep = -1;
-                this.columneid.AllowDBNull = false;
-                this.columneid.ReadOnly = true;
+                this.columnEId.AutoIncrement = true;
+                this.columnEId.AutoIncrementSeed = -1;
+                this.columnEId.AutoIncrementStep = -1;
+                this.columnEId.AllowDBNull = false;
+                this.columnEId.ReadOnly = true;
                 this.columnEVariable.MaxLength = 500;
             }
             
@@ -1641,9 +1655,9 @@ namespace MiDEWPF {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class MiDEStrategyGroupsDataTable : global::System.Data.TypedTableBase<MiDEStrategyGroupsRow> {
             
-            private global::System.Data.DataColumn columnstid;
+            private global::System.Data.DataColumn columnStId;
             
-            private global::System.Data.DataColumn columnstrategyname;
+            private global::System.Data.DataColumn columnStrategyName;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
@@ -1680,17 +1694,17 @@ namespace MiDEWPF {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn stidColumn {
+            public global::System.Data.DataColumn StIdColumn {
                 get {
-                    return this.columnstid;
+                    return this.columnStId;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn strategynameColumn {
+            public global::System.Data.DataColumn StrategyNameColumn {
                 get {
-                    return this.columnstrategyname;
+                    return this.columnStrategyName;
                 }
             }
             
@@ -1731,11 +1745,11 @@ namespace MiDEWPF {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public MiDEStrategyGroupsRow AddMiDEStrategyGroupsRow(string strategyname) {
+            public MiDEStrategyGroupsRow AddMiDEStrategyGroupsRow(string StrategyName) {
                 MiDEStrategyGroupsRow rowMiDEStrategyGroupsRow = ((MiDEStrategyGroupsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        strategyname};
+                        StrategyName};
                 rowMiDEStrategyGroupsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMiDEStrategyGroupsRow);
                 return rowMiDEStrategyGroupsRow;
@@ -1758,23 +1772,23 @@ namespace MiDEWPF {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             internal void InitVars() {
-                this.columnstid = base.Columns["stid"];
-                this.columnstrategyname = base.Columns["strategyname"];
+                this.columnStId = base.Columns["StId"];
+                this.columnStrategyName = base.Columns["StrategyName"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             private void InitClass() {
-                this.columnstid = new global::System.Data.DataColumn("stid", typeof(short), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnstid);
-                this.columnstrategyname = new global::System.Data.DataColumn("strategyname", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnstrategyname);
-                this.columnstid.AutoIncrement = true;
-                this.columnstid.AutoIncrementSeed = -1;
-                this.columnstid.AutoIncrementStep = -1;
-                this.columnstid.AllowDBNull = false;
-                this.columnstid.ReadOnly = true;
-                this.columnstrategyname.MaxLength = 50;
+                this.columnStId = new global::System.Data.DataColumn("StId", typeof(short), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStId);
+                this.columnStrategyName = new global::System.Data.DataColumn("StrategyName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStrategyName);
+                this.columnStId.AutoIncrement = true;
+                this.columnStId.AutoIncrementSeed = -1;
+                this.columnStId.AutoIncrementStep = -1;
+                this.columnStId.AllowDBNull = false;
+                this.columnStId.ReadOnly = true;
+                this.columnStrategyName.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2592,12 +2606,28 @@ namespace MiDEWPF {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public short eid {
+            public short EId {
                 get {
-                    return ((short)(this[this.tableMiDEEValues.eidColumn]));
+                    return ((short)(this[this.tableMiDEEValues.EIdColumn]));
                 }
                 set {
-                    this[this.tableMiDEEValues.eidColumn] = value;
+                    this[this.tableMiDEEValues.EIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public short StId {
+                get {
+                    try {
+                        return ((short)(this[this.tableMiDEEValues.StIdColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'StId\' in table \'MiDEEValues\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMiDEEValues.StIdColumn] = value;
                 }
             }
             
@@ -2663,6 +2693,18 @@ namespace MiDEWPF {
                 set {
                     this[this.tableMiDEEValues.CostEffortColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsStIdNull() {
+                return this.IsNull(this.tableMiDEEValues.StIdColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetStIdNull() {
+                this[this.tableMiDEEValues.StIdColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2894,41 +2936,41 @@ namespace MiDEWPF {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public short stid {
+            public short StId {
                 get {
-                    return ((short)(this[this.tableMiDEStrategyGroups.stidColumn]));
+                    return ((short)(this[this.tableMiDEStrategyGroups.StIdColumn]));
                 }
                 set {
-                    this[this.tableMiDEStrategyGroups.stidColumn] = value;
+                    this[this.tableMiDEStrategyGroups.StIdColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string strategyname {
+            public string StrategyName {
                 get {
                     try {
-                        return ((string)(this[this.tableMiDEStrategyGroups.strategynameColumn]));
+                        return ((string)(this[this.tableMiDEStrategyGroups.StrategyNameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'strategyname\' in table \'MiDEStrategyGroups\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'StrategyName\' in table \'MiDEStrategyGroups\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableMiDEStrategyGroups.strategynameColumn] = value;
+                    this[this.tableMiDEStrategyGroups.StrategyNameColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsstrategynameNull() {
-                return this.IsNull(this.tableMiDEStrategyGroups.strategynameColumn);
+            public bool IsStrategyNameNull() {
+                return this.IsNull(this.tableMiDEStrategyGroups.StrategyNameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetstrategynameNull() {
-                this[this.tableMiDEStrategyGroups.strategynameColumn] = global::System.Convert.DBNull;
+            public void SetStrategyNameNull() {
+                this[this.tableMiDEStrategyGroups.StrategyNameColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -3736,7 +3778,8 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "MiDEEValues";
-            tableMapping.ColumnMappings.Add("eid", "eid");
+            tableMapping.ColumnMappings.Add("EId", "EId");
+            tableMapping.ColumnMappings.Add("StId", "StId");
             tableMapping.ColumnMappings.Add("EVariable", "EVariable");
             tableMapping.ColumnMappings.Add("Evalue", "Evalue");
             tableMapping.ColumnMappings.Add("CostMoney", "CostMoney");
@@ -3744,9 +3787,10 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[MiDEEValues] ([EVariable], [Evalue], [CostMoney], [CostEffort]" +
-                ") VALUES (@EVariable, @Evalue, @CostMoney, @CostEffort)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[MiDEEValues] ([StId], [EVariable], [Evalue], [CostMoney], [Cos" +
+                "tEffort]) VALUES (@StId, @EVariable, @Evalue, @CostMoney, @CostEffort)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StId", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EVariable", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EVariable", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Evalue", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Evalue", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CostMoney", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CostMoney", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -3766,7 +3810,7 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT eid, EVariable, Evalue, CostMoney, CostEffort FROM dbo.MiDEEValues";
+            this._commandCollection[0].CommandText = "SELECT EId, StId, EVariable, Evalue, CostMoney, CostEffort FROM dbo.MiDEEValues";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -3827,30 +3871,36 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string EVariable, global::System.Nullable<short> Evalue, global::System.Nullable<short> CostMoney, global::System.Nullable<short> CostEffort) {
-            if ((EVariable == null)) {
+        public virtual int Insert(global::System.Nullable<short> StId, string EVariable, global::System.Nullable<short> Evalue, global::System.Nullable<short> CostMoney, global::System.Nullable<short> CostEffort) {
+            if ((StId.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((short)(StId.Value));
+            }
+            else {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(EVariable));
-            }
-            if ((Evalue.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((short)(Evalue.Value));
-            }
-            else {
+            if ((EVariable == null)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((CostMoney.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((short)(CostMoney.Value));
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(EVariable));
+            }
+            if ((Evalue.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((short)(Evalue.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            if ((CostEffort.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((short)(CostEffort.Value));
+            if ((CostMoney.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((short)(CostMoney.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((CostEffort.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((short)(CostEffort.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -4466,14 +4516,14 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "MiDEStrategyGroups";
-            tableMapping.ColumnMappings.Add("stid", "stid");
-            tableMapping.ColumnMappings.Add("strategyname", "strategyname");
+            tableMapping.ColumnMappings.Add("StId", "StId");
+            tableMapping.ColumnMappings.Add("StrategyName", "StrategyName");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[MiDEStrategyGroups] ([strategyname]) VALUES (@strategyname)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[MiDEStrategyGroups] ([StrategyName]) VALUES (@StrategyName)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@strategyname", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "strategyname", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StrategyName", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StrategyName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4489,7 +4539,7 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT stid, strategyname FROM dbo.MiDEStrategyGroups";
+            this._commandCollection[0].CommandText = "SELECT StId, StrategyName FROM dbo.MiDEStrategyGroups";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -4550,12 +4600,12 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string strategyname) {
-            if ((strategyname == null)) {
+        public virtual int Insert(string StrategyName) {
+            if ((StrategyName == null)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(strategyname));
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(StrategyName));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 

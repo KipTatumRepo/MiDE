@@ -29,25 +29,27 @@ namespace MiDEWPF.Pages
         #region Page Variables
         //TODO This will be needed for menu style
         //public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
-        List<string> SelectionBox = new List<string>();
-        List<string> ExclusionBox = new List<string>();
+        public static List<string> SelectionBox = new List<string>();
+        public static List<string> ExclusionBox = new List<string>();
         List<int> SValues = new List<int>();
         int i = 0;
         int j = 0;
         #endregion
         #region Global Variables
+        public MiDEDataSet ds = new MiDEDataSet();
         public static int SValuesSum;
         public int ScenarioNumber;
         #endregion
 
+        
         public Home()
         {
 
             InitializeComponent();
 
             #region Get Data
-            MiDEDataSet ds = ((MiDEDataSet)(FindResource("mideDataSet")));
-
+           
+            ds = ((MiDEDataSet)(FindResource("mideDataSet")));
             MiDEDataSetTableAdapters.MiDEBuildingsTableAdapter adapter = new MiDEDataSetTableAdapters.MiDEBuildingsTableAdapter();
             MiDEDataSetTableAdapters.MiDEPopulationTableAdapter padapter = new MiDEDataSetTableAdapters.MiDEPopulationTableAdapter();
             MiDEDataSetTableAdapters.MiDEPopTypeTableAdapter ptadapter = new MiDEDataSetTableAdapters.MiDEPopTypeTableAdapter();
@@ -63,6 +65,8 @@ namespace MiDEWPF.Pages
             stadapter.Fill(ds.MiDEStrategyGroups);
             eadapter.Fill(ds.MiDEEValues);
             #endregion
+            
+            
 
             #region Generate ScenarioNumber
             //For generating a scenario number, get the last value in the writeDB and add 1
@@ -151,7 +155,7 @@ namespace MiDEWPF.Pages
         private void selectExclusionCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string add = strategyExclusionCB.SelectedValue.ToString();
-
+            //var variable = ds.MiDEStrategyGroups.Rows[1][0];
             ExclusionListBox.Items.Add(add);
             ExclusionBox.Add(add);
 

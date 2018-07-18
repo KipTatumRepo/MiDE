@@ -221,26 +221,27 @@ namespace MiDEWPF.Pages
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
 
-            MiDEDataSet ds = new MiDEDataSet();
-            MiDEDataSet newds = new MiDEDataSet();
-            MiDEDataSetTableAdapters.MiDEEValuesTableAdapter adapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
-            MiDEDataSetTableAdapters.MiDEFilterWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEFilterWriteTableAdapter();
+            //MiDEDataSet ds = new MiDEDataSet();
+            //MiDEDataSet newds = new MiDEDataSet();
+            //MiDEDataSetTableAdapters.MiDEEValuesTableAdapter adapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
+            //MiDEDataSetTableAdapters.MiDEFilterWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEFilterWriteTableAdapter();
             
             List<string> FilteredList = new List<string>();
             
             exclusionBox = Home.ExclusionBox;
 
-            string sqlString = "SELECT * FROM MiDEEValues WHERE StrategyName NOT IN ({StrategyName})";
+            string sqlString = "SELECT * FROM MiDEEValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable})";
             cmd = new SqlCommand(sqlString, conn);
             //var cmd = new SqlCommand("SELECT * FROM MiDEEValues WHERE StrategyName IN ({StrategyName})");
             cmd.AddArrayParameters("StrategyName", exclusionBox);
+            cmd.AddArrayParameters("EVariable", exclusionBox);
            
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dts = new DataTable("MiDEFilterWrite");
 
             da.Fill(dts);
 
-            string EVariable;
+            /*string EVariable;
             string StrategyName;
             int i = 0;
             foreach(var item in exclusionBox)
@@ -272,8 +273,8 @@ namespace MiDEWPF.Pages
                         FilteredList.Add(ds.MiDEEValues[i][2].ToString());
                         i++;
                     }
-                }
-            }
+                }*/
+            //}
 
 
 
@@ -282,7 +283,7 @@ namespace MiDEWPF.Pages
             
             
             
-            Cmd.Parameters.AddWithValue("@StrategyName", exclusionBox);
+            //Cmd.Parameters.AddWithValue("@StrategyName", exclusionBox);
            
             //sda.Fill(dt);
 

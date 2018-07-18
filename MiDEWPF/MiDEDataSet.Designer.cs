@@ -38,6 +38,8 @@ namespace MiDEWPF {
         
         private MiDEWriteDataTable tableMiDEWrite;
         
+        private MiDEFilterWriteDataTable tableMiDEFilterWrite;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -86,6 +88,9 @@ namespace MiDEWPF {
                 }
                 if ((ds.Tables["MiDEWrite"] != null)) {
                     base.Tables.Add(new MiDEWriteDataTable(ds.Tables["MiDEWrite"]));
+                }
+                if ((ds.Tables["MiDEFilterWrite"] != null)) {
+                    base.Tables.Add(new MiDEFilterWriteDataTable(ds.Tables["MiDEFilterWrite"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -177,6 +182,16 @@ namespace MiDEWPF {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public MiDEFilterWriteDataTable MiDEFilterWrite {
+            get {
+                return this.tableMiDEFilterWrite;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.BrowsableAttribute(true)]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override global::System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -263,6 +278,9 @@ namespace MiDEWPF {
                 if ((ds.Tables["MiDEWrite"] != null)) {
                     base.Tables.Add(new MiDEWriteDataTable(ds.Tables["MiDEWrite"]));
                 }
+                if ((ds.Tables["MiDEFilterWrite"] != null)) {
+                    base.Tables.Add(new MiDEFilterWriteDataTable(ds.Tables["MiDEFilterWrite"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -338,6 +356,12 @@ namespace MiDEWPF {
                     this.tableMiDEWrite.InitVars();
                 }
             }
+            this.tableMiDEFilterWrite = ((MiDEFilterWriteDataTable)(base.Tables["MiDEFilterWrite"]));
+            if ((initTable == true)) {
+                if ((this.tableMiDEFilterWrite != null)) {
+                    this.tableMiDEFilterWrite.InitVars();
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -362,6 +386,8 @@ namespace MiDEWPF {
             base.Tables.Add(this.tableMiDESValues);
             this.tableMiDEWrite = new MiDEWriteDataTable();
             base.Tables.Add(this.tableMiDEWrite);
+            this.tableMiDEFilterWrite = new MiDEFilterWriteDataTable();
+            base.Tables.Add(this.tableMiDEFilterWrite);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -403,6 +429,12 @@ namespace MiDEWPF {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private bool ShouldSerializeMiDEWrite() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private bool ShouldSerializeMiDEFilterWrite() {
             return false;
         }
         
@@ -481,6 +513,9 @@ namespace MiDEWPF {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public delegate void MiDEWriteRowChangeEventHandler(object sender, MiDEWriteRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public delegate void MiDEFilterWriteRowChangeEventHandler(object sender, MiDEFilterWriteRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -772,7 +807,7 @@ namespace MiDEWPF {
             
             private global::System.Data.DataColumn columnEId;
             
-            private global::System.Data.DataColumn columnStId;
+            private global::System.Data.DataColumn columnStrategyName;
             
             private global::System.Data.DataColumn columnEVariable;
             
@@ -825,9 +860,9 @@ namespace MiDEWPF {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn StIdColumn {
+            public global::System.Data.DataColumn StrategyNameColumn {
                 get {
-                    return this.columnStId;
+                    return this.columnStrategyName;
                 }
             }
             
@@ -900,11 +935,11 @@ namespace MiDEWPF {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public MiDEEValuesRow AddMiDEEValuesRow(short StId, string EVariable, short Evalue, short CostMoney, short CostEffort) {
+            public MiDEEValuesRow AddMiDEEValuesRow(string StrategyName, string EVariable, short Evalue, short CostMoney, short CostEffort) {
                 MiDEEValuesRow rowMiDEEValuesRow = ((MiDEEValuesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        StId,
+                        StrategyName,
                         EVariable,
                         Evalue,
                         CostMoney,
@@ -932,7 +967,7 @@ namespace MiDEWPF {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             internal void InitVars() {
                 this.columnEId = base.Columns["EId"];
-                this.columnStId = base.Columns["StId"];
+                this.columnStrategyName = base.Columns["StrategyName"];
                 this.columnEVariable = base.Columns["EVariable"];
                 this.columnEvalue = base.Columns["Evalue"];
                 this.columnCostMoney = base.Columns["CostMoney"];
@@ -944,8 +979,8 @@ namespace MiDEWPF {
             private void InitClass() {
                 this.columnEId = new global::System.Data.DataColumn("EId", typeof(short), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnEId);
-                this.columnStId = new global::System.Data.DataColumn("StId", typeof(short), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnStId);
+                this.columnStrategyName = new global::System.Data.DataColumn("StrategyName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStrategyName);
                 this.columnEVariable = new global::System.Data.DataColumn("EVariable", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnEVariable);
                 this.columnEvalue = new global::System.Data.DataColumn("Evalue", typeof(short), null, global::System.Data.MappingType.Element);
@@ -959,6 +994,7 @@ namespace MiDEWPF {
                 this.columnEId.AutoIncrementStep = -1;
                 this.columnEId.AllowDBNull = false;
                 this.columnEId.ReadOnly = true;
+                this.columnStrategyName.MaxLength = 50;
                 this.columnEVariable.MaxLength = 500;
             }
             
@@ -2509,6 +2545,288 @@ namespace MiDEWPF {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class MiDEFilterWriteDataTable : global::System.Data.TypedTableBase<MiDEFilterWriteRow> {
+            
+            private global::System.Data.DataColumn columnfwid;
+            
+            private global::System.Data.DataColumn columnStrategyName;
+            
+            private global::System.Data.DataColumn columnEVariable;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public MiDEFilterWriteDataTable() {
+                this.TableName = "MiDEFilterWrite";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal MiDEFilterWriteDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected MiDEFilterWriteDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn fwidColumn {
+                get {
+                    return this.columnfwid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn StrategyNameColumn {
+                get {
+                    return this.columnStrategyName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn EVariableColumn {
+                get {
+                    return this.columnEVariable;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public MiDEFilterWriteRow this[int index] {
+                get {
+                    return ((MiDEFilterWriteRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event MiDEFilterWriteRowChangeEventHandler MiDEFilterWriteRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event MiDEFilterWriteRowChangeEventHandler MiDEFilterWriteRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event MiDEFilterWriteRowChangeEventHandler MiDEFilterWriteRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public event MiDEFilterWriteRowChangeEventHandler MiDEFilterWriteRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void AddMiDEFilterWriteRow(MiDEFilterWriteRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public MiDEFilterWriteRow AddMiDEFilterWriteRow(string StrategyName, string EVariable) {
+                MiDEFilterWriteRow rowMiDEFilterWriteRow = ((MiDEFilterWriteRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        StrategyName,
+                        EVariable};
+                rowMiDEFilterWriteRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowMiDEFilterWriteRow);
+                return rowMiDEFilterWriteRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                MiDEFilterWriteDataTable cln = ((MiDEFilterWriteDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new MiDEFilterWriteDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal void InitVars() {
+                this.columnfwid = base.Columns["fwid"];
+                this.columnStrategyName = base.Columns["StrategyName"];
+                this.columnEVariable = base.Columns["EVariable"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            private void InitClass() {
+                this.columnfwid = new global::System.Data.DataColumn("fwid", typeof(short), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnfwid);
+                this.columnStrategyName = new global::System.Data.DataColumn("StrategyName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStrategyName);
+                this.columnEVariable = new global::System.Data.DataColumn("EVariable", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEVariable);
+                this.columnfwid.AutoIncrement = true;
+                this.columnfwid.AutoIncrementSeed = -1;
+                this.columnfwid.AutoIncrementStep = -1;
+                this.columnfwid.AllowDBNull = false;
+                this.columnfwid.ReadOnly = true;
+                this.columnStrategyName.MaxLength = 50;
+                this.columnEVariable.MaxLength = 50;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public MiDEFilterWriteRow NewMiDEFilterWriteRow() {
+                return ((MiDEFilterWriteRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new MiDEFilterWriteRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(MiDEFilterWriteRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.MiDEFilterWriteRowChanged != null)) {
+                    this.MiDEFilterWriteRowChanged(this, new MiDEFilterWriteRowChangeEvent(((MiDEFilterWriteRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.MiDEFilterWriteRowChanging != null)) {
+                    this.MiDEFilterWriteRowChanging(this, new MiDEFilterWriteRowChangeEvent(((MiDEFilterWriteRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.MiDEFilterWriteRowDeleted != null)) {
+                    this.MiDEFilterWriteRowDeleted(this, new MiDEFilterWriteRowChangeEvent(((MiDEFilterWriteRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.MiDEFilterWriteRowDeleting != null)) {
+                    this.MiDEFilterWriteRowDeleting(this, new MiDEFilterWriteRowChangeEvent(((MiDEFilterWriteRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void RemoveMiDEFilterWriteRow(MiDEFilterWriteRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                MiDEDataSet ds = new MiDEDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "MiDEFilterWriteDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class MiDEBuildingsRow : global::System.Data.DataRow {
@@ -2617,17 +2935,17 @@ namespace MiDEWPF {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public short StId {
+            public string StrategyName {
                 get {
                     try {
-                        return ((short)(this[this.tableMiDEEValues.StIdColumn]));
+                        return ((string)(this[this.tableMiDEEValues.StrategyNameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'StId\' in table \'MiDEEValues\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'StrategyName\' in table \'MiDEEValues\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableMiDEEValues.StIdColumn] = value;
+                    this[this.tableMiDEEValues.StrategyNameColumn] = value;
                 }
             }
             
@@ -2697,14 +3015,14 @@ namespace MiDEWPF {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsStIdNull() {
-                return this.IsNull(this.tableMiDEEValues.StIdColumn);
+            public bool IsStrategyNameNull() {
+                return this.IsNull(this.tableMiDEEValues.StrategyNameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetStIdNull() {
-                this[this.tableMiDEEValues.StIdColumn] = global::System.Convert.DBNull;
+            public void SetStrategyNameNull() {
+                this[this.tableMiDEEValues.StrategyNameColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3178,6 +3496,88 @@ namespace MiDEWPF {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class MiDEFilterWriteRow : global::System.Data.DataRow {
+            
+            private MiDEFilterWriteDataTable tableMiDEFilterWrite;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            internal MiDEFilterWriteRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableMiDEFilterWrite = ((MiDEFilterWriteDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public short fwid {
+                get {
+                    return ((short)(this[this.tableMiDEFilterWrite.fwidColumn]));
+                }
+                set {
+                    this[this.tableMiDEFilterWrite.fwidColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string StrategyName {
+                get {
+                    try {
+                        return ((string)(this[this.tableMiDEFilterWrite.StrategyNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'StrategyName\' in table \'MiDEFilterWrite\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMiDEFilterWrite.StrategyNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string EVariable {
+                get {
+                    try {
+                        return ((string)(this[this.tableMiDEFilterWrite.EVariableColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EVariable\' in table \'MiDEFilterWrite\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMiDEFilterWrite.EVariableColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsStrategyNameNull() {
+                return this.IsNull(this.tableMiDEFilterWrite.StrategyNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetStrategyNameNull() {
+                this[this.tableMiDEFilterWrite.StrategyNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsEVariableNull() {
+                return this.IsNull(this.tableMiDEFilterWrite.EVariableColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetEVariableNull() {
+                this[this.tableMiDEFilterWrite.EVariableColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
@@ -3401,6 +3801,40 @@ namespace MiDEWPF {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public MiDEWriteRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public class MiDEFilterWriteRowChangeEvent : global::System.EventArgs {
+            
+            private MiDEFilterWriteRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public MiDEFilterWriteRowChangeEvent(MiDEFilterWriteRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public MiDEFilterWriteRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -3779,7 +4213,7 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "MiDEEValues";
             tableMapping.ColumnMappings.Add("EId", "EId");
-            tableMapping.ColumnMappings.Add("StId", "StId");
+            tableMapping.ColumnMappings.Add("StrategyName", "StrategyName");
             tableMapping.ColumnMappings.Add("EVariable", "EVariable");
             tableMapping.ColumnMappings.Add("Evalue", "Evalue");
             tableMapping.ColumnMappings.Add("CostMoney", "CostMoney");
@@ -3787,10 +4221,11 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[MiDEEValues] ([StId], [EVariable], [Evalue], [CostMoney], [Cos" +
-                "tEffort]) VALUES (@StId, @EVariable, @Evalue, @CostMoney, @CostEffort)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[MiDEEValues] ([StrategyName], [EVariable], [Evalue], [CostMone" +
+                "y], [CostEffort]) VALUES (@StrategyName, @EVariable, @Evalue, @CostMoney, @CostE" +
+                "ffort)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StId", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StrategyName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StrategyName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EVariable", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EVariable", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Evalue", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Evalue", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CostMoney", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CostMoney", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -3807,11 +4242,24 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[3];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT EId, StId, EVariable, Evalue, CostMoney, CostEffort FROM dbo.MiDEEValues";
+            this._commandCollection[0].CommandText = "SELECT EId, StrategyName, EVariable, Evalue, CostMoney, CostEffort FROM dbo.MiDEE" +
+                "Values";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT        EId, StrategyName, EVariable, Evalue, CostMoney, CostEffort\r\nFROM  " +
+                "          MiDEEValues\r\nWHERE        (EVariable <> @EVariable)";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EVariable", global::System.Data.SqlDbType.VarChar, 500, global::System.Data.ParameterDirection.Input, 0, 0, "EVariable", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = "SELECT        EId, StrategyName, EVariable, Evalue, CostMoney, CostEffort\r\nFROM  " +
+                "          MiDEEValues\r\nWHERE        (StrategyName <> @StrategyName)";
+            this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StrategyName", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "StrategyName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3833,6 +4281,78 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual MiDEDataSet.MiDEEValuesDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            MiDEDataSet.MiDEEValuesDataTable dataTable = new MiDEDataSet.MiDEEValuesDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByEVariable(MiDEDataSet.MiDEEValuesDataTable dataTable, string EVariable) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((EVariable == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(EVariable));
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual MiDEDataSet.MiDEEValuesDataTable GetDataBy1(string EVariable) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((EVariable == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(EVariable));
+            }
+            MiDEDataSet.MiDEEValuesDataTable dataTable = new MiDEDataSet.MiDEEValuesDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FilterByStrategyName(MiDEDataSet.MiDEEValuesDataTable dataTable, string StrategyName) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            if ((StrategyName == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(StrategyName));
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual MiDEDataSet.MiDEEValuesDataTable GetDataBy(string StrategyName) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            if ((StrategyName == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(StrategyName));
+            }
             MiDEDataSet.MiDEEValuesDataTable dataTable = new MiDEDataSet.MiDEEValuesDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -3871,12 +4391,12 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(global::System.Nullable<short> StId, string EVariable, global::System.Nullable<short> Evalue, global::System.Nullable<short> CostMoney, global::System.Nullable<short> CostEffort) {
-            if ((StId.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((short)(StId.Value));
+        public virtual int Insert(string StrategyName, string EVariable, global::System.Nullable<short> Evalue, global::System.Nullable<short> CostMoney, global::System.Nullable<short> CostEffort) {
+            if ((StrategyName == null)) {
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(StrategyName));
             }
             if ((EVariable == null)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -5063,7 +5583,7 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
             this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = "SELECT        wid, ScenarioNumber, SelectionListBox, ExclusionListBox, CurrentMit" +
                 "igationListBox\r\nFROM            MiDEWrite\r\nWHERE        (ScenarioNumber = @Scena" +
-                "rioNumber)";
+                "rioNumber)\r\n";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ScenarioNumber", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ScenarioNumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
@@ -5122,7 +5642,7 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual MiDEDataSet.MiDEWriteDataTable GetDataBy(int ScenarioNumber) {
+        public virtual MiDEDataSet.MiDEWriteDataTable GetDataByScenarioNumber(int ScenarioNumber) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ScenarioNumber));
             MiDEDataSet.MiDEWriteDataTable dataTable = new MiDEDataSet.MiDEWriteDataTable();
@@ -5148,7 +5668,7 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual MiDEDataSet.MiDEWriteDataTable GetDataBy1(int ScenarioNumber) {
+        public virtual MiDEDataSet.MiDEWriteDataTable GetDataBy(int ScenarioNumber) {
             this.Adapter.SelectCommand = this.CommandCollection[2];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ScenarioNumber));
             MiDEDataSet.MiDEWriteDataTable dataTable = new MiDEDataSet.MiDEWriteDataTable();
@@ -5251,6 +5771,286 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
     }
     
     /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class MiDEFilterWriteTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public MiDEFilterWriteTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "MiDEFilterWrite";
+            tableMapping.ColumnMappings.Add("fwid", "fwid");
+            tableMapping.ColumnMappings.Add("StrategyName", "StrategyName");
+            tableMapping.ColumnMappings.Add("EVariable", "EVariable");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[MiDEFilterWrite] ([StrategyName], [EVariable]) VALUES (@Strate" +
+                "gyName, @EVariable)";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StrategyName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StrategyName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EVariable", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EVariable", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::MiDEWPF.Properties.Settings.Default.MiDEConnection;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT fwid, StrategyName, EVariable FROM dbo.MiDEFilterWrite";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT        EId, StrategyName, EVariable, Evalue, CostMoney, CostEffort\r\nFROM  " +
+                "          MiDEEValues\r\nWHERE        (StrategyName <> @StrategyName)";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StrategyName", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "StrategyName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(MiDEDataSet.MiDEFilterWriteDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual MiDEDataSet.MiDEFilterWriteDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            MiDEDataSet.MiDEFilterWriteDataTable dataTable = new MiDEDataSet.MiDEFilterWriteDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FilterByStrategyName(MiDEDataSet.MiDEFilterWriteDataTable dataTable, string StrategyName) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((StrategyName == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(StrategyName));
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual MiDEDataSet.MiDEFilterWriteDataTable GetDataBy(string StrategyName) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((StrategyName == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(StrategyName));
+            }
+            MiDEDataSet.MiDEFilterWriteDataTable dataTable = new MiDEDataSet.MiDEFilterWriteDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(MiDEDataSet.MiDEFilterWriteDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(MiDEDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "MiDEFilterWrite");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(string StrategyName, string EVariable) {
+            if ((StrategyName == null)) {
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(StrategyName));
+            }
+            if ((EVariable == null)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(EVariable));
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
     ///TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
     ///</summary>
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -5275,6 +6075,8 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         private MiDESValuesTableAdapter _miDESValuesTableAdapter;
         
         private MiDEWriteTableAdapter _miDEWriteTableAdapter;
+        
+        private MiDEFilterWriteTableAdapter _miDEFilterWriteTableAdapter;
         
         private bool _backupDataSetBeforeUpdate;
         
@@ -5391,6 +6193,20 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
+            "a", "System.Drawing.Design.UITypeEditor")]
+        public MiDEFilterWriteTableAdapter MiDEFilterWriteTableAdapter {
+            get {
+                return this._miDEFilterWriteTableAdapter;
+            }
+            set {
+                this._miDEFilterWriteTableAdapter = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public bool BackupDataSetBeforeUpdate {
             get {
                 return this._backupDataSetBeforeUpdate;
@@ -5436,6 +6252,10 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
                             && (this._miDEWriteTableAdapter.Connection != null))) {
                     return this._miDEWriteTableAdapter.Connection;
                 }
+                if (((this._miDEFilterWriteTableAdapter != null) 
+                            && (this._miDEFilterWriteTableAdapter.Connection != null))) {
+                    return this._miDEFilterWriteTableAdapter.Connection;
+                }
                 return null;
             }
             set {
@@ -5468,6 +6288,9 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
                     count = (count + 1);
                 }
                 if ((this._miDEWriteTableAdapter != null)) {
+                    count = (count + 1);
+                }
+                if ((this._miDEFilterWriteTableAdapter != null)) {
                     count = (count + 1);
                 }
                 return count;
@@ -5544,6 +6367,15 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._miDEFilterWriteTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.MiDEFilterWrite.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._miDEFilterWriteTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             return result;
         }
         
@@ -5610,6 +6442,14 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._miDEFilterWriteTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.MiDEFilterWrite.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._miDEFilterWriteTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             return result;
         }
         
@@ -5620,6 +6460,14 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private int UpdateDeletedRows(MiDEDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
+            if ((this._miDEFilterWriteTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.MiDEFilterWrite.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._miDEFilterWriteTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             if ((this._miDEWriteTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.MiDEWrite.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -5750,6 +6598,11 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
+            if (((this._miDEFilterWriteTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._miDEFilterWriteTableAdapter.Connection) == false))) {
+                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
+                        "tring.");
+            }
             global::System.Data.IDbConnection workConnection = this.Connection;
             if ((workConnection == null)) {
                 throw new global::System.ApplicationException("TableAdapterManager contains no connection information. Set each TableAdapterMana" +
@@ -5845,6 +6698,15 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
                         adaptersWithAcceptChangesDuringUpdate.Add(this._miDEWriteTableAdapter.Adapter);
                     }
                 }
+                if ((this._miDEFilterWriteTableAdapter != null)) {
+                    revertConnections.Add(this._miDEFilterWriteTableAdapter, this._miDEFilterWriteTableAdapter.Connection);
+                    this._miDEFilterWriteTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._miDEFilterWriteTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._miDEFilterWriteTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._miDEFilterWriteTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._miDEFilterWriteTableAdapter.Adapter);
+                    }
+                }
                 // 
                 //---- Perform updates -----------
                 //
@@ -5930,6 +6792,10 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
                 if ((this._miDEWriteTableAdapter != null)) {
                     this._miDEWriteTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._miDEWriteTableAdapter]));
                     this._miDEWriteTableAdapter.Transaction = null;
+                }
+                if ((this._miDEFilterWriteTableAdapter != null)) {
+                    this._miDEFilterWriteTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._miDEFilterWriteTableAdapter]));
+                    this._miDEFilterWriteTableAdapter.Transaction = null;
                 }
                 if ((0 < adaptersWithAcceptChangesDuringUpdate.Count)) {
                     global::System.Data.Common.DataAdapter[] adapters = new System.Data.Common.DataAdapter[adaptersWithAcceptChangesDuringUpdate.Count];

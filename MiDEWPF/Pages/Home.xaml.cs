@@ -155,7 +155,7 @@ namespace MiDEWPF.Pages
         private void selectExclusionCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string add = strategyExclusionCB.SelectedValue.ToString();
-            //var variable = ds.MiDEStrategyGroups.Rows[1][0];
+            
             ExclusionListBox.Items.Add(add);
             ExclusionBox.Add(add);
 

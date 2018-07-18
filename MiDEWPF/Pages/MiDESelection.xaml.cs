@@ -30,13 +30,17 @@ namespace MiDEWPF.Pages
         int ScenarioNumber;
         SqlCommand Cmd;
         int SValue;
-        List<String> content = new List<string>();
-        MiDEDataSet ds = new MiDEDataSet();
+        List<string> content = new List<string>();
+        List<string> ExclusionBoxEach = new List<string>();
         List<int> Buttons = new List<int>();
+        List<int> dispose = new List<int>();
+        
+        MiDEDataSet ds = new MiDEDataSet();
         //Random Number Generator for testing purposes
         Random random = new Random();
         int row;
-        List<int> dispose = new List<int>();
+
+        
         #endregion
 
         #region Global Variables
@@ -56,16 +60,22 @@ namespace MiDEWPF.Pages
                 b++;
             }
             //import style for buttons
-            Style style = FindResource("mButton") as Style;
+            
             
             InitializeComponent();
-
+            Style style = FindResource("mButton") as Style;
             #region Get Data
             MiDEDataSetTableAdapters.MiDEEValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
             MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
             MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter2 = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
             eadapter.Fill(ds.MiDEEValues);
             wadapter.Fill(ds.MiDEWrite);
+
+            //Get sum of S values and current Scenario Number from Home page.  For some reason it increments by 1 before coming here
+            //so we have to subtract 1 to make sure it all matches
+            SValue = Home.SValuesSum;
+            ScenarioNumber = newhome.ScenarioNumber;
+            ScenarioNumber--;
 
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
@@ -79,19 +89,17 @@ namespace MiDEWPF.Pages
             sda.Fill(dt);
 
             currentExclusionLB.ItemsSource = dt.DefaultView;
-            conn.Close();
+            //conn.Close();
 
             wadapter.FillByScenarioNumber(ds.MiDEWrite, ScenarioNumber);
             currentScenarioLB.ItemsSource = ds.MiDEWrite;
             #endregion
 
-            //Get sum of S values and current Scenario Number from Home page.  For some reason it increments by 1 before coming here
-            //so we have to subtract 1 to make sure it all matches
-            SValue = Home.SValuesSum;
-            ScenarioNumber = newhome.ScenarioNumber;
-            ScenarioNumber--;
-
+            FilterButtons(Home.ExclusionBox);
+            CreateButtons(ExclusionBoxEach);
             
+
+
             if(SValue < 10)
             {
                 //for demo purposes a random number is generated to select rows from DB, for production need to get rid of 
@@ -173,12 +181,9 @@ namespace MiDEWPF.Pages
                     {
                         NewButton button = new NewButton();
                         button.Content = ds.MiDEEValues.Rows[row][2].ToString();
-                       
                         button.Style = style;
                         mitigationDisplay.Children.Add(button);
-                        
                         content.Add(button.Content.ToString());
-                        
                         dispose.Add(row);
                         
                     }
@@ -209,6 +214,116 @@ namespace MiDEWPF.Pages
             }*/
             AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
         }
+
+        public List<string> FilterButtons(List<string> exclusionBox)
+        {
+            SqlCommand cmd;
+            SqlConnection conn = ConnectionHelper.GetConn();
+            conn.Open();
+
+            MiDEDataSet ds = new MiDEDataSet();
+            MiDEDataSet newds = new MiDEDataSet();
+            MiDEDataSetTableAdapters.MiDEEValuesTableAdapter adapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
+            MiDEDataSetTableAdapters.MiDEFilterWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEFilterWriteTableAdapter();
+            
+            List<string> FilteredList = new List<string>();
+            
+            exclusionBox = Home.ExclusionBox;
+
+            string sqlString = "SELECT * FROM MiDEEValues WHERE StrategyName NOT IN ({StrategyName})";
+            cmd = new SqlCommand(sqlString, conn);
+            //var cmd = new SqlCommand("SELECT * FROM MiDEEValues WHERE StrategyName IN ({StrategyName})");
+            cmd.AddArrayParameters("StrategyName", exclusionBox);
+           
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dts = new DataTable("MiDEFilterWrite");
+
+            da.Fill(dts);
+
+            string EVariable;
+            string StrategyName;
+            int i = 0;
+            foreach(var item in exclusionBox)
+            {
+                if (item == "Variety" || item == "Awareness" || item == "Surprise & Delight" || item == "Convenience")
+                {
+                    int t = 0;
+                    StrategyName = item;
+                    
+                    wadapter.FilterByStrategyName(ds.MiDEFilterWrite, StrategyName);
+                    foreach(var cell in ds.MiDEFilterWrite)
+                    {
+                        string strategyname = ds.MiDEFilterWrite.Rows[t][1].ToString();
+                        string evariable = ds.MiDEFilterWrite.Rows[t][2].ToString();
+                        wadapter.Insert(strategyname, evariable);
+                        t++;
+                    }
+                    
+
+                   
+                       
+                }
+                else
+                {
+                    EVariable = item;
+                    //adapter.FillByEVariable(ds.MiDEEValues, EVariable);
+                    foreach (var text in ds.MiDEEValues)
+                    {
+                        FilteredList.Add(ds.MiDEEValues[i][2].ToString());
+                        i++;
+                    }
+                }
+            }
+
+
+
+            
+            
+            
+            
+            
+            Cmd.Parameters.AddWithValue("@StrategyName", exclusionBox);
+           
+            //sda.Fill(dt);
+
+            return FilteredList;
+
+            /*for(int j = 0; j <= exclusionBox.Count() - 1; j++)
+            {
+                ExclusionBoxEach.Add(exclusionBox[i]);
+                i++;
+            }*/
+
+           // return ExclusionBoxEach;
+        }
+
+        public Button CreateButtons(List<string> exclusions)
+        {
+            
+
+            
+            int i = 0;
+            
+
+            
+            
+            NewButton button = new NewButton();
+            Style style = FindResource("mButton") as Style;
+            foreach (var item in exclusions)
+            {
+                
+                
+                button.Content = 
+                //button.Content = ds.MiDEEValues.Rows[row][2].ToString();
+                button.Style = style;
+                mitigationDisplay.Children.Add(button);
+                content.Add(button.Content.ToString());
+                dispose.Add(row);
+                i++;
+            }
+            return button;
+        }
+
         #region Button Events
         void button_Click(object sender, RoutedEventArgs e)
         {

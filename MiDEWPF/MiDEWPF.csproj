@@ -74,6 +74,7 @@
       <DependentUpon>MiDESelection.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\ConnectionHelper.cs" />
+    <Compile Include="Resources\SqlCommandExt.cs" />
     <Compile Include="ViewModel\CafeViewModel.cs" />
     <Compile Include="ViewModel\CommandViewModel.cs" />
     <Compile Include="ViewModel\MenuItemViewModel.cs" />

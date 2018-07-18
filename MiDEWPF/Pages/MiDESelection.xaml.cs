@@ -35,6 +35,7 @@ namespace MiDEWPF.Pages
         List<int> Buttons = new List<int>();
         List<int> dispose = new List<int>();
         
+
         MiDEDataSet ds = new MiDEDataSet();
         //Random Number Generator for testing purposes
         Random random = new Random();
@@ -95,144 +96,31 @@ namespace MiDEWPF.Pages
             currentScenarioLB.ItemsSource = ds.MiDEWrite;
             #endregion
 
-            FilterButtons(Home.ExclusionBox);
-            CreateButtons(ExclusionBoxEach);
-            
+            List<string> FilteredList = FilterList(Home.ExclusionBox);
 
-
-            if(SValue < 10)
+            foreach (var item in FilteredList)
             {
-                //for demo purposes a random number is generated to select rows from DB, for production need to get rid of 
-                //row variable assignment and change [row] back to [i]
-                for(int c = 0; c <= 2; c++)
-                {
-                    row = random.Next(27);
-                    if (dispose.Contains(row))
-                    {
-                        row = random.Next(27);
-                    }
-                    else
-                    { 
-                        NewButton button = new NewButton();
-                        button.Content = ds.MiDEEValues.Rows[row][2].ToString();
-                        //button.Bid = i;
-                        button.Style = style;
-                        mitigationDisplay.Children.Add(button);
-                        i++;
-                        content.Add(button.Content.ToString());
-                        //Buttons.Add(button.Bid);
-                        dispose.Add(row);
-                        
-                    }
-                }
-                NewButton FinalButton = new NewButton();
-                FinalButton.Content = ds.MiDEEValues.Rows[26][2].ToString();
-                //FinalButton.Bid = i;
-                FinalButton.Style = style;
-                mitigationDisplay.Children.Add(FinalButton);
+                mitigationDisplay.Children.Add(CreateButtons(FilteredList, i));
                 i++;
-                content.Add(FinalButton.Content.ToString());
-                //Buttons.Add(FinalButton.Bid);
                 
             }
-            else if(SValue >= 10 && SValue <= 29)
-            {
-                for(int c = 0; c <= 4; c++)
-                {
-                    row = random.Next(27);
-                    if (dispose.Contains(row))
-                    {
-                        row = random.Next(27);
-                    }
-                    else
-                    {
-                        NewButton button = new NewButton();
-                        button.Content = ds.MiDEEValues.Rows[row][2].ToString();
-                        //button.Bid = i;
-                        button.Style = style;
-                        mitigationDisplay.Children.Add(button);
-                        i++;
-                        content.Add(button.Content.ToString());
-                        //Buttons.Add(button.Bid);
-                        dispose.Add(row);
-                        
-                    }
-                }
-                NewButton FinalButton = new NewButton();
-                FinalButton.Content = ds.MiDEEValues.Rows[26][2].ToString();
-                //FinalButton.Bid = i;
-                FinalButton.Style = style;
-                mitigationDisplay.Children.Add(FinalButton);
-                i++;
-                content.Add(FinalButton.Content.ToString());
-                //Buttons.Add(FinalButton.Bid);
-                
-            }
-            else if(SValue >= 30)
-            {
-                for(int c = 0; c < 10; c++)
-                {
-                    row = random.Next(27);
-                    if (dispose.Contains(row))
-                    {
-                        row = random.Next(27);
-                    }
-                    else
-                    {
-                        NewButton button = new NewButton();
-                        button.Content = ds.MiDEEValues.Rows[row][2].ToString();
-                        button.Style = style;
-                        mitigationDisplay.Children.Add(button);
-                        content.Add(button.Content.ToString());
-                        dispose.Add(row);
-                        
-                    }
-                }
-
-                NewButton FinalButton = new NewButton();
-                FinalButton.Content = ds.MiDEEValues.Rows[26][2].ToString();
-                
-                FinalButton.Style = style;
-                mitigationDisplay.Children.Add(FinalButton);
-                i++;
-                content.Add(FinalButton.Content.ToString());
-               
-                
-            }
-            
-            //foreach (var item in ds.MiDEEValues)
-            /*for(int q = 0; q <= 26; q++)
-            {
-                NewButton button = new NewButton();
-                button.Content = ds.MiDEEValues.Rows[q][2].ToString();
-                button.Bid = q;
-                button.Style = style;
-                mitigationDisplay.Children.Add(button); 
-                b++;
-                content.Add(button.Content.ToString());
-                Buttons.Add(button.Bid);
-            }*/
             AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
+
         }
 
-        public List<string> FilterButtons(List<string> exclusionBox)
+        public List<string> FilterList(List<string> exclusionBox)
         {
+            List<string> FilteredList = new List<string>();
+            int i = 0;
             SqlCommand cmd;
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
-
-            //MiDEDataSet ds = new MiDEDataSet();
-            //MiDEDataSet newds = new MiDEDataSet();
-            //MiDEDataSetTableAdapters.MiDEEValuesTableAdapter adapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
-            //MiDEDataSetTableAdapters.MiDEFilterWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEFilterWriteTableAdapter();
-            
-            List<string> FilteredList = new List<string>();
             
             exclusionBox = Home.ExclusionBox;
 
             string sqlString = "SELECT * FROM MiDEEValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable})";
             cmd = new SqlCommand(sqlString, conn);
-            //var cmd = new SqlCommand("SELECT * FROM MiDEEValues WHERE StrategyName IN ({StrategyName})");
+           
             cmd.AddArrayParameters("StrategyName", exclusionBox);
             cmd.AddArrayParameters("EVariable", exclusionBox);
            
@@ -241,90 +129,27 @@ namespace MiDEWPF.Pages
 
             da.Fill(dts);
 
-            /*string EVariable;
-            string StrategyName;
-            int i = 0;
-            foreach(var item in exclusionBox)
+            DataColumn col = dts.Columns["EVariable"];
+            foreach(DataRow row in dts.Rows)
             {
-                if (item == "Variety" || item == "Awareness" || item == "Surprise & Delight" || item == "Convenience")
-                {
-                    int t = 0;
-                    StrategyName = item;
-                    
-                    wadapter.FilterByStrategyName(ds.MiDEFilterWrite, StrategyName);
-                    foreach(var cell in ds.MiDEFilterWrite)
-                    {
-                        string strategyname = ds.MiDEFilterWrite.Rows[t][1].ToString();
-                        string evariable = ds.MiDEFilterWrite.Rows[t][2].ToString();
-                        wadapter.Insert(strategyname, evariable);
-                        t++;
-                    }
-                    
-
-                   
-                       
-                }
-                else
-                {
-                    EVariable = item;
-                    //adapter.FillByEVariable(ds.MiDEEValues, EVariable);
-                    foreach (var text in ds.MiDEEValues)
-                    {
-                        FilteredList.Add(ds.MiDEEValues[i][2].ToString());
-                        i++;
-                    }
-                }*/
-            //}
-
-
-
-            
-            
-            
-            
-            
-            //Cmd.Parameters.AddWithValue("@StrategyName", exclusionBox);
-           
-            //sda.Fill(dt);
-
-            return FilteredList;
-
-            /*for(int j = 0; j <= exclusionBox.Count() - 1; j++)
-            {
-                ExclusionBoxEach.Add(exclusionBox[i]);
-                i++;
-            }*/
-
-           // return ExclusionBoxEach;
-        }
-
-        public Button CreateButtons(List<string> exclusions)
-        {
-            
-
-            
-            int i = 0;
-            
-
-            
-            
-            NewButton button = new NewButton();
-            Style style = FindResource("mButton") as Style;
-            foreach (var item in exclusions)
-            {
-                
-                
-                button.Content = 
-                //button.Content = ds.MiDEEValues.Rows[row][2].ToString();
-                button.Style = style;
-                mitigationDisplay.Children.Add(button);
-                content.Add(button.Content.ToString());
-                dispose.Add(row);
+                FilteredList.Add(row[col].ToString());
                 i++;
             }
+            return FilteredList;
+        }
+
+        public Button CreateButtons(List<string> filteredList, int i)
+        {
+            NewButton button = new NewButton();
+            Style style = FindResource("mButton") as Style;
+            button.Content = filteredList[i].ToString();
+            button.Style = style;
+            content.Add(button.Content.ToString());
+            dispose.Add(row);
             return button;
         }
 
+        
         #region Button Events
         void button_Click(object sender, RoutedEventArgs e)
         {

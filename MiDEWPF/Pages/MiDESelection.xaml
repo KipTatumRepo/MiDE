@@ -18,31 +18,32 @@
             <RowDefinition Height="60*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="591*"/>
+            <ColumnDefinition Width="333*"/>
+            <ColumnDefinition Width="466*"/>
         </Grid.ColumnDefinitions>
 
         <TextBox Grid.ColumnSpan="3" HorizontalAlignment="Center" Height="61" Margin="10,13,10,0" TextAlignment="Center" FontSize="30" Text="MiDE Scenario Builder" VerticalAlignment="Top" Width="1370" Background="LemonChiffon"/>
-        <TextBox Grid.Column="0" HorizontalAlignment="Left" Height="32" Margin="10,102,0,0" TextAlignment="Center" Text="Mitigation Options" VerticalAlignment="Top" Width="443" Background="LemonChiffon"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="32" Margin="10,102,0,0" TextAlignment="Center" Text="Current Mitigation Selections" VerticalAlignment="Top" Width="443" Background="LemonChiffon"/>
+        <TextBox Grid.Column="0" HorizontalAlignment="Left" Height="32" Margin="10,102,0,0" TextAlignment="Center" Text="Mitigation Options" VerticalAlignment="Top" Width="578" Background="LemonChiffon"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="32" Margin="10,102,0,0" TextAlignment="Center" Text="Current Mitigation Selections" VerticalAlignment="Top" Width="313" Background="LemonChiffon"/>
         <TextBox Grid.Column="2" HorizontalAlignment="Left" Height="32" Margin="10,102,0,0" TextAlignment="Center" Text="Current Scenario Compressions" VerticalAlignment="Top" Width="443" Background="LemonChiffon"/>
 
 
-        <ScrollViewer x:Name="MyScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Margin="0,159,0,18" Width="453" >
+        <ScrollViewer x:Name="MyScrollViewer" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Margin="0,159,0,0" Width="588" >
             <WrapPanel Grid.Column="0" Name="mitigationDisplay" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                       ScrollViewer.HorizontalScrollBarVisibility="Auto" Height="515" Width="453" >
+                       ScrollViewer.HorizontalScrollBarVisibility="Auto" Height="511" Grid.RowSpan="2" Width="588" />
+            <!--Width="453" -->
 
-            </WrapPanel>
+
         </ScrollViewer>
-        <ListBox Name="currentMitigationListBox" Grid.Column="1" HorizontalAlignment="Left" Height="439" Margin="10,159,0,15" VerticalAlignment="Top" Width="443"/>
+        <ListBox Name="currentMitigationListBox" Grid.Column="1" HorizontalAlignment="Left" Height="347" Margin="10,159,0,0" VerticalAlignment="Top" Width="313"/>
         <ListBox Name="currentScenarioLB" Grid.Column="2" HorizontalAlignment="Left" Height="259" Margin="10,159,0,0" VerticalAlignment="Top" Width="443" DisplayMemberPath="SelectionListBox"/>
 
         <TextBox HorizontalAlignment="Left" Height="32" TextAlignment="Center" Text="Current Scenario Exclusions" VerticalAlignment="Top" Width="443" Background="LemonChiffon" Grid.Column="2" Margin="10,423,0,0"/>
-        <ListBox Name="currentExclusionLB" Grid.Column="2" HorizontalAlignment="Left" Height="95" Margin="10,460,0,0" VerticalAlignment="Top" Width="443" DisplayMemberPath="ExclusionListBox"/>
+        <ListBox Name="currentExclusionLB" Grid.Column="2" HorizontalAlignment="Left" Height="46" Margin="10,460,0,0" VerticalAlignment="Top" Width="443" DisplayMemberPath="ExclusionListBox"/>
 
-        <Button x:Name="ClearLastSelection" Grid.Row="1" Grid.Column="1" Content="Clear Last Selection" HorizontalAlignment="Right" Margin="0,18,155,18" Style="{StaticResource Buttons}" Click="ClearLastSelection_Click" Height="75" Width="148" />
-        <Button x:Name="ClearSelection" Grid.Row="1" Grid.Column="1" Content="Clear All Selections" HorizontalAlignment="Right" Margin="0,0,5,0" Style="{StaticResource Buttons}" Height="75" Click="ClearSelection_Click" Width="140"  />
-        <Button x:Name="ShowResults" Grid.Row="2" Grid.Column="2" Content="Show Results" HorizontalAlignment="Right" Margin="0,24,10,20" Style="{StaticResource Buttons}" Height="70" Click="ShowResults_Click" />
+        <Button x:Name="ClearLastSelection" Grid.Row="1" Grid.Column="1" Content="Clear Last Selection" HorizontalAlignment="Right" Margin="0,18,155,18" Style="{StaticResource Buttons}" Click="ClearLastSelection_Click" Height="Auto" FontSize="10"  />
+        <Button x:Name="ClearSelection" Grid.Row="1" Grid.Column="1" Content="Clear All Selections" HorizontalAlignment="Right" Margin="0,18,5,18" Style="{StaticResource Buttons}" Height="Auto" Click="ClearSelection_Click" FontSize="10"  />
+        <Button x:Name="ShowResults" Grid.Row="2" Grid.Column="2" Content="Show Results" HorizontalAlignment="Right" Margin="0,24,10,26" Style="{StaticResource Buttons}" Height="Auto" Click="ShowResults_Click" FontSize="10" />
     </Grid>
 </Page>

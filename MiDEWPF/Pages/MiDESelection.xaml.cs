@@ -379,18 +379,18 @@ namespace MiDEWPF.Pages
 
                 EValues.Add(Evalue);
             }
-            else if (idk == bbase + "Replace Static Station(Our Concepts)")
+            else if (idk == bbase + "Replace Static Station(Our Concept)")
             {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[22][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[22][3].ToString();
+                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[26][2].ToString());
+                var evalue = ds.MiDEEValues.Rows[26][3].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
             }
             else if (idk == bbase + "Temporary Pop-Up")
             {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[23][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[23][3].ToString();
+                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[22][2].ToString());
+                var evalue = ds.MiDEEValues.Rows[22][3].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);
@@ -413,8 +413,8 @@ namespace MiDEWPF.Pages
             }
             else if (idk == bbase + "Linebusting")
             {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[26][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[26][3].ToString();
+                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[23][2].ToString());
+                var evalue = ds.MiDEEValues.Rows[23][3].ToString();
                 int Evalue = int.Parse(evalue);
 
                 EValues.Add(Evalue);

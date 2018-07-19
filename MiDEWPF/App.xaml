@@ -8,6 +8,10 @@
             <GradientStop Color="ForestGreen" Offset="0" />
             <GradientStop Color="LightGreen" Offset="1" />
         </LinearGradientBrush>
+        <LinearGradientBrush x:Key="mButtonGradientBrush" StartPoint="0,1" EndPoint="0,0">
+            <GradientStop Color="Blue" Offset="0" />
+            <GradientStop Color="LightBlue" Offset="1" />
+        </LinearGradientBrush>
         <Style x:Key="Buttons" TargetType="{x:Type Button}" >
             <Setter Property="Width" Value="125" />
             <Setter Property="Height" Value="75" />
@@ -45,20 +49,16 @@
         
 
         <Style x:Key="mButton" TargetType="{x:Type Button}" >
-            <!--<Setter Property="Width" Value="100" />-->
+            <Setter Property="Width" Value="110" />
             <Setter Property="Height" Value="75" />
-            <Setter Property="Background" Value="{StaticResource ButtonGradientBrush}" />
+            <Setter Property="Background" Value="{StaticResource mButtonGradientBrush}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True" RenderTransformOrigin="0.5,0.5" x:Name="ButtonGrid">
-
                             <Rectangle x:Name="innerRectangle" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="Transparent" StrokeThickness="5" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
-
                             <DockPanel Name="myContentPresenterDockPanel">
-                                <ContentPresenter x:Name="myContentPresenter" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding  Content}" TextElement.FontSize="10" TextBlock.Foreground="Black" >
-                                   
-                                </ContentPresenter>
+                                <TextBlock Text="{TemplateBinding Content}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5,5,5,5"/>
                             </DockPanel>
                         </Grid>
                         

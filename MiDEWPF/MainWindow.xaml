@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="{Binding Path=ViewportHeight}" 
         WindowState="Maximized" MinWidth="1024" MinHeight="800"
-        Width="{Binding Path=ViewportWidth}">
+        Width="{Binding Path=ViewportWidth}"
+        FontFamily="Segoe UI Emoji">
     <Grid Background="OldLace">
         <Frame Source="Pages/Home.xaml"/>
     </Grid>

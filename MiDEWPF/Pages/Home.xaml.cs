@@ -35,6 +35,7 @@ namespace MiDEWPF.Pages
         int i = 0;
         int j = 0;
         int k = 0;
+        int l = 0;
         #endregion
         #region Global Variables
         public MiDEDataSet ds = new MiDEDataSet();
@@ -73,6 +74,14 @@ namespace MiDEWPF.Pages
                 sFactorCB.Items.Add(comboboxtext);
                 k++;
             }
+
+            foreach(var item in ds.MiDEStrategyGroups)
+            {
+                string comboboxtext = ds.MiDEStrategyGroups.Rows[l][1].ToString();
+                strategyExclusionCB.Items.Add(comboboxtext);
+                l++;
+            }
+               
             
 
             #region Generate ScenarioNumber
@@ -139,9 +148,12 @@ namespace MiDEWPF.Pages
 
         private void sFactors_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int z = 0;
+            
             List<string> SVariable = new List<string>();
-
+            if (sFactorCB.SelectedIndex == -1 || sFactorCB.SelectedValue == null)
+            { 
+                return;
+            }
             //MiDEDataSet ds = new MiDEDataSet();
             //MiDEDataSetTableAdapters.MiDESValuesTableAdapter svadapter = new MiDEDataSetTableAdapters.MiDESValuesTableAdapter();
             string add = sFactorCB.SelectedValue.ToString();
@@ -162,11 +174,16 @@ namespace MiDEWPF.Pages
             SelectionListBox.SelectedIndex = SelectionListBox.Items.Count - 1;
             SelectionListBox.ScrollIntoView(SelectionListBox.SelectedItem);
 
-            //sFactorCB.SelectedIndex = -1;
+            sFactorCB.SelectedIndex = -1;
         }
 
-        private void selectExclusionCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void strategyExclusionCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+            if (strategyExclusionCB.SelectedIndex == -1 || strategyExclusionCB.SelectedValue == null)
+            {
+                return;
+            }
             string add = strategyExclusionCB.SelectedValue.ToString();
             
             ExclusionListBox.Items.Add(add);
@@ -177,11 +194,18 @@ namespace MiDEWPF.Pages
             // the view of the list box, the last item will always be shown
             ExclusionListBox.SelectedIndex = ExclusionListBox.Items.Count - 1;
             ExclusionListBox.ScrollIntoView(ExclusionListBox.SelectedItem);
-            return;
+
+            strategyExclusionCB.SelectedIndex = -1;
+            //return;
         }
 
         private void mitigationExclusion_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (mitigationExclusionCB.SelectedIndex == -1 || mitigationExclusionCB.SelectedValue == null)
+            {
+                return;
+            }
+            
             string add = mitigationExclusionCB.SelectedValue.ToString();
 
             ExclusionListBox.Items.Add(add);
@@ -192,7 +216,9 @@ namespace MiDEWPF.Pages
             // the view of the list box, the last item will always be shown
             ExclusionListBox.SelectedIndex = ExclusionListBox.Items.Count - 1;
             ExclusionListBox.ScrollIntoView(ExclusionListBox.SelectedItem);
-            return;
+
+            mitigationExclusionCB.SelectedIndex = -1;
+            //return;
         }
         #endregion
 
@@ -249,14 +275,9 @@ namespace MiDEWPF.Pages
         //write to DB and Navigate to next page
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            inputOptions.Children.Clear();
-            exclusionOptions.Children.Clear();
-            //selectedVacatingBuildingCB.Text = "Select Building";
-            //selectedPopRangeCB.Text = "Select Population Range";
-            //selectedPopTypeCB.Text = "Select Population Type";
-            //selectBuildingCB.Text = "Select Building";
-            //sFactorCB.Text = "Compression Factors";
-
+            sFactorCB.Text = "Compression Factors";
+            strategyExclusionCB.Text = "Select Strategy Exclusions";
+            mitigationExclusionCB.Text = "Select Mitigation Exclusions";
             MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
             SValuesSum = SValues.Sum();
 

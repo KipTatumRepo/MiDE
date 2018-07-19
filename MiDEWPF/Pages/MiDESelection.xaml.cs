@@ -88,7 +88,7 @@ namespace MiDEWPF.Pages
             DataTable dt = new DataTable("MiDEWrite");
 
             sda.Fill(dt);
-
+            currentScenarioLB.Items.Clear();
             currentExclusionLB.ItemsSource = dt.DefaultView;
             //conn.Close();
 

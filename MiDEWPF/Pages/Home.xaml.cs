@@ -204,7 +204,10 @@ namespace MiDEWPF.Pages
             MessageBox.Show("Remove " + SelectionListBox.SelectedItem + "?");
             SelectionListBox.Items.RemoveAt(SelectionListBox.SelectedIndex);
             SelectionBox.RemoveAt(currentIterator);
-            SValues.RemoveAt(listIterator);
+            if(SValues.Count() != 0)
+            { 
+                SValues.RemoveAt(listIterator);
+            }
             return;
         }
 

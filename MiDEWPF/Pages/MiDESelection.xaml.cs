@@ -34,14 +34,14 @@ namespace MiDEWPF.Pages
         List<string> ExclusionBoxEach = new List<string>();
         List<int> Buttons = new List<int>();
         List<int> dispose = new List<int>();
-        
+
 
         MiDEDataSet ds = new MiDEDataSet();
         //Random Number Generator for testing purposes
         Random random = new Random();
         int row;
 
-        
+
         #endregion
 
         #region Global Variables
@@ -50,19 +50,19 @@ namespace MiDEWPF.Pages
         Home newhome = new Home();
         #endregion
 
-        
-        
-        
+
+
+
         public MiDESelection()
         {
-            foreach(var item in Home.ExclusionBox)
+            foreach (var item in Home.ExclusionBox)
             {
                 string ebitem = Home.ExclusionBox[b].ToString();
                 b++;
             }
             //import style for buttons
-            
-            
+
+
             InitializeComponent();
             Style style = FindResource("mButton") as Style;
             #region Get Data
@@ -81,7 +81,7 @@ namespace MiDEWPF.Pages
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
             string sqlString = "SELECT ScenarioNumber, SelectionListBox, ExclusionListBox, CurrentMitigationListBox, wid FROM MiDEWrite WHERE(ScenarioNumber = @ScenarioNumber) AND(ExclusionListBox IS NOT NULL)";
-            
+
             Cmd = new SqlCommand(sqlString, conn);
             SqlDataAdapter sda = new SqlDataAdapter(Cmd);
             Cmd.Parameters.AddWithValue("@ScenarioNumber", ScenarioNumber);
@@ -96,15 +96,28 @@ namespace MiDEWPF.Pages
             currentScenarioLB.ItemsSource = ds.MiDEWrite;
             #endregion
 
-            List<string> FilteredList = FilterList(Home.ExclusionBox);
-
-            foreach (var item in FilteredList)
+            if (Home.ExclusionBox.Count() >= 1)
             {
-                mitigationDisplay.Children.Add(CreateButtons(FilteredList, i));
-                i++;
-                
+                List<string> FilteredList = FilterList(Home.ExclusionBox);
+
+                foreach (var item in FilteredList)
+                {
+                    mitigationDisplay.Children.Add(CreateButtons(FilteredList, i));
+                    i++;
+                }
+                AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
             }
-            AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
+            else
+            {
+                List<string> AlleValueList = AllEValueList();
+
+                foreach (var item in ds.MiDEEValues)
+                {
+                    mitigationDisplay.Children.Add(CreateButtons(AlleValueList, i));
+                    i++;
+                }
+                AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
+            }
 
         }
 
@@ -115,22 +128,22 @@ namespace MiDEWPF.Pages
             SqlCommand cmd;
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
-            
+
             exclusionBox = Home.ExclusionBox;
 
             string sqlString = "SELECT * FROM MiDEEValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable})";
             cmd = new SqlCommand(sqlString, conn);
-           
+
             cmd.AddArrayParameters("StrategyName", exclusionBox);
             cmd.AddArrayParameters("EVariable", exclusionBox);
-           
+
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dts = new DataTable("MiDEFilterWrite");
 
             da.Fill(dts);
 
             DataColumn col = dts.Columns["EVariable"];
-            foreach(DataRow row in dts.Rows)
+            foreach (DataRow row in dts.Rows)
             {
                 FilteredList.Add(row[col].ToString());
                 i++;
@@ -138,16 +151,42 @@ namespace MiDEWPF.Pages
             return FilteredList;
         }
 
-        public Button CreateButtons(List<string> filteredList, int i)
+        public Button CreateButtons(List<string> list, int i)
         {
             NewButton button = new NewButton();
             Style style = FindResource("mButton") as Style;
-            button.Content = filteredList[i].ToString();
+            button.Content = list[i].ToString();
             button.Style = style;
             content.Add(button.Content.ToString());
-            dispose.Add(row);
+            //dispose.Add(row);
             return button;
         }
+
+        public List<string> AllEValueList()
+        {
+            int i = 0;
+            SqlCommand cmd;
+            SqlConnection conn = ConnectionHelper.GetConn();
+            conn.Open();
+            List<string> AllEValues = new List<string>();
+            
+            string sqlString = "SELECT * FROM MiDEEValues";
+            cmd = new SqlCommand(sqlString, conn);
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dts = new DataTable("MiDEAllWrite");
+
+            da.Fill(dts);
+
+            DataColumn col = dts.Columns["EVariable"];
+            foreach (DataRow row in dts.Rows)
+            {
+                AllEValues.Add(row[col].ToString());
+                i++;
+            }
+            return AllEValues;
+        }
+
 
         
         #region Button Events

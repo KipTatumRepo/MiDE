@@ -21,7 +21,7 @@ namespace MiDEWPF.Models
         public NewButton()
         {
 
-            Bid = -1;
+            Bid = 0;
 
         }
     }

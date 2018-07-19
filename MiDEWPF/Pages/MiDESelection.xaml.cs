@@ -96,9 +96,11 @@ namespace MiDEWPF.Pages
             currentScenarioLB.ItemsSource = ds.MiDEWrite;
             #endregion
 
+            Deal(SValue, 3);
+
             if (Home.ExclusionBox.Count() >= 1)
             {
-                List<string> FilteredList = FilterList(Home.ExclusionBox);
+                List<string> FilteredList = Shuffle(Home.ExclusionBox);
 
                 foreach (var item in FilteredList)
                 {
@@ -121,7 +123,7 @@ namespace MiDEWPF.Pages
 
         }
 
-        public List<string> FilterList(List<string> exclusionBox)
+        public List<string> Shuffle(List<string> exclusionBox)
         {
             List<string> FilteredList = new List<string>();
             int i = 0;
@@ -158,7 +160,6 @@ namespace MiDEWPF.Pages
             button.Content = list[i].ToString();
             button.Style = style;
             content.Add(button.Content.ToString());
-            //dispose.Add(row);
             return button;
         }
 
@@ -187,7 +188,13 @@ namespace MiDEWPF.Pages
             return AllEValues;
         }
 
-
+        public List<string> Deal(int svaluesum, int evalue)
+        {
+            int Svalue = svaluesum;
+            List<string> ha = new List<string>();
+            MessageBox.Show(SValue.ToString());
+            return ha;
+        }
         
         #region Button Events
         void button_Click(object sender, RoutedEventArgs e)

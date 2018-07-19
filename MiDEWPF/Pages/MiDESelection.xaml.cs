@@ -60,10 +60,10 @@ namespace MiDEWPF.Pages
                 string ebitem = Home.ExclusionBox[b].ToString();
                 b++;
             }
-            //import style for buttons
-
-
+            
             InitializeComponent();
+            
+            //import style for buttons
             Style style = FindResource("mButton") as Style;
             #region Get Data
             MiDEDataSetTableAdapters.MiDEEValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
@@ -96,7 +96,7 @@ namespace MiDEWPF.Pages
             currentScenarioLB.ItemsSource = ds.MiDEWrite;
             #endregion
 
-            Deal(SValue, 3);
+            //Deal(SValue, 3);
 
             if (Home.ExclusionBox.Count() >= 1)
             {
@@ -188,13 +188,13 @@ namespace MiDEWPF.Pages
             return AllEValues;
         }
 
-        public List<string> Deal(int svaluesum, int evalue)
+        /*public List<string> Deal(int svaluesum, int evalue)
         {
             int Svalue = svaluesum;
             List<string> ha = new List<string>();
-            MessageBox.Show(SValue.ToString());
+            //MessageBox.Show(SValue.ToString());
             return ha;
-        }
+        }*/
         
         #region Button Events
         void button_Click(object sender, RoutedEventArgs e)

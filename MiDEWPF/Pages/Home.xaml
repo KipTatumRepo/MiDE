@@ -57,7 +57,7 @@
                 </HierarchicalDataTemplate>
             </Menu.ItemTemplate>
             </Menu>-->
-            <ComboBox x:Name="selectedVacatingBuildingCB" Text="Select Building" Width="200" IsEditable="True" IsReadOnly="True" Height="28" HorizontalAlignment="Left" 
+            <ComboBox x:Name="selectedVacatingBuildingCB" Text = "Select Building" Width="200" IsEditable="True" IsReadOnly="True" Height="28" HorizontalAlignment="Left" 
                       ItemsSource="{Binding NotifyOnSourceUpdated=True, Source={StaticResource vbuildingMenuViewSource}, UpdateSourceTrigger=PropertyChanged}" 
                       DisplayMemberPath="BuildingName" SelectedValuePath="BuildingName" SelectionChanged="selectedVacatingBuildingCB_SelectionChanged" Canvas.Top="10"/>
             <ComboBox x:Name="selectedPopRangeCB" Text="Select Population Range" Width="200" IsEditable="True" IsReadOnly="True" Height="28" HorizontalAlignment="Left" 
@@ -67,14 +67,16 @@
                       ItemsSource="{Binding NotifyOnSourceUpdated=True, Source={StaticResource popTypeViewSource}, UpdateSourceTrigger=PropertyChanged}" 
                       DisplayMemberPath="popType" SelectedValuePath="popType" SelectionChanged="selectedPopTypeCB_SelectionChanged" Canvas.Left="440" Canvas.Top="10"/>
             <ComboBox x:Name="selectBuildingCB" Text="Select Building" Width="200" IsEditable="True" IsReadOnly="True" Height="26" HorizontalAlignment="Left" 
-                      ItemsSource="{Binding NotifyOnSourceUpdated=True, Source={StaticResource buildingMenuViewSource}, UpdateSourceTrigger=PropertyChanged}" 
-                      DisplayMemberPath="BuildingName" SelectedValuePath="BuildingName" SelectionChanged="selectBuildingCB_SelectionChanged" Canvas.Top="43"/>
+                       ItemsSource="{Binding NotifyOnSourceUpdated=True, Source={StaticResource buildingMenuViewSource}, UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="BuildingName" SelectedValuePath="BuildingName"
+                      SelectionChanged="selectBuildingCB_SelectionChanged" Canvas.Top="43"/>
             <DatePicker x:Name="datePicker" VerticalAlignment="Top" Width="200" HorizontalAlignment="Left" SelectedDateChanged="DatePicker_SelectedDateChanged" Canvas.Top="74" />
             <ComboBox x:Name="sFactorCB" Text="Compression Factors" Width="600" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Left"
-                      ItemsSource="{Binding NotifyOnSourceUpdated=True, Source={StaticResource sFactorViewSource}, UpdateSourceTrigger=PropertyChanged}" 
-                      DisplayMemberPath="svariable" SelectedValuePath="svariable" SelectionChanged="sFactors_SelectionChanged" Canvas.Top="103" Height="26"/>
+                      SelectionChanged="sFactors_SelectionChanged" Canvas.Top="103" Height="26"/>
 
         </Canvas>
+        <!-- ItemsSource="{Binding NotifyOnSourceUpdated=True, Source={StaticResource sFactorViewSource}, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="svariable" SelectedValuePath="svariable" 
+         -->
         <!-- List box and label for Current Selections -->
         <TextBox Grid.Row="0" HorizontalAlignment="Right" Height="32" Margin="0,102,55,0" TextAlignment="Center" Text="Current Scenario Selections" VerticalAlignment="Top" Width="500" Background="LemonChiffon"/>
         <ListBox Grid.Row="0" Name="SelectionListBox" HorizontalAlignment="Right" Height="166" Margin="0,155,55,0" VerticalAlignment="Top" Width="500"/>

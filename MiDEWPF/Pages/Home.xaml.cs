@@ -34,21 +34,22 @@ namespace MiDEWPF.Pages
         List<int> SValues = new List<int>();
         int i = 0;
         int j = 0;
+        int k = 0;
         #endregion
         #region Global Variables
         public MiDEDataSet ds = new MiDEDataSet();
         public static int SValuesSum;
         public int ScenarioNumber;
         #endregion
-
         
         public Home()
         {
 
             InitializeComponent();
+            
 
             #region Get Data
-           
+
             ds = ((MiDEDataSet)(FindResource("mideDataSet")));
             MiDEDataSetTableAdapters.MiDEBuildingsTableAdapter adapter = new MiDEDataSetTableAdapters.MiDEBuildingsTableAdapter();
             MiDEDataSetTableAdapters.MiDEPopulationTableAdapter padapter = new MiDEDataSetTableAdapters.MiDEPopulationTableAdapter();
@@ -66,6 +67,12 @@ namespace MiDEWPF.Pages
             eadapter.Fill(ds.MiDEEValues);
             #endregion
             
+            foreach(var item in ds.MiDESValues)
+            {
+                string comboboxtext = ds.MiDESValues.Rows[k][1].ToString();
+                sFactorCB.Items.Add(comboboxtext);
+                k++;
+            }
             
 
             #region Generate ScenarioNumber
@@ -132,24 +139,30 @@ namespace MiDEWPF.Pages
 
         private void sFactors_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MiDEDataSet ds = new MiDEDataSet();
-            MiDEDataSetTableAdapters.MiDESValuesTableAdapter svadapter = new MiDEDataSetTableAdapters.MiDESValuesTableAdapter();
-            string add = sFactorCB.SelectedValue.ToString();
-            svadapter.FillBySValue(ds.MiDESValues, add);
+            int z = 0;
+            List<string> SVariable = new List<string>();
 
+            //MiDEDataSet ds = new MiDEDataSet();
+            //MiDEDataSetTableAdapters.MiDESValuesTableAdapter svadapter = new MiDEDataSetTableAdapters.MiDESValuesTableAdapter();
+            string add = sFactorCB.SelectedValue.ToString();
+            //svadapter.FillBySValue(ds.MiDESValues, add);
+
+            string svariable = ds.MiDESValues.Rows[0][1].ToString();
             var svalue = ds.MiDESValues.Rows[0][2].ToString();
             int Svalue = int.Parse(svalue);
             
             SValues.Add(Svalue);
             SelectionListBox.Items.Add(add);
             SelectionBox.Add(add);
+            SVariable.Add(svariable);
 
             // when a new item is added to Selection list box, select it and show it
             // this will keep the last item highlighted and as the list grows beyond
             // the view of the list box, the last item will always be shown
             SelectionListBox.SelectedIndex = SelectionListBox.Items.Count - 1;
             SelectionListBox.ScrollIntoView(SelectionListBox.SelectedItem);
-            
+
+            //sFactorCB.SelectedIndex = -1;
         }
 
         private void selectExclusionCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -208,6 +221,7 @@ namespace MiDEWPF.Pages
             { 
                 SValues.RemoveAt(listIterator);
             }
+            
             return;
         }
 
@@ -235,6 +249,14 @@ namespace MiDEWPF.Pages
         //write to DB and Navigate to next page
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            inputOptions.Children.Clear();
+            exclusionOptions.Children.Clear();
+            //selectedVacatingBuildingCB.Text = "Select Building";
+            //selectedPopRangeCB.Text = "Select Population Range";
+            //selectedPopTypeCB.Text = "Select Population Type";
+            //selectBuildingCB.Text = "Select Building";
+            //sFactorCB.Text = "Compression Factors";
+
             MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
             SValuesSum = SValues.Sum();
 
@@ -251,6 +273,8 @@ namespace MiDEWPF.Pages
                 wadapter.Insert(ScenarioNumber, null, currentIterator, null);
                 j++;
             }
+
+            
 
             NavigationService.Navigate(
                 new Uri("Pages/MiDESelection.xaml", UriKind.Relative));

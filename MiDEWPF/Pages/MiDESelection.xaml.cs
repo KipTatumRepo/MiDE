@@ -27,31 +27,23 @@ namespace MiDEWPF.Pages
         #region Local Variables
         int i = 0;
         int b = 0;
-        int ScenarioNumber;
+        public static int ScenarioNumber;
         SqlCommand Cmd;
         int SValue;
         List<string> content = new List<string>();
         List<string> ExclusionBoxEach = new List<string>();
+        
         List<int> Buttons = new List<int>();
         List<int> dispose = new List<int>();
-
-
         MiDEDataSet ds = new MiDEDataSet();
-        //Random Number Generator for testing purposes
-        Random random = new Random();
-        int row;
-
-
         #endregion
 
         #region Global Variables
         public static int EValuesSum;
         public List<int> EValues = new List<int>();
+        public static List<string> MitigationSelection = new List<string>();
         Home newhome = new Home();
         #endregion
-
-
-
 
         public MiDESelection()
         {
@@ -76,7 +68,7 @@ namespace MiDEWPF.Pages
             //so we have to subtract 1 to make sure it all matches
             SValue = Home.SValuesSum;
             ScenarioNumber = newhome.ScenarioNumber;
-            ScenarioNumber--;
+            
 
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
@@ -89,15 +81,18 @@ namespace MiDEWPF.Pages
 
             sda.Fill(dt);
             
-            currentExclusionLB.ItemsSource = dt.DefaultView;
-            //currentScenarioLB.Items.Clear();
-            //conn.Close();
+            currentExclusionLB.ItemsSource = Home.ExclusionBox;
+           
 
             wadapter.FillByScenarioNumber(ds.MiDEWrite, ScenarioNumber);
-            currentScenarioLB.ItemsSource = ds.MiDEWrite;
+
+            //currentScenarioLB.Items.Clear();
+            currentScenarioLB.ItemsSource = Home.SelectionBox;
+            //if(currentScenarioLB.)
+            //Home.SelectionBox.Clear();
+
             #endregion
 
-            //Deal(SValue, 3);
 
             if (Home.ExclusionBox.Count() >= 1)
             {
@@ -154,7 +149,7 @@ namespace MiDEWPF.Pages
             return FilteredList;
         }
 
-        public Button CreateButtons(List<string> list, int i)
+        public NewButton CreateButtons(List<string> list, int i)
         {
             NewButton button = new NewButton();
             Style style = FindResource("mButton") as Style;
@@ -207,6 +202,7 @@ namespace MiDEWPF.Pages
             if (idk == bbase + "Food Truck Support")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[0][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[0][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[0][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -215,6 +211,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Permanent Pop-Up")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[1][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[1][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[1][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -223,6 +220,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Food Delivery Service")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[2][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[2][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[2][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -231,6 +229,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Increase DTO Offerings/Stations")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[3][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[3][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[3][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -239,6 +238,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Market@ Product Expansion")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[4][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[4][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[4][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -247,6 +247,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Grab & Go ")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[5][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[5][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[5][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -255,6 +256,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Simplify Existing Concepts")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[6][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[6][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[6][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -263,6 +265,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Customer/Stakeholder Pre-Meetings")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[7][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[7][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[7][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -271,6 +274,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Station Awareness Comms")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[8][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[8][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[8][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -279,6 +283,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Readiness Tours")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[9][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[9][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[9][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -287,6 +292,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "LTO Beverages")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[10][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[10][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[10][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -295,6 +301,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Dedicated Shuttles")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[11][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[11][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[11][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -303,6 +310,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Temp/Additional Water Stations")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[12][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[12][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[12][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -311,6 +319,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Extended Service Times")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[13][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[13][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[13][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -319,6 +328,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Discounts for Off-Time Service")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[14][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[14][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[14][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -327,6 +337,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Replace Static Station(Local Brand)")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[15][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[15][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[15][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -335,6 +346,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Welcome Events")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[16][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[16][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[16][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -343,6 +355,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Goodbye Parties")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[17][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[17][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[17][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -351,6 +364,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Welcome Parties")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[18][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[18][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[18][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -359,6 +373,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Move Survival Kit")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[19][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[19][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[19][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -367,6 +382,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Station Sampling")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[20][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[20][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[20][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -375,6 +391,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Utilize Atrium & Non-Standard Spaces")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[21][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[21][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[21][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -383,6 +400,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Replace Static Station(Our Concept)")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[26][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[26][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[26][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -391,6 +409,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Temporary Pop-Up")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[22][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[22][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[22][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -399,6 +418,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Mobile Pop-Up")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[24][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[24][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[24][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -407,6 +427,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Nextep Bank Install")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[25][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[25][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[25][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -415,6 +436,7 @@ namespace MiDEWPF.Pages
             else if (idk == bbase + "Linebusting")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[23][2].ToString());
+                MitigationSelection.Add(ds.MiDEEValues.Rows[23][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[23][3].ToString();
                 int Evalue = int.Parse(evalue);
 
@@ -427,6 +449,31 @@ namespace MiDEWPF.Pages
         private void ShowResults_Click(object sender, RoutedEventArgs e)
         {
             EValuesSum = EValues.Sum();
+            MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
+            int i = 0;
+            int j = 0;
+            int k = 0;
+
+            foreach (var item in Home.SelectionBox)
+            {
+                string currentIterator = Home.SelectionBox[i].ToString();
+                wadapter.Insert(ScenarioNumber, currentIterator, null, null);
+                i++;
+            }
+
+            foreach (var item in Home.ExclusionBox)
+            {
+                string currentIterator = Home.ExclusionBox[j].ToString();
+                wadapter.Insert(ScenarioNumber, null, currentIterator, null);
+                j++;
+            }
+            foreach( var item in MitigationSelection)
+            {
+                string currentIterator = MitigationSelection[k].ToString();
+                wadapter.Insert(ScenarioNumber, null, null, currentIterator);
+                k++;
+            }
+            
 
             NavigationService.Navigate(
                 new Uri("Pages/MiDEResults.xaml", UriKind.Relative));
@@ -453,5 +500,16 @@ namespace MiDEWPF.Pages
             return;
         }
         #endregion
+
+        private void PreviousPage_Click(object sender, RoutedEventArgs e)
+        {
+            
+            Home.SelectionBox.Clear();
+            Home.ExclusionBox.Clear();
+            NavigationService.Navigate(
+                new Uri("Pages/Home.xaml", UriKind.Relative));
+            
+            
+        }
     }
 }

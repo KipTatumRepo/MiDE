@@ -143,6 +143,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="thumbsUp.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SadDonkey.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

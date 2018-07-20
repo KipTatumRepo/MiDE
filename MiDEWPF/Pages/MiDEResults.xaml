@@ -10,14 +10,18 @@
 
     <Grid>
         <Canvas HorizontalAlignment="Left" Height="440" VerticalAlignment="Top" Width="790">
-            <TextBlock Canvas.Left="34" TextWrapping="Wrap" Text="MiDE Calculated with the supplied parameters that in the current scenario you S factor is " Canvas.Top="28" Height="40" Width="435"/>
-            <TextBlock x:Name="SFactorTB" Canvas.Left="34" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="73" Width="183" Height="51"/>
-            <TextBlock Canvas.Left="34" TextWrapping="Wrap" Text="Your chosen mitigations have a value of" Canvas.Top="129" Width="332" Height="25"/>
-            <TextBlock x:Name="EValueTB" Canvas.Left="38" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="177" Width="431" Height="46"/>
-            <TextBlock Canvas.Left="41" TextWrapping="Wrap" Text="These selections will lower your S factor to " Canvas.Top="253" Width="226" Height="47"/>
-            <TextBlock x:Name="ResultsTB" Canvas.Left="41" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="321" Width="89" Height="37"/>
-
+            <TextBlock x:Name="ScenarioNumberDispaly"  Canvas.Left="34" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="25" Width="435" Height="21"/>
+            <TextBlock x:Name="SFactorDisplay" Canvas.Left="34" TextWrapping="Wrap" Canvas.Top="51" Height="40" Width="501"/>
+            <TextBlock x:Name="SFactorDisplayArray" Canvas.Left="34" TextWrapping="Wrap" Canvas.Top="96" Height="39" Width="501"/>
+            <TextBlock x:Name="SFactorTB" Canvas.Left="34" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="155" Width="183" Height="20"/>
+            <TextBlock Canvas.Left="34" TextWrapping="Wrap" Text="Your chosen mitigations are" Canvas.Top="180" Width="332" Height="25"/>
+            <TextBlock x:Name="MitigationDisplayArray" Canvas.Left="34" TextWrapping="Wrap" Canvas.Top="210" Width="435" Height="58"/>
+            <TextBlock x:Name="EValueDispaly" Canvas.Left="34" TextWrapping="Wrap" Canvas.Top="273" Width="431" Height="21"/>
+            <TextBlock x:Name="StrategyExclusion" Canvas.Left="34" TextWrapping="Wrap" Text="You Excluded The Following Strategy and Mitigation Options" Canvas.Top="299" Width="431" Height="21"/>
+            <TextBlock x:Name="StrategyExclusionArray" Canvas.Left="38" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="325" Width="431" Height="21"/>
+            <TextBlock x:Name="ResultsTB" Canvas.Left="34" TextWrapping="Wrap" Canvas.Top="408" Width="427" Height="22"/>
         </Canvas>
-
+        <TextBlock x:Name="SadImage" Canvas.Left="34" TextWrapping="Wrap"  Height="22" Margin="536,71,36,357" />
+        <Image x:Name="ImageHolder" HorizontalAlignment="Left" Height="174" Margin="479,106,0,0" VerticalAlignment="Top" Width="311" />
     </Grid>
 </Page>

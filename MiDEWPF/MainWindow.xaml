@@ -10,6 +10,6 @@
         Width="{Binding Path=ViewportWidth}"
         FontFamily="Segoe UI Emoji">
     <Grid Background="OldLace">
-        <Frame Source="Pages/Home.xaml"/>
+        <Frame Source="Pages/Home.xaml" NavigationUIVisibility="Hidden" />
     </Grid>
 </Window>

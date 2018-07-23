@@ -4,9 +4,44 @@
              xmlns:local="clr-namespace:MiDEWPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <ControlTemplate x:Key="NavButton" TargetType="Frame">
+            <DockPanel Margin="7">
+                <StackPanel 
+            Margin="7"
+            Orientation="Horizontal"
+            DockPanel.Dock="Top"
+            >
+                    <Button 
+                Content="Avast! Go back!" 
+                Command="{x:Static NavigationCommands.BrowseBack}" 
+                IsEnabled="{TemplateBinding CanGoBack}" 
+                />
+                    <Button 
+                Content="Forward you dogs!" 
+                Command="{x:Static NavigationCommands.BrowseForward}" 
+                IsEnabled="{TemplateBinding CanGoForward}" 
+                />
+                </StackPanel>
+
+                <Border 
+            BorderBrush="Green"
+            Margin="7"
+            BorderThickness="7"
+            Padding="7"
+            CornerRadius="7"
+            Background="White"
+            >
+                    <ContentPresenter />
+                </Border>
+            </DockPanel>
+        </ControlTemplate>
         <LinearGradientBrush x:Key="ButtonGradientBrush" StartPoint="0,1" EndPoint="0,0">
             <GradientStop Color="ForestGreen" Offset="0" />
             <GradientStop Color="LightGreen" Offset="1" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="mButtonGradientBrush" StartPoint="0,1" EndPoint="0,0">
+            <GradientStop Color="Blue" Offset="0" />
+            <GradientStop Color="LightBlue" Offset="1" />
         </LinearGradientBrush>
         <Style x:Key="Buttons" TargetType="{x:Type Button}" >
             <Setter Property="Width" Value="125" />
@@ -41,6 +76,40 @@
                 </Setter.Value>
             </Setter>
         </Style>
-         
+
+        
+
+        <Style x:Key="mButton" TargetType="{x:Type Button}" >
+            <Setter Property="Width" Value="110" />
+            <Setter Property="Height" Value="75" />
+            <Setter Property="Background" Value="{StaticResource mButtonGradientBrush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True" RenderTransformOrigin="0.5,0.5" x:Name="ButtonGrid">
+                            <Rectangle x:Name="innerRectangle" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="Transparent" StrokeThickness="5" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <DockPanel Name="myContentPresenterDockPanel">
+                                <TextBlock Text="{TemplateBinding Content}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5,5,5,5"/>
+                            </DockPanel>
+                        </Grid>
+                        
+                        <!--what happens at various events-->
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property ="Rectangle.Stroke" TargetName="innerRectangle" Value="LightBlue" />
+                            </Trigger>
+                            <Trigger Property ="IsPressed" Value ="True">
+                                <Setter TargetName="ButtonGrid" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Application.Resources>
 </Application>

@@ -7,39 +7,20 @@ using System.Threading.Tasks;
 
 namespace MiDEWPF.Models
 {
-    public class CafeCombobox
+    public class Population
     {
-    }
-
-    public class Cafe : INotifyPropertyChanged
-    {
-        private string cafeName;
-        private int uid;
-
-        public int Uid
+        private string popAmount;
+        
+        public string PopAmount
         {
             get
             {
-                return uid;
-            }
-
-            set
-            {
-                uid = value;
-                RaisePropertyChanged("Uid");
-            }
-        }
-
-        public string CafeName
-        {
-            get
-            {
-                return cafeName;
+                return popAmount ;
             }
             set
             {
-                cafeName = value;
-                RaisePropertyChanged("CafeName");
+                popAmount = value;
+                RaisePropertyChanged("PopAmount");
             }
         }
 

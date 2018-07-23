@@ -11,7 +11,7 @@
     <Page.Resources>
         <local:MiDEDataSet x:Key="mideDataSet"/>
     </Page.Resources>
-    <Grid Margin="5,5,5,5" Width="{Binding Path=ViewportWidth}">
+    <Grid Margin="5,5,5,5" >
         <Grid.RowDefinitions>
             <RowDefinition Height="310*"/>
             <RowDefinition Height="60*"/>

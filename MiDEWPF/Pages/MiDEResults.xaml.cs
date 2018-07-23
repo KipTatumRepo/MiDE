@@ -28,41 +28,45 @@ namespace MiDEWPF.Pages
             InitializeComponent();
 
             ScenarioNumberDispaly.Text = "For Scenario # " + MiDESelection.ScenarioNumber;
-            SFactorDisplay.Text = "MiDE Calculated with the supplied parameters of ";
+            ScenarioNumberDispaly.FontSize = 32;
+            SFactorDisplay.Text = "MiDE Calculated With The Supplied Parameters Of ";
+            SFactorDisplay.FontSize = 32;
             SFactorDisplayArray.Text = string.Join(", ", Home.SelectionBox);
             SFactorTB.Text = "The S Factor total is " + Home.SValuesSum.ToString();
+            SFactorTB.FontSize = 32;
             MitigationDisplayArray.Text = string.Join(", ", MiDESelection.MitigationSelection);
-            EValueDispaly.Text = "And Have a Enhancement Value of " + MiDESelection.EValuesSum.ToString();
+            EValueDispaly.Text = "Which Have An Enhancement Value of " + MiDESelection.EValuesSum.ToString();
+            EValueDispaly.FontSize = 32;
             StrategyExclusionArray.Text = string.Join(", ", Home.ExclusionBox);
-            ResultsTB.Text = "These selections will lower your S factor to " + (Home.SValuesSum - MiDESelection.EValuesSum).ToString();
+            ResultsTB.Text = "These Selections Will Lower Your S Factor To " + (Home.SValuesSum - MiDESelection.EValuesSum).ToString();
+            ResultsTB.FontSize = 32;
 
-            if(Home.SValuesSum - MiDESelection.EValuesSum <= 5)
+            if (Home.SValuesSum - MiDESelection.EValuesSum <= 5)
             {
+                Image.Text = "Great Job";
+                Image.FontSize = 32;
                 var uri = new Uri("pack://application:,,,/thumbsUp.jpg", UriKind.Absolute);
-                //Image myImage = new Image();
-                //Image newimage = new Image();
-                //BitmapImage bi = new BitmapImage();
-                //bi.BeginInit();
-                //bi.UriSource = new Uri("thumbsUp.JPG, UriKind.Relative");
-                //bi.EndInit();
+                
                
 
                 ImageHolder.Source = new BitmapImage(uri);
             }
             else
             {
-                SadImage.Text = "Try Harder";
+                Image.Text = "Try Harder";
+                Image.FontSize = 32;
                 var uri = new Uri("pack://application:,,,/SadDonkey.png", UriKind.Absolute);
-                //Image myImage = new Image();
-                //Image newimage = new Image();
-                //BitmapImage bi = new BitmapImage();
-                //bi.BeginInit();
-                //bi.UriSource = new Uri("thumbsUp.JPG, UriKind.Relative");
-                //bi.EndInit();
+                
 
                 ImageHolder.Source = new BitmapImage(uri);
+                
             }
         }
-       
+
+        private void NewScenario_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(
+                new Uri("Pages/Home.xaml", UriKind.Relative));
+        }
     }
 }

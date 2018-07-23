@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MiDEWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="{Binding Path=ViewportHeight}" 
+        Title="MainWindow" Height="auto" 
         WindowState="Maximized" MinWidth="1024" MinHeight="800"
-        Width="{Binding Path=ViewportWidth}"
+        Width="auto"
         FontFamily="Segoe UI Emoji">
     <Grid Background="OldLace">
-        <Frame Source="Pages/Home.xaml"/>
+        <Frame Source="Pages/Home.xaml" NavigationUIVisibility="Hidden" />
     </Grid>
 </Window>

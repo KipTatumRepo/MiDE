@@ -4,6 +4,37 @@
              xmlns:local="clr-namespace:MiDEWPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <ControlTemplate x:Key="NavButton" TargetType="Frame">
+            <DockPanel Margin="7">
+                <StackPanel 
+            Margin="7"
+            Orientation="Horizontal"
+            DockPanel.Dock="Top"
+            >
+                    <Button 
+                Content="Avast! Go back!" 
+                Command="{x:Static NavigationCommands.BrowseBack}" 
+                IsEnabled="{TemplateBinding CanGoBack}" 
+                />
+                    <Button 
+                Content="Forward you dogs!" 
+                Command="{x:Static NavigationCommands.BrowseForward}" 
+                IsEnabled="{TemplateBinding CanGoForward}" 
+                />
+                </StackPanel>
+
+                <Border 
+            BorderBrush="Green"
+            Margin="7"
+            BorderThickness="7"
+            Padding="7"
+            CornerRadius="7"
+            Background="White"
+            >
+                    <ContentPresenter />
+                </Border>
+            </DockPanel>
+        </ControlTemplate>
         <LinearGradientBrush x:Key="ButtonGradientBrush" StartPoint="0,1" EndPoint="0,0">
             <GradientStop Color="ForestGreen" Offset="0" />
             <GradientStop Color="LightGreen" Offset="1" />

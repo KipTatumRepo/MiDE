@@ -29,8 +29,7 @@ namespace MiDEWPF.Pages
         #region Page Variables
         //TODO This will be needed for menu style
         //public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
-        public static List<string> SelectionBox = new List<string>();
-        public static List<string> ExclusionBox = new List<string>();
+        
         List<int> SValues = new List<int>();
         int i = 0;
         int j = 0;
@@ -38,16 +37,18 @@ namespace MiDEWPF.Pages
         int l = 0;
         #endregion
         #region Global Variables
+        public static List<string> SelectionBox = new List<string>();
+        public static List<string> ExclusionBox = new List<string>();
         public MiDEDataSet ds = new MiDEDataSet();
         public static int SValuesSum;
         public int ScenarioNumber;
+       // public int ScenarioNumberB;
         #endregion
         
         public Home()
         {
 
             InitializeComponent();
-            
 
             #region Get Data
 
@@ -66,8 +67,8 @@ namespace MiDEWPF.Pages
             sadapter.Fill(ds.MiDESValues);
             stadapter.Fill(ds.MiDEStrategyGroups);
             eadapter.Fill(ds.MiDEEValues);
-            #endregion
-            
+           
+            //these loops populate sFactorCB and strategyExclusionCB
             foreach(var item in ds.MiDESValues)
             {
                 string comboboxtext = ds.MiDESValues.Rows[k][1].ToString();
@@ -81,8 +82,8 @@ namespace MiDEWPF.Pages
                 strategyExclusionCB.Items.Add(comboboxtext);
                 l++;
             }
-               
-            
+            #endregion
+
 
             #region Generate ScenarioNumber
             //For generating a scenario number, get the last value in the writeDB and add 1
@@ -90,6 +91,7 @@ namespace MiDEWPF.Pages
             last = wadapter.GetDataByLast();
             int lastvalue = (int)last.Rows[0][1];
             ScenarioNumber = lastvalue + 1;
+           
             #endregion
 
         }
@@ -103,6 +105,10 @@ namespace MiDEWPF.Pages
         //Add selections to appropriate list box when selection is changed
         private void selectedVacatingBuildingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (selectedVacatingBuildingCB.SelectedIndex == -1 || selectedVacatingBuildingCB.SelectedValue == null)
+            {
+                return;
+            }
             string add = selectedVacatingBuildingCB.SelectedValue.ToString();
 
             SelectionListBox.Items.Add(add);
@@ -112,6 +118,10 @@ namespace MiDEWPF.Pages
 
         private void selectedPopRangeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (selectedPopRangeCB.SelectedIndex == -1 || selectedPopRangeCB.SelectedValue == null)
+            {
+                return;
+            }
             string add = selectedPopRangeCB.SelectedValue.ToString();
 
             SelectionListBox.Items.Add(add);
@@ -121,6 +131,10 @@ namespace MiDEWPF.Pages
 
         private void selectedPopTypeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (selectedPopTypeCB.SelectedIndex == -1 || selectedPopTypeCB.SelectedValue == null)
+            {
+                return;
+            }
             string add = selectedPopTypeCB.SelectedValue.ToString();
 
             SelectionListBox.Items.Add(add);
@@ -130,6 +144,10 @@ namespace MiDEWPF.Pages
 
         private void selectBuildingCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (selectBuildingCB.SelectedIndex == -1 || selectBuildingCB.SelectedValue == null)
+            {
+                return;
+            }
             string add = selectBuildingCB.SelectedValue.ToString();
 
             SelectionListBox.Items.Add(add);
@@ -139,6 +157,7 @@ namespace MiDEWPF.Pages
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
+
             string add = datePicker.SelectedDate.ToString();
 
             SelectionListBox.Items.Add(add);
@@ -275,30 +294,21 @@ namespace MiDEWPF.Pages
         //write to DB and Navigate to next page
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            selectedVacatingBuildingCB.Text = "Select Building";
+            selectedPopRangeCB.Text = "Select Population Range";
+            selectedPopTypeCB.Text = "Select Population Type";
+            selectBuildingCB.Text = "Select Building";
             sFactorCB.Text = "Compression Factors";
             strategyExclusionCB.Text = "Select Strategy Exclusions";
             mitigationExclusionCB.Text = "Select Mitigation Exclusions";
+           
             MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
             SValuesSum = SValues.Sum();
-
-            foreach (var item in SelectionBox)
-            {
-                string currentIterator = SelectionBox[i].ToString();
-                wadapter.Insert(ScenarioNumber, currentIterator, null, null);
-                i++;
-            }
-
-            foreach (var item in ExclusionBox)
-            {
-                string currentIterator = ExclusionBox[j].ToString();
-                wadapter.Insert(ScenarioNumber, null, currentIterator, null);
-                j++;
-            }
-
             
 
             NavigationService.Navigate(
                 new Uri("Pages/MiDESelection.xaml", UriKind.Relative));
+            
         }
         #endregion
     }

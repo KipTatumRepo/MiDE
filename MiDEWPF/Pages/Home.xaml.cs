@@ -35,6 +35,7 @@ namespace MiDEWPF.Pages
         int j = 0;
         int k = 0;
         int l = 0;
+        int Throttle;
         #endregion
         #region Global Variables
         public static List<string> SelectionBox = new List<string>();
@@ -42,6 +43,7 @@ namespace MiDEWPF.Pages
         public MiDEDataSet ds = new MiDEDataSet();
         public static int SValuesSum;
         public int ScenarioNumber;
+        public static int isThrottled;
        // public int ScenarioNumberB;
         #endregion
         
@@ -239,6 +241,19 @@ namespace MiDEWPF.Pages
             mitigationExclusionCB.SelectedIndex = -1;
             //return;
         }
+
+        private void BudgetThrottle_Checked(object sender, RoutedEventArgs e)
+        {
+            if(BudgetThrottle.IsChecked == true)
+            {
+                Throttle = 1;
+            }
+            else
+            {
+                Throttle = 0;
+            }
+            
+        }
         #endregion
 
         #region Button Events
@@ -302,14 +317,16 @@ namespace MiDEWPF.Pages
             strategyExclusionCB.Text = "Select Strategy Exclusions";
             mitigationExclusionCB.Text = "Select Mitigation Exclusions";
            
-            MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
+            //MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
             SValuesSum = SValues.Sum();
-            
-
+            isThrottled = Throttle;
             NavigationService.Navigate(
                 new Uri("Pages/MiDESelection.xaml", UriKind.Relative));
             
         }
+
         #endregion
+
+        
     }
 }

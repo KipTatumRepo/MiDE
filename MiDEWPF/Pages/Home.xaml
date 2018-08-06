@@ -39,7 +39,8 @@
             <TextBlock HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap" Text="Occupying Building" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap" Text="Expected Move Date" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap" Text="Compression Factors" VerticalAlignment="Top"/>
-            <CheckBox  HorizontalAlignment="Left" Margin="0,15,0,0" Content="Constrain Budget" IsChecked="True"/>
+            <CheckBox  x:Name="BudgetThrottle" HorizontalAlignment="Left" Margin="0,15,0,0" Content="Constrain Budget" IsChecked="True" Checked="BudgetThrottle_Checked"
+                       Unchecked="BudgetThrottle_Checked" />
         </StackPanel>
         <!-- Stack Panel for Various Selection Boxes-->
         <Canvas Grid.Row="0" x:Name="inputOptions" HorizontalAlignment="Left" Height="143" VerticalAlignment="Top" Width="619" Margin="180,155,0,0" >

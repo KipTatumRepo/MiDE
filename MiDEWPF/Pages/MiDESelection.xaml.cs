@@ -24,20 +24,6 @@ namespace MiDEWPF.Pages
     /// </summary>
     public partial class MiDESelection : Page
     {
-        #region Local Variables
-        int i = 0;
-        int b = 0;
-        public static int ScenarioNumber;
-        SqlCommand Cmd;
-        int SValue;
-        List<string> content = new List<string>();
-        List<string> ExclusionBoxEach = new List<string>();
-        
-        List<int> Buttons = new List<int>();
-        List<int> dispose = new List<int>();
-        MiDEDataSet ds = new MiDEDataSet();
-        #endregion
-
         #region Global Variables
         public static int EValuesSum;
         public List<int> EValues = new List<int>();
@@ -45,8 +31,23 @@ namespace MiDEWPF.Pages
         Home newhome = new Home();
         #endregion
 
+        #region Local Variables
+        //int i = 0;
+        int b = 0;
+        public static int ScenarioNumber;
+        SqlCommand Cmd;
+        int SValue;
+        List<string> content = new List<string>();
+        MiDEDataSet ds = new MiDEDataSet();
+        //public static DataTable ExclusionSelectionRemainingTable = new DataTable();
+        
+        #endregion
+
         public MiDESelection()
         {
+            //import style for buttons
+            Style style = FindResource("mButton") as Style;
+
             foreach (var item in Home.ExclusionBox)
             {
                 string ebitem = Home.ExclusionBox[b].ToString();
@@ -55,8 +56,6 @@ namespace MiDEWPF.Pages
             
             InitializeComponent();
             
-            //import style for buttons
-            Style style = FindResource("mButton") as Style;
             #region Get Data
             MiDEDataSetTableAdapters.MiDEEValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
             MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
@@ -64,12 +63,11 @@ namespace MiDEWPF.Pages
             eadapter.Fill(ds.MiDEEValues);
             wadapter.Fill(ds.MiDEWrite);
 
-            //Get sum of S values and current Scenario Number from Home page.  For some reason it increments by 1 before coming here
-            //so we have to subtract 1 to make sure it all matches
+            //Get sum of S values and current Scenario Number from Home page.  
             SValue = Home.SValuesSum;
             ScenarioNumber = newhome.ScenarioNumber;
             
-
+            //Connection stuff
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
             string sqlString = "SELECT ScenarioNumber, SelectionListBox, ExclusionListBox, CurrentMitigationListBox, wid FROM MiDEWrite WHERE(ScenarioNumber = @ScenarioNumber) AND(ExclusionListBox IS NOT NULL)";
@@ -82,25 +80,26 @@ namespace MiDEWPF.Pages
             sda.Fill(dt);
             
             currentExclusionLB.ItemsSource = Home.ExclusionBox;
-           
 
             wadapter.FillByScenarioNumber(ds.MiDEWrite, ScenarioNumber);
-
-            //currentScenarioLB.Items.Clear();
+            
             currentScenarioLB.ItemsSource = Home.SelectionBox;
-            //if(currentScenarioLB.)
-            //Home.SelectionBox.Clear();
+
 
             #endregion
 
+            DataTable fdt  = new DataTable("FilteredDataTable");
+            Dictionary<string, int> filteredDictionary = new Dictionary<string, int>();
+            int i = 0;
 
             if (Home.ExclusionBox.Count() >= 1)
             {
-                List<string> FilteredList = Shuffle(Home.ExclusionBox);
-
-                foreach (var item in FilteredList)
+                fdt = HomeSelectionFilter(Home.ExclusionBox);
+                filteredDictionary = Deal(fdt);
+                
+                foreach(var item in filteredDictionary)
                 {
-                    mitigationDisplay.Children.Add(CreateButtons(FilteredList, i));
+                    mitigationDisplay.Children.Add(CreateButtons(KeyList(filteredDictionary), i));
                     i++;
                 }
                 AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
@@ -116,47 +115,73 @@ namespace MiDEWPF.Pages
                 }
                 AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
             }
-
         }
 
-        public List<string> Shuffle(List<string> exclusionBox)
+        //Algorithm Implementation
+        //First we need to Filter out Strategies or Evariables that are selected as exclusions from Home page
+        
+        public DataTable HomeSelectionFilter(List<string> exclusionBox)
         {
-            List<string> FilteredList = new List<string>();
-            int i = 0;
+            DataTable dts = new DataTable("MiDEFilterWrite");
+            //int i = 0;
             SqlCommand cmd;
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
 
             exclusionBox = Home.ExclusionBox;
 
-            string sqlString = "SELECT * FROM MiDEEValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable})";
-            cmd = new SqlCommand(sqlString, conn);
-
-            cmd.AddArrayParameters("StrategyName", exclusionBox);
-            cmd.AddArrayParameters("EVariable", exclusionBox);
-
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dts = new DataTable("MiDEFilterWrite");
-
-            da.Fill(dts);
-
-            DataColumn col = dts.Columns["EVariable"];
-            foreach (DataRow row in dts.Rows)
+            if(Home.isThrottled == 1)
             {
-                FilteredList.Add(row[col].ToString());
-                i++;
+                string sqlString = "SELECT * FROM MiDEEValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable})";
+                cmd = new SqlCommand(sqlString, conn);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                cmd.AddArrayParameters("StrategyName", exclusionBox);
+                cmd.AddArrayParameters("EVariable", exclusionBox);
+                da.Fill(dts);
             }
-            return FilteredList;
+            return dts;
+        }
+
+        //Next we . . .
+        public Dictionary<string, int> Deal(DataTable dt)
+        {
+            Dictionary<string, int> EDictionary = new Dictionary<string, int>();
+            DataTable SortedTable = new DataTable();
+            dt.DefaultView.Sort = "[Evalue] ASC";
+            SortedTable = dt.DefaultView.ToTable();
+
+            foreach (DataRow row in SortedTable.Rows)
+            {
+
+                string EVariable = row[2].ToString();
+                string EValue = row[3].ToString(); 
+                int EInt = int.Parse(EValue);
+                EDictionary.Add(EVariable, EInt);
+            }
+            return EDictionary;
         }
 
         public NewButton CreateButtons(List<string> list, int i)
         {
+            
             NewButton button = new NewButton();
             Style style = FindResource("mButton") as Style;
             button.Content = list[i].ToString();
             button.Style = style;
             content.Add(button.Content.ToString());
             return button;
+        }
+
+        public List<string> KeyList(Dictionary<string, int> dictionary)
+        {
+            NewButton button = new NewButton();
+            List<string> keys = new List<string>();
+
+            foreach (KeyValuePair<string, int> kvp in dictionary )
+            {
+                keys.Add(kvp.Key);
+            }
+            return keys;
         }
 
         public List<string> AllEValueList()
@@ -184,14 +209,6 @@ namespace MiDEWPF.Pages
             return AllEValues;
         }
 
-        /*public List<string> Deal(int svaluesum, int evalue)
-        {
-            int Svalue = svaluesum;
-            List<string> ha = new List<string>();
-            //MessageBox.Show(SValue.ToString());
-            return ha;
-        }*/
-        
         #region Button Events
         void button_Click(object sender, RoutedEventArgs e)
         {
@@ -499,17 +516,16 @@ namespace MiDEWPF.Pages
             EValues.RemoveAt(currentIterator);
             return;
         }
-        #endregion
 
         private void PreviousPage_Click(object sender, RoutedEventArgs e)
         {
-            
+
             Home.SelectionBox.Clear();
             Home.ExclusionBox.Clear();
             NavigationService.Navigate(
                 new Uri("Pages/Home.xaml", UriKind.Relative));
-            
-            
+
         }
+        #endregion
     }
 }

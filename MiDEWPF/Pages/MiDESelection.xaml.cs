@@ -32,27 +32,24 @@ namespace MiDEWPF.Pages
         #endregion
 
         #region Local Variables
-        //int i = 0;
         int b = 0;
         public static int ScenarioNumber;
         SqlCommand Cmd;
         int SValue;
         List<string> content = new List<string>();
         MiDEDataSet ds = new MiDEDataSet();
-        //public static DataTable ExclusionSelectionRemainingTable = new DataTable();
-        
         #endregion
 
         public MiDESelection()
         {
-            //import style for buttons
+            //Import style for buttons
             Style style = FindResource("mButton") as Style;
 
-            foreach (var item in Home.ExclusionBox)
+            /*foreach (var item in Home.ExclusionBox)
             {
                 string ebitem = Home.ExclusionBox[b].ToString();
                 b++;
-            }
+            }*/
             
             InitializeComponent();
             
@@ -93,7 +90,7 @@ namespace MiDEWPF.Pages
             int i = 0;
 
             #region Input Scenarios
-            //there are budget constraints and there are exclusions selected by the user
+            //There are budget constraints and there are exclusions selected by the user
             if (Home.ExclusionBox.Count() >= 1 && Home.isThrottled == 1)
             {
                 //Select Evalues that do not correspond to the exclusions selected by the user
@@ -110,7 +107,7 @@ namespace MiDEWPF.Pages
                 AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
             }
 
-            //there are budget constraints, but no exclusions
+            //There are budget constraints, but no exclusions
             else if (Home.isThrottled == 1)
             {
                 fdt = NoExclusions(Home.ExclusionBox);
@@ -126,7 +123,7 @@ namespace MiDEWPF.Pages
                 AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
             }
 
-            //there is an unlimited budget but there are exclusions selected by the user
+            //There is an unlimited budget but there are exclusions selected by the user
             else if (Home.ExclusionBox.Count() >= 1)
             {
                 fdt = HomeSelectionFilter(Home.ExclusionBox);
@@ -146,7 +143,7 @@ namespace MiDEWPF.Pages
                 AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
             }
 
-            //otherwise there is an unlimited budget and no exclusions
+            //Otherwise there is an unlimited budget and no exclusions
             else
             {
                 List<string> AlleValueList = AllEValueList();
@@ -223,7 +220,7 @@ namespace MiDEWPF.Pages
             return EDictionary;
         }
 
-        //create a List<string> of keys from dictionary so we can put text in buttons
+        //Create a List<string> of keys from dictionary so we can put text in buttons
         public List<string> KeyList(Dictionary<string, int> dictionary)
         {
             List<string> keys = new List<string>();

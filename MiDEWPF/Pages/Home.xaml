@@ -96,8 +96,8 @@
                       SelectionChanged="strategyExclusionCB_SelectionChanged"/>
             <!--ItemsSource="{Binding Source={StaticResource sGFactorViewSource}, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" DisplayMemberPath="StrategyName" SelectedValuePath="StrategyName" SelectedValue="StId"-->
             <ComboBox Name="mitigationExclusionCB" Text="Select Mitigation Exclusions" Margin="0,10,0,0" Width="600" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Left"
-                      ItemsSource="{Binding Source={StaticResource eFactorViewSource}, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" 
-                      DisplayMemberPath="EVariable" SelectedValuePath="EVariable" SelectionChanged="mitigationExclusion_SelectionChanged"/>
+                      SelectionChanged="mitigationExclusion_SelectionChanged"/>
+            <!--ItemsSource="{Binding Source={StaticResource eFactorViewSource}, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" DisplayMemberPath="EVariable" SelectedValuePath="EVariable"  -->
         </StackPanel>
         <!--Label and Listbox for exclusions-->
         <TextBox Grid.Row="2" HorizontalAlignment="Right" Height="32" Margin="0,0,55,0" TextAlignment="Center" Text="Current Exclusion Selections" VerticalAlignment="Top" Width="500" Background="LemonChiffon"/>

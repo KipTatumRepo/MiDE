@@ -45,12 +45,6 @@ namespace MiDEWPF.Pages
             //Import style for buttons
             Style style = FindResource("mButton") as Style;
 
-            /*foreach (var item in Home.ExclusionBox)
-            {
-                string ebitem = Home.ExclusionBox[b].ToString();
-                b++;
-            }*/
-            
             InitializeComponent();
             
             #region Get Data

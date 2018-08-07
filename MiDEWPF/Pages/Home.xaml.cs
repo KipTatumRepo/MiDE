@@ -31,8 +31,8 @@ namespace MiDEWPF.Pages
         //public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
         
         List<int> SValues = new List<int>();
-        int i = 0;
-        int j = 0;
+        //int i = 0;
+        //int j = 0;
         int k = 0;
         int l = 0;
         int Throttle;
@@ -317,7 +317,6 @@ namespace MiDEWPF.Pages
             strategyExclusionCB.Text = "Select Strategy Exclusions";
             mitigationExclusionCB.Text = "Select Mitigation Exclusions";
            
-            //MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
             SValuesSum = SValues.Sum();
             isThrottled = Throttle;
             NavigationService.Navigate(

@@ -92,9 +92,14 @@ namespace MiDEWPF.Pages
             Dictionary<string, int> filteredDictionary = new Dictionary<string, int>();
             int i = 0;
 
-            if (Home.ExclusionBox.Count() >= 1)
+            #region Input Scenarios
+            //there are budget constraints and there are exclusions selected by the user
+            if (Home.ExclusionBox.Count() >= 1 && Home.isThrottled == 1)
             {
+                //Select Evalues that do not correspond to the exclusions selected by the user
                 fdt = HomeSelectionFilter(Home.ExclusionBox);
+
+                //Take that datatable sort by ascending, add evariable as KEY and evalue as VALUE to dictionary
                 filteredDictionary = Deal(fdt);
                 
                 foreach(var item in filteredDictionary)
@@ -104,6 +109,44 @@ namespace MiDEWPF.Pages
                 }
                 AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
             }
+
+            //there are budget constraints, but no exclusions
+            else if (Home.isThrottled == 1)
+            {
+                fdt = NoExclusions(Home.ExclusionBox);
+
+                //Take that datatable sort by ascending, add evariable as KEY and evalue as VALUE to dictionary
+                filteredDictionary = Deal(fdt);
+
+                foreach(var item in filteredDictionary)
+                {
+                    mitigationDisplay.Children.Add(CreateButtons(KeyList(filteredDictionary), i));
+                    i++;
+                }
+                AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
+            }
+
+            //there is an unlimited budget but there are exclusions selected by the user
+            else if (Home.ExclusionBox.Count() >= 1)
+            {
+                fdt = HomeSelectionFilter(Home.ExclusionBox);
+                List<string> list = new List<string>();
+                DataColumn col = fdt.Columns["EVariable"];
+
+                foreach (DataRow row in fdt.Rows)
+                {
+                    list.Add(row[col].ToString());
+                }
+
+                foreach(var item in list)
+                {
+                    mitigationDisplay.Children.Add(CreateButtons(list, i));
+                    i++;
+                }
+                AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
+            }
+
+            //otherwise there is an unlimited budget and no exclusions
             else
             {
                 List<string> AlleValueList = AllEValueList();
@@ -115,66 +158,74 @@ namespace MiDEWPF.Pages
                 }
                 AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
             }
+            #endregion
         }
 
-        //Algorithm Implementation
-        //First we need to Filter out Strategies or Evariables that are selected as exclusions from Home page
-        
+        #region Algorithmic Functions
+        //Get a datatable based on Strategies or Evariables that are selected by the user as exclusions from Home page
         public DataTable HomeSelectionFilter(List<string> exclusionBox)
         {
             DataTable dts = new DataTable("MiDEFilterWrite");
-            //int i = 0;
+           
             SqlCommand cmd;
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
 
             exclusionBox = Home.ExclusionBox;
 
-            if(Home.isThrottled == 1)
-            {
-                string sqlString = "SELECT * FROM MiDEEValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable})";
-                cmd = new SqlCommand(sqlString, conn);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                cmd.AddArrayParameters("StrategyName", exclusionBox);
-                cmd.AddArrayParameters("EVariable", exclusionBox);
-                da.Fill(dts);
-            }
+            string sqlString = "SELECT * FROM MiDEEValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable})";
+            cmd = new SqlCommand(sqlString, conn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            cmd.AddArrayParameters("StrategyName", exclusionBox);
+            cmd.AddArrayParameters("EVariable", exclusionBox);
+            da.Fill(dts);
+           
             return dts;
         }
 
-        //Next we . . .
+        //Get all Evariables because there are not any exclusions added be the user but budget is constrained so we order by ASC
+        public DataTable NoExclusions(List<string> exclusionBox)
+        {
+            DataTable dts = new DataTable("MiDEFilterWrite");
+
+            SqlCommand cmd;
+            SqlConnection conn = ConnectionHelper.GetConn();
+            conn.Open();
+
+            exclusionBox = Home.ExclusionBox;
+
+            string sqlString = "Select * FROM MiDEEValues ORDER BY CostMoney ASC";
+
+            cmd = new SqlCommand(sqlString, conn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+            da.Fill(dts);
+
+            return dts;
+        }
+
+        //Load the datatable we got from the query based on having exclusions or not and order the table ascending by dollar cost because there are budget contraints
+        //then the Evariable text and associated Evalue are loaded into a Dictionary where Evariable is the KEY and Evalue is the VALUE
         public Dictionary<string, int> Deal(DataTable dt)
         {
             Dictionary<string, int> EDictionary = new Dictionary<string, int>();
             DataTable SortedTable = new DataTable();
-            dt.DefaultView.Sort = "[Evalue] ASC";
+            dt.DefaultView.Sort = "[CostMoney] ASC";
             SortedTable = dt.DefaultView.ToTable();
 
             foreach (DataRow row in SortedTable.Rows)
             {
-
                 string EVariable = row[2].ToString();
-                string EValue = row[3].ToString(); 
+                string EValue = row[3].ToString();
                 int EInt = int.Parse(EValue);
                 EDictionary.Add(EVariable, EInt);
             }
             return EDictionary;
         }
 
-        public NewButton CreateButtons(List<string> list, int i)
-        {
-            
-            NewButton button = new NewButton();
-            Style style = FindResource("mButton") as Style;
-            button.Content = list[i].ToString();
-            button.Style = style;
-            content.Add(button.Content.ToString());
-            return button;
-        }
-
+        //create a List<string> of keys from dictionary so we can put text in buttons
         public List<string> KeyList(Dictionary<string, int> dictionary)
         {
-            NewButton button = new NewButton();
             List<string> keys = new List<string>();
 
             foreach (KeyValuePair<string, int> kvp in dictionary )
@@ -208,6 +259,19 @@ namespace MiDEWPF.Pages
             }
             return AllEValues;
         }
+
+        //Create buttons
+        public NewButton CreateButtons(List<string> list, int i)
+        {
+
+            NewButton button = new NewButton();
+            Style style = FindResource("mButton") as Style;
+            button.Content = list[i].ToString();
+            button.Style = style;
+            content.Add(button.Content.ToString());
+            return button;
+        }
+        #endregion
 
         #region Button Events
         void button_Click(object sender, RoutedEventArgs e)

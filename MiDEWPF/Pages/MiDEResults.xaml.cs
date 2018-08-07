@@ -23,7 +23,6 @@ namespace MiDEWPF.Pages
         List<string> Values = new List<string>();
         public MiDEResults()
         {
-            
 
             InitializeComponent();
 
@@ -46,7 +45,7 @@ namespace MiDEWPF.Pages
                 Image.Text = "Great Job";
                 Image.FontSize = 32;
                 var uri = new Uri("pack://application:,,,/thumbsUp.jpg", UriKind.Absolute);
-                
+
                 ImageHolder.Source = new BitmapImage(uri);
             }
             else
@@ -54,9 +53,8 @@ namespace MiDEWPF.Pages
                 Image.Text = "Try Harder";
                 Image.FontSize = 32;
                 var uri = new Uri("pack://application:,,,/SadDonkey.png", UriKind.Absolute);
-                
+
                 ImageHolder.Source = new BitmapImage(uri);
-                
             }
         }
 
@@ -70,6 +68,7 @@ namespace MiDEWPF.Pages
 
             NavigationService.Navigate(
                 new Uri("Pages/Home.xaml", UriKind.Relative));
+
         }
     }
 }

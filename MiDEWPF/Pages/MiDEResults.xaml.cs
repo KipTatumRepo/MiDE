@@ -23,7 +23,6 @@ namespace MiDEWPF.Pages
         List<string> Values = new List<string>();
         public MiDEResults()
         {
-            
 
             InitializeComponent();
 
@@ -46,8 +45,6 @@ namespace MiDEWPF.Pages
                 Image.Text = "Great Job";
                 Image.FontSize = 32;
                 var uri = new Uri("pack://application:,,,/thumbsUp.jpg", UriKind.Absolute);
-                
-               
 
                 ImageHolder.Source = new BitmapImage(uri);
             }
@@ -56,17 +53,22 @@ namespace MiDEWPF.Pages
                 Image.Text = "Try Harder";
                 Image.FontSize = 32;
                 var uri = new Uri("pack://application:,,,/SadDonkey.png", UriKind.Absolute);
-                
 
                 ImageHolder.Source = new BitmapImage(uri);
-                
             }
         }
 
         private void NewScenario_Click(object sender, RoutedEventArgs e)
         {
+            Home.SelectionBox.Clear();
+            Home.SValuesSum = 0;
+            MiDESelection.MitigationSelection.Clear();
+            MiDESelection.EValuesSum = 0;
+            Home.ExclusionBox.Clear();
+
             NavigationService.Navigate(
                 new Uri("Pages/Home.xaml", UriKind.Relative));
+
         }
     }
 }

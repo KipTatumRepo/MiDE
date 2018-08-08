@@ -26,24 +26,27 @@ namespace MiDEWPF.Pages
     /// </summary>
     public partial class Home : Page
     {
-        #region Page Variables
-        //TODO This will be needed for menu style
-        //public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
-        
-        List<int> SValues = new List<int>();
-        int i = 0;
-        int j = 0;
-        int k = 0;
-        int l = 0;
-        #endregion
         #region Global Variables
         public static List<string> SelectionBox = new List<string>();
         public static List<string> ExclusionBox = new List<string>();
         public MiDEDataSet ds = new MiDEDataSet();
         public static int SValuesSum;
         public int ScenarioNumber;
-       // public int ScenarioNumberB;
+        public static int isThrottled;
         #endregion
+
+        #region Page Variables
+        //TODO This will be needed for menu style
+        //public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
+        List<int> SValues = new List<int>();
+        int k = 0;
+        int l = 0;
+        int m = 0;
+        int Throttle;
+        List<string> StrategyExCB = new List<string>();
+        List<string> StrategyExclusion = new List<string>();
+        #endregion
+       
         
         public Home()
         {
@@ -67,9 +70,9 @@ namespace MiDEWPF.Pages
             sadapter.Fill(ds.MiDESValues);
             stadapter.Fill(ds.MiDEStrategyGroups);
             eadapter.Fill(ds.MiDEEValues);
-           
-            //these loops populate sFactorCB and strategyExclusionCB
-            foreach(var item in ds.MiDESValues)
+
+            //these loops initially populates sFactorCB, strategyExclusionCB, and mitigationExclusionCB
+            foreach (var item in ds.MiDESValues)
             {
                 string comboboxtext = ds.MiDESValues.Rows[k][1].ToString();
                 sFactorCB.Items.Add(comboboxtext);
@@ -78,12 +81,21 @@ namespace MiDEWPF.Pages
 
             foreach(var item in ds.MiDEStrategyGroups)
             {
+                StrategyExCB.Add(ds.MiDEStrategyGroups.Rows[l][1].ToString());
                 string comboboxtext = ds.MiDEStrategyGroups.Rows[l][1].ToString();
                 strategyExclusionCB.Items.Add(comboboxtext);
                 l++;
             }
-            #endregion
 
+            foreach (var item in ds.MiDEEValues)
+            {
+                StrategyExclusion.Add(ds.MiDEEValues.Rows[m][2].ToString());
+                string comboboxtext = ds.MiDEEValues.Rows[m][2].ToString();
+                mitigationExclusionCB.Items.Add(comboboxtext);
+                m++; 
+            }
+
+            #endregion
 
             #region Generate ScenarioNumber
             //For generating a scenario number, get the last value in the writeDB and add 1
@@ -173,11 +185,7 @@ namespace MiDEWPF.Pages
             { 
                 return;
             }
-            //MiDEDataSet ds = new MiDEDataSet();
-            //MiDEDataSetTableAdapters.MiDESValuesTableAdapter svadapter = new MiDEDataSetTableAdapters.MiDESValuesTableAdapter();
             string add = sFactorCB.SelectedValue.ToString();
-            //svadapter.FillBySValue(ds.MiDESValues, add);
-
             string svariable = ds.MiDESValues.Rows[0][1].ToString();
             var svalue = ds.MiDESValues.Rows[0][2].ToString();
             int Svalue = int.Parse(svalue);
@@ -198,6 +206,7 @@ namespace MiDEWPF.Pages
 
         private void strategyExclusionCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+           
 
             if (strategyExclusionCB.SelectedIndex == -1 || strategyExclusionCB.SelectedValue == null)
             {
@@ -207,6 +216,10 @@ namespace MiDEWPF.Pages
             
             ExclusionListBox.Items.Add(add);
             ExclusionBox.Add(add);
+           
+            StrategyExclusion.Add(add);
+
+            PopulateMitigationExclusion(StrategyExclusion);
 
             // when a new item is added to Exclusion list box, select it and show it
             // this will keep the last item highlighted and as the list grows beyond
@@ -215,7 +228,6 @@ namespace MiDEWPF.Pages
             ExclusionListBox.ScrollIntoView(ExclusionListBox.SelectedItem);
 
             strategyExclusionCB.SelectedIndex = -1;
-            //return;
         }
 
         private void mitigationExclusion_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -237,7 +249,19 @@ namespace MiDEWPF.Pages
             ExclusionListBox.ScrollIntoView(ExclusionListBox.SelectedItem);
 
             mitigationExclusionCB.SelectedIndex = -1;
-            //return;
+        }
+
+        private void BudgetThrottle_Checked(object sender, RoutedEventArgs e)
+        {
+            if(BudgetThrottle.IsChecked == true)
+            {
+                Throttle = 1;
+            }
+            else
+            {
+                Throttle = 0;
+            }
+            
         }
         #endregion
 
@@ -291,7 +315,7 @@ namespace MiDEWPF.Pages
             return;
         }
 
-        //write to DB and Navigate to next page
+        //Navigate to next page
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             selectedVacatingBuildingCB.Text = "Select Building";
@@ -302,14 +326,48 @@ namespace MiDEWPF.Pages
             strategyExclusionCB.Text = "Select Strategy Exclusions";
             mitigationExclusionCB.Text = "Select Mitigation Exclusions";
            
-            MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
             SValuesSum = SValues.Sum();
-            
-
+            isThrottled = Throttle;
             NavigationService.Navigate(
                 new Uri("Pages/MiDESelection.xaml", UriKind.Relative));
-            
         }
+
         #endregion
+
+        //Populate mitigationExclusion Combobox with only items that are not included with strategy exclusions
+        public ComboBox PopulateMitigationExclusion(List<string> se)
+        {
+            mitigationExclusionCB.Items.Clear();
+            int i = 0;
+            List<string> MitigationExclusionText = new List<string>();
+            DataTable dts = new DataTable("MiDEFilterWrite");
+            SqlCommand cmd;
+            SqlConnection conn = ConnectionHelper.GetConn();
+            conn.Open();
+
+            string sqlString = "SELECT * FROM MiDEEValues WHERE StrategyName NOT IN ({StrategyName})";
+            cmd = new SqlCommand(sqlString, conn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            cmd.AddArrayParameters("StrategyName", se);
+           
+            da.Fill(dts);
+
+            DataColumn col = dts.Columns["EVariable"];
+
+            foreach (DataRow row in dts.Rows)
+            {
+                MitigationExclusionText.Add(row[col].ToString());
+            }
+
+            foreach(var item in MitigationExclusionText)
+            {
+                string comboboxtext = MitigationExclusionText[i];
+                mitigationExclusionCB.Items.Add(comboboxtext);
+                i++;
+            }
+
+            return mitigationExclusionCB;
+        }
+        
     }
 }

@@ -59,14 +59,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MiDEDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Models\BuildingMenu.cs" />
     <Compile Include="Models\Cafe.cs" />
-    <Compile Include="Models\ItemMenu.cs" />
-    <Compile Include="Models\ListBoxData.cs" />
     <Compile Include="Models\MenuCommand.cs" />
     <Compile Include="Models\NewButton.cs" />
-    <Compile Include="Models\Population.cs" />
-    <Compile Include="Models\PopulationMenu.cs" />
     <Compile Include="Pages\MiDEResults.xaml.cs">
       <DependentUpon>MiDEResults.xaml</DependentUpon>
     </Compile>
@@ -75,7 +70,6 @@
     </Compile>
     <Compile Include="Resources\ConnectionHelper.cs" />
     <Compile Include="Resources\SqlCommandExt.cs" />
-    <Compile Include="ViewModel\CafeViewModel.cs" />
     <Compile Include="ViewModel\CommandViewModel.cs" />
     <Compile Include="ViewModel\MenuItemViewModel.cs" />
     <Page Include="MainWindow.xaml">

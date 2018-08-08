@@ -8,9 +8,6 @@
       d:DesignHeight="800" d:DesignWidth="1400"
       Title="MiDESelection">
 
-    <Page.Resources>
-        <local:MiDEDataSet x:Key="mideDataSet"/>
-    </Page.Resources>
     <Grid Margin="5,5,5,5" >
         <Grid.RowDefinitions>
             <RowDefinition Height="310*"/>
@@ -28,13 +25,9 @@
         <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="32" Margin="10,102,0,0" TextAlignment="Center" Text="Current Mitigation Selections" VerticalAlignment="Top" Width="313" Background="LemonChiffon"/>
         <TextBox Grid.Column="2" HorizontalAlignment="Left" Height="32" Margin="10,102,0,0" TextAlignment="Center" Text="Current Scenario Compressions" VerticalAlignment="Top" Width="443" Background="LemonChiffon"/>
 
-
         <ScrollViewer x:Name="MyScrollViewer" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Margin="0,159,0,0" Width="588" >
             <WrapPanel Grid.Column="0" Name="mitigationDisplay" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" 
                        ScrollViewer.HorizontalScrollBarVisibility="Auto" Height="511" Grid.RowSpan="2" Width="588" />
-            <!--Width="453" -->
-
-
         </ScrollViewer>
         <ListBox Name="currentMitigationListBox" Grid.Column="1" HorizontalAlignment="Left" Height="347" Margin="10,159,0,0" VerticalAlignment="Top" Width="313"/>
         <ListBox Name="currentScenarioLB" Grid.Column="2" HorizontalAlignment="Left" Height="259" Margin="10,159,0,0" VerticalAlignment="Top" Width="443" />

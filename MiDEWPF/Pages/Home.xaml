@@ -21,37 +21,37 @@
         <CollectionViewSource x:Key="popTypeViewSource" Source="{Binding MiDEPopType, Source={StaticResource mideDataSet}}"/>
     </Page.Resources>
 
-    <Grid Margin="5,5,5,5" Width="{Binding Path=ViewportWidth}">
+    <Grid x:Name="ParentGrid" Margin="5,5,5,5" Width="{Binding Path=ViewportWidth}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="176*"/>
-            <RowDefinition Height="107*"/>
-            <RowDefinition Height="32*"/>
-            <RowDefinition Height="32*"/>
+            <RowDefinition Height="427*"/>
+            <RowDefinition Height="294*"/>
+            <!--<RowDefinition Height="32*"/>-->
+            <RowDefinition Height="69*"/>
         </Grid.RowDefinitions>
         <TextBox Grid.Row="0" HorizontalAlignment="Center" Height="61" Margin="10,13,10,0" TextAlignment="Center" FontSize="30" Text="MiDE Scenario Builder" VerticalAlignment="Top" Width="1370" Background="LemonChiffon"/>
         <Border BorderBrush="LightSlateGray" BorderThickness="2" CornerRadius="8" >
-        <Grid Margin="0,0,0,0" >
-           
+            <Grid Margin="0,0,0,0" >
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height=".4*"/>
                 </Grid.RowDefinitions>
-           
-            <TextBox Grid.Row="0" HorizontalAlignment="Left" Height="32" Margin="60,102,0,0" TextAlignment="Center" Text="Scenario Options" VerticalAlignment="Top" Width="766" Background="LemonChiffon"/>
-            <!-- Stack Panel to Display Labels -->
-            <StackPanel Grid.Row="0" HorizontalAlignment="Left" Height="179" Margin="60,155,0,0" VerticalAlignment="Top" Width="298" >
-                <TextBlock HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap" Text="Vacating Building Info"/>
-                <TextBlock HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap" Text="Occupying Building" VerticalAlignment="Top"/>
-                <TextBlock HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap" Text="Expected Move Date" VerticalAlignment="Top"/>
-                <TextBlock HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap" Text="Compression Factors" VerticalAlignment="Top"/>
-                <CheckBox  x:Name="BudgetThrottle" HorizontalAlignment="Left" Margin="0,15,0,0" Content="Constrain Budget" IsChecked="True" Checked="BudgetThrottle_Checked"
-                       Unchecked="BudgetThrottle_Checked" />
-            </StackPanel>
-            <!-- Stack Panel for Various Selection Boxes-->
-            <Canvas Grid.Row="0" x:Name="inputOptions" HorizontalAlignment="Left" Height="148" VerticalAlignment="Top" Width="646" Margin="180,139,0,0" >
 
-                <!-- TODO Figure out how to implement Menu, sub menu styling for this-->
-                <!--<Menu x:Name="buildingMenu" Margin="0,15,0,0" HorizontalAlignment="Left" Height="20" Width="200" ItemsSource="{Binding MenuItems}" >
+                <TextBox Grid.Row="0" HorizontalAlignment="Left" Height="32" Margin="60,102,0,0" TextAlignment="Center" Text="Scenario Options" VerticalAlignment="Top" Width="766" Background="LemonChiffon"/>
+                <!-- Stack Panel to Display Labels -->
+                <StackPanel Grid.Row="0" HorizontalAlignment="Left" Height="179" Margin="60,155,0,0" VerticalAlignment="Top" Width="298" >
+                    <TextBlock HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap" Text="Vacating Building Info"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap" Text="Occupying Building" VerticalAlignment="Top"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap" Text="Expected Move Date" VerticalAlignment="Top"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap" Text="Compression Factors" VerticalAlignment="Top"/>
+                    <CheckBox  x:Name="BudgetThrottle" HorizontalAlignment="Left" Margin="0,15,0,0" Content="Constrain Budget" IsChecked="True" Checked="BudgetThrottle_Checked"
+                       Unchecked="BudgetThrottle_Checked" />
+                </StackPanel>
+                <!-- Stack Panel for Various Selection Boxes-->
+                <Canvas Grid.Row="0" x:Name="inputOptions" HorizontalAlignment="Left" Height="148" VerticalAlignment="Top" Width="646" Margin="180,139,0,0" >
+
+                    <!-- TODO Figure out how to implement Menu, sub menu styling for this-->
+                    <!--<Menu x:Name="buildingMenu" Margin="0,15,0,0" HorizontalAlignment="Left" Height="20" Width="200" ItemsSource="{Binding MenuItems}" >
             <Menu.ItemContainerStyle>
                     <Style TargetType="{x:Type MenuItem}">
                         <Setter Property="Command" Value="{Binding Command}" />
@@ -63,56 +63,56 @@
                 </HierarchicalDataTemplate>
             </Menu.ItemTemplate>
             </Menu>-->
-                <ComboBox x:Name="selectedVacatingBuildingCB" Text = "Select Building" Width="200" IsEditable="True" IsReadOnly="True" Height="28" HorizontalAlignment="Left" 
+                    <ComboBox x:Name="selectedVacatingBuildingCB" Text = "Select Building" Width="200" IsEditable="True" IsReadOnly="True" Height="28" HorizontalAlignment="Left" 
                       ItemsSource="{Binding NotifyOnSourceUpdated=True, Source={StaticResource vbuildingMenuViewSource}, UpdateSourceTrigger=PropertyChanged}" 
                       DisplayMemberPath="BuildingName" SelectedValuePath="BuildingName" SelectionChanged="selectedVacatingBuildingCB_SelectionChanged"/>
-                <ComboBox x:Name="selectedPopRangeCB" Text="Select Population Range" Width="200" IsEditable="True" IsReadOnly="True" Height="28" HorizontalAlignment="Left" 
+                    <ComboBox x:Name="selectedPopRangeCB" Text="Select Population Range" Width="200" IsEditable="True" IsReadOnly="True" Height="28" HorizontalAlignment="Left" 
                       ItemsSource="{Binding NotifyOnSourceUpdated=True, Source={StaticResource populationViewSource}, UpdateSourceTrigger=PropertyChanged}"
                       DisplayMemberPath="PopAmount" SelectedValuePath="PopAmount" SelectionChanged="selectedPopRangeCB_SelectionChanged" Canvas.Left="221"/>
-                <ComboBox x:Name="selectedPopTypeCB" Text="Select Population Type" Width="200" IsEditable="True" IsReadOnly="True" Height="28" HorizontalAlignment="Left" 
+                    <ComboBox x:Name="selectedPopTypeCB" Text="Select Population Type" Width="200" IsEditable="True" IsReadOnly="True" Height="28" HorizontalAlignment="Left" 
                       ItemsSource="{Binding NotifyOnSourceUpdated=True, Source={StaticResource popTypeViewSource}, UpdateSourceTrigger=PropertyChanged}" 
                       DisplayMemberPath="popType" SelectedValuePath="popType" SelectionChanged="selectedPopTypeCB_SelectionChanged" Canvas.Left="446"/>
-                <ComboBox x:Name="selectBuildingCB" Text="Select Building" Width="200" IsEditable="True" IsReadOnly="True" Height="26" HorizontalAlignment="Left" 
+                    <ComboBox x:Name="selectBuildingCB" Text="Select Building" Width="200" IsEditable="True" IsReadOnly="True" Height="26" HorizontalAlignment="Left" 
                        ItemsSource="{Binding NotifyOnSourceUpdated=True, Source={StaticResource buildingMenuViewSource}, UpdateSourceTrigger=PropertyChanged}"
                       DisplayMemberPath="BuildingName" SelectedValuePath="BuildingName"
                       SelectionChanged="selectBuildingCB_SelectionChanged" Canvas.Top="33"/>
-                <DatePicker x:Name="datePicker" VerticalAlignment="Top" Width="200" HorizontalAlignment="Left" SelectedDateChanged="DatePicker_SelectedDateChanged" Canvas.Top="64" />
-                <ComboBox x:Name="sFactorCB" Text="Compression Factors" Width="600" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Left"
+                    <DatePicker x:Name="datePicker" VerticalAlignment="Top" Width="200" HorizontalAlignment="Left" SelectedDateChanged="DatePicker_SelectedDateChanged" Canvas.Top="64" />
+                    <ComboBox x:Name="sFactorCB" Text="Compression Factors" Width="600" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Left"
                       SelectionChanged="sFactors_SelectionChanged" Canvas.Top="93" Height="26"/>
-            </Canvas>
+                </Canvas>
 
-            <!-- List box and label for Current Selections -->
-            <TextBox Grid.Row="0" HorizontalAlignment="Right" Height="32" Margin="0,102,55,0" TextAlignment="Center" Text="Current Scenario Selections" VerticalAlignment="Top" Width="500" Background="LemonChiffon"/>
-            <ListBox Grid.Row="0" Name="SelectionListBox" HorizontalAlignment="Right" Height="148" Margin="0,139,55,0" VerticalAlignment="Top" Width="500"/>
+                <!-- List box and label for Current Selections -->
+                <TextBox Grid.Row="0" HorizontalAlignment="Right" Height="32" Margin="0,102,55,0" TextAlignment="Center" Text="Current Scenario Selections" VerticalAlignment="Top" Width="500" Background="LemonChiffon"/>
+                <ListBox Grid.Row="0" Name="SelectionListBox" HorizontalAlignment="Right" Height="148" Margin="0,139,55,0" VerticalAlignment="Top" Width="500"/>
 
 
-            <Button x:Name="clearAllScenario" Grid.Row="1" Content="Clear All Selections" HorizontalAlignment="Right" Margin="0,0,218,0" Style="{StaticResource Buttons}" Height="Auto" Width="153" Click="ClearAllScenario_Click" />
+                <Button x:Name="clearAllScenario" Grid.Row="1" Content="Clear All Selections" HorizontalAlignment="Right" Margin="0,0,218,0" Style="{StaticResource Buttons}" Height="Auto" Width="153" Click="ClearAllScenario_Click" />
                 <Button x:Name="clearLastScenario" Grid.Row="1" Content="Clear Last Selection" HorizontalAlignment="Right" Margin="0,0,55,0" Style="{StaticResource Buttons}" Height="Auto" Width="153" Click="ClearLastScenario_Click" />
+            </Grid>
+        </Border>
+        <Border Grid.Row="1" BorderBrush="LightSlateGray" BorderThickness="2" CornerRadius="8" Margin="0,1,0,0">
+        <Grid Grid.Row="1" >
+        <StackPanel Grid.Row="1" HorizontalAlignment="Left" Height="179" Margin="60,30,0,0" VerticalAlignment="Top" Width="293">
+            <TextBlock HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap" Text="Strategy Exclusions"/>
+            <TextBlock HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap" Text="Mitigation Exclusions" VerticalAlignment="Top"/>
+        </StackPanel>
+
+        <TextBox Grid.Row="1" HorizontalAlignment="Left" Height="32" Margin="60,5,0,0" TextAlignment="Center" Text="Scenario Options" VerticalAlignment="Top" Width="766" Background="LemonChiffon"/>
+        <StackPanel Grid.Row="1" x:Name="exclusionOptions" HorizontalAlignment="Left" Height="172" VerticalAlignment="Top" Width="619" Margin="180,37,0,0" >
+            <ComboBox Name="strategyExclusionCB" Text="Select Strategy Exclusions" Margin="0,5,0,0" Width="200" IsEditable="True" IsReadOnly="True" Height="26" HorizontalAlignment="Left" 
+                      SelectionChanged="strategyExclusionCB_SelectionChanged"/>
+            <ComboBox Name="mitigationExclusionCB" Text="Select Mitigation Exclusions" Margin="0,10,0,0" Width="600" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Left"
+                      SelectionChanged="mitigationExclusion_SelectionChanged" Height="26"/>
+        </StackPanel>
+        <!--Label and Listbox for exclusions-->
+        <TextBox Grid.Row="1" HorizontalAlignment="Right" Height="32" Margin="0,5,55,0" TextAlignment="Center" Text="Current Exclusion Selections" VerticalAlignment="Top" Width="500" Background="LemonChiffon"/>
+        <ListBox Grid.Row="1" Name="ExclusionListBox" HorizontalAlignment="Right" Height="155" Margin="0,42,55,0" VerticalAlignment="Top" Width="500"  />
+
+        <Button x:Name="ClearAllExclusion" Grid.Row="1" Content="Clear All Selections" HorizontalAlignment="Right" Margin="0,205,226,6" Style="{StaticResource Buttons}" Height="Auto" Width="152" Click="ClearAllExclusion_Click" RenderTransformOrigin="0.503,-0.012" />
+        <Button x:Name="ClearLastExclusion" Grid.Row="1" Content="Clear Last Selection" HorizontalAlignment="Right" Margin="0,205,55,6" Style="{StaticResource Buttons}" Height="Auto" Width="153" Click="ClearLastExclusion_Click" />
         </Grid>
         </Border>
-        
-            <StackPanel Grid.Row="0" HorizontalAlignment="Left" Height="179" Margin="60,30,0,0" VerticalAlignment="Top" Width="293">
-                <TextBlock HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap" Text="Strategy Exclusions"/>
-                <TextBlock HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap" Text="Mitigation Exclusions" VerticalAlignment="Top"/>
-            </StackPanel>
-
-            <TextBox Grid.Row="0" HorizontalAlignment="Left" Height="32" Margin="60,5,0,0" TextAlignment="Center" Text="Scenario Options" VerticalAlignment="Top" Width="766" Background="LemonChiffon"/>
-            <StackPanel Grid.Row="1" x:Name="exclusionOptions" HorizontalAlignment="Left" Height="172" VerticalAlignment="Top" Width="619" Margin="180,37,0,0" >
-                <ComboBox Name="strategyExclusionCB" Text="Select Strategy Exclusions" Margin="0,5,0,0" Width="200" IsEditable="True" IsReadOnly="True" Height="26" HorizontalAlignment="Left" 
-                      SelectionChanged="strategyExclusionCB_SelectionChanged"/>
-                <ComboBox Name="mitigationExclusionCB" Text="Select Mitigation Exclusions" Margin="0,10,0,0" Width="600" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Left"
-                      SelectionChanged="mitigationExclusion_SelectionChanged" Height="26"/>
-            </StackPanel>
-            <!--Label and Listbox for exclusions-->
-            <TextBox Grid.Row="1" HorizontalAlignment="Right" Height="32" Margin="0,5,55,0" TextAlignment="Center" Text="Current Exclusion Selections" VerticalAlignment="Top" Width="500" Background="LemonChiffon"/>
-            <ListBox Grid.Row="1" Name="ExclusionListBox" HorizontalAlignment="Right" Height="155" Margin="0,42,55,0" VerticalAlignment="Top" Width="500"  />
-
-            <Button x:Name="ClearAllExclusion" Grid.Row="2" Content="Clear All Selections" HorizontalAlignment="Right" Margin="0,0,218,0" Style="{StaticResource Buttons}" Height="Auto" Width="153" Click="ClearAllExclusion_Click" />
-            <Button x:Name="ClearLastExclusion" Grid.Row="2" Content="Clear Last Selection" HorizontalAlignment="Right" Margin="0,0,55,0" Style="{StaticResource Buttons}" Height="Auto" Width="153" Click="ClearLastExclusion_Click" />
-        
-        <Button x:Name="SaveButton" Grid.Row="3" Content="Save" HorizontalAlignment="Right" Margin="0,0,60,5" Style="{StaticResource Buttons}" Height="Auto" Click="SaveButton_Click" />
-        
-
-
+        <Button x:Name="SaveButton" Grid.Row="2" Content="Save" HorizontalAlignment="Right" Margin="0,5,613,0" Style="{StaticResource Buttons}" Height="Auto" Click="SaveButton_Click" Width="126" />
+       
     </Grid>
 </Page>

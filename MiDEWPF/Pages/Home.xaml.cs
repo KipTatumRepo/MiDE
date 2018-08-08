@@ -98,7 +98,7 @@ namespace MiDEWPF.Pages
             #endregion
 
             #region Generate ScenarioNumber
-            //For generating a scenario number, get the last value in the writeDB and add 1
+            //For generating a scenario number, get the last value in the MiDEWrite and add 1
             DataTable last;
             last = wadapter.GetDataByLast();
             int lastvalue = (int)last.Rows[0][1];

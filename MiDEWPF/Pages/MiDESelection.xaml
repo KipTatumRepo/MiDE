@@ -8,9 +8,6 @@
       d:DesignHeight="800" d:DesignWidth="1400"
       Title="MiDESelection">
 
-    <Page.Resources>
-        <local:MiDEDataSet x:Key="mideDataSet"/>
-    </Page.Resources>
     <Grid Margin="5,5,5,5" >
         <Grid.RowDefinitions>
             <RowDefinition Height="310*"/>

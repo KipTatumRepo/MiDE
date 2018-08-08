@@ -26,19 +26,6 @@ namespace MiDEWPF.Pages
     /// </summary>
     public partial class Home : Page
     {
-        #region Page Variables
-        //TODO This will be needed for menu style
-        //public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
-        
-        List<int> SValues = new List<int>();
-        int k = 0;
-        int l = 0;
-        int m = 0;
-        int Throttle;
-        List<string> StrategyExCB = new List<string>();
-        List<string> StrategyExclusion = new List<string>();
-        
-        #endregion
         #region Global Variables
         public static List<string> SelectionBox = new List<string>();
         public static List<string> ExclusionBox = new List<string>();
@@ -46,8 +33,20 @@ namespace MiDEWPF.Pages
         public static int SValuesSum;
         public int ScenarioNumber;
         public static int isThrottled;
-       // public int ScenarioNumberB;
         #endregion
+
+        #region Page Variables
+        //TODO This will be needed for menu style
+        //public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
+        List<int> SValues = new List<int>();
+        int k = 0;
+        int l = 0;
+        int m = 0;
+        int Throttle;
+        List<string> StrategyExCB = new List<string>();
+        List<string> StrategyExclusion = new List<string>();
+        #endregion
+       
         
         public Home()
         {
@@ -186,11 +185,7 @@ namespace MiDEWPF.Pages
             { 
                 return;
             }
-            //MiDEDataSet ds = new MiDEDataSet();
-            //MiDEDataSetTableAdapters.MiDESValuesTableAdapter svadapter = new MiDEDataSetTableAdapters.MiDESValuesTableAdapter();
             string add = sFactorCB.SelectedValue.ToString();
-            //svadapter.FillBySValue(ds.MiDESValues, add);
-
             string svariable = ds.MiDESValues.Rows[0][1].ToString();
             var svalue = ds.MiDESValues.Rows[0][2].ToString();
             int Svalue = int.Parse(svalue);
@@ -254,7 +249,6 @@ namespace MiDEWPF.Pages
             ExclusionListBox.ScrollIntoView(ExclusionListBox.SelectedItem);
 
             mitigationExclusionCB.SelectedIndex = -1;
-            //return;
         }
 
         private void BudgetThrottle_Checked(object sender, RoutedEventArgs e)
@@ -321,7 +315,7 @@ namespace MiDEWPF.Pages
             return;
         }
 
-        //write to DB and Navigate to next page
+        //Navigate to next page
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             selectedVacatingBuildingCB.Text = "Select Building";
@@ -336,7 +330,6 @@ namespace MiDEWPF.Pages
             isThrottled = Throttle;
             NavigationService.Navigate(
                 new Uri("Pages/MiDESelection.xaml", UriKind.Relative));
-            
         }
 
         #endregion
@@ -356,7 +349,6 @@ namespace MiDEWPF.Pages
             cmd = new SqlCommand(sqlString, conn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             cmd.AddArrayParameters("StrategyName", se);
-
            
             da.Fill(dts);
 

@@ -512,6 +512,7 @@ namespace MiDEWPF.Pages
             #endregion
         }
 
+        //Write to DB and navigate to next page
         private void ShowResults_Click(object sender, RoutedEventArgs e)
         {
             EValuesSum = EValues.Sum();

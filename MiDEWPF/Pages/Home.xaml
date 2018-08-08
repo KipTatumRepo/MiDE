@@ -19,7 +19,6 @@
         <CollectionViewSource x:Key="sGFactorViewSource" Source="{Binding MiDEStrategyGroups, Source={StaticResource mideDataSet}}"/>
         <CollectionViewSource x:Key="eFactorViewSource" Source="{Binding MiDEEValues, Source={StaticResource mideDataSet}}"/>
         <CollectionViewSource x:Key="popTypeViewSource" Source="{Binding MiDEPopType, Source={StaticResource mideDataSet}}"/>
-
     </Page.Resources>
 
     <Grid Margin="5,5,5,5" Width="{Binding Path=ViewportWidth}">

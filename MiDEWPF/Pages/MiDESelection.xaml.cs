@@ -49,10 +49,8 @@ namespace MiDEWPF.Pages
             
             #region Get Data
             MiDEDataSetTableAdapters.MiDEEValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
-            MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
-            MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter2 = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
             eadapter.Fill(ds.MiDEEValues);
-            wadapter.Fill(ds.MiDEWrite);
+            
 
             //Get sum of S values and current Scenario Number from Home page.  
             SValue = Home.SValuesSum;
@@ -71,11 +69,7 @@ namespace MiDEWPF.Pages
             sda.Fill(dt);
             
             currentExclusionLB.ItemsSource = Home.ExclusionBox;
-
-            wadapter.FillByScenarioNumber(ds.MiDEWrite, ScenarioNumber);
-            
             currentScenarioLB.ItemsSource = Home.SelectionBox;
-
 
             #endregion
 
@@ -518,6 +512,7 @@ namespace MiDEWPF.Pages
             #endregion
         }
 
+        //Write to DB and navigate to next page
         private void ShowResults_Click(object sender, RoutedEventArgs e)
         {
             EValuesSum = EValues.Sum();

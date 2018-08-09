@@ -10,6 +10,6 @@
         Width="auto"
         FontFamily="Segoe UI Emoji">
     <Grid Background="OldLace">
-        <Frame Source="Pages/Home.xaml" NavigationUIVisibility="Hidden" />
+        <Frame Source="Pages/Home.xaml" />
     </Grid>
 </Window>

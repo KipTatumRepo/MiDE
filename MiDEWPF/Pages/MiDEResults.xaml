@@ -19,18 +19,30 @@
             <RowDefinition Height="41*"/>
         </Grid.RowDefinitions>
         <Canvas HorizontalAlignment="Left" Height="717" VerticalAlignment="Top" Width="885">
-            <TextBlock x:Name="ScenarioNumberDispaly"  Canvas.Left="34" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="10" Width="841" Height="47"/>
-            <TextBlock x:Name="SFactorDisplay" Canvas.Left="34" TextWrapping="Wrap" Canvas.Top="62" Height="65" Width="841"/>
-            <TextBlock x:Name="SFactorDisplayArray" Canvas.Left="34" TextWrapping="Wrap" Canvas.Top="132" Height="65" Width="841"/>
-            <TextBlock x:Name="SFactorTB" Canvas.Left="34" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="197" Width="841" Height="65"/>
-            <TextBlock Canvas.Left="34" TextWrapping="Wrap" Text="Your Chosen Mitigations Are" Canvas.Top="267" Width="841" Height="65" FontSize="32"/>
-            <TextBlock x:Name="MitigationDisplayArray" Canvas.Left="34" TextWrapping="Wrap" Canvas.Top="346" Width="841" Height="65"/>
-            <TextBlock x:Name="EValueDispaly" Canvas.Left="34" TextWrapping="Wrap" Canvas.Top="416" Width="841" Height="65"/>
-            <TextBlock x:Name="StrategyExclusion" Canvas.Left="34" TextWrapping="Wrap" Text="You Excluded The Following Strategy And Mitigation Options" Canvas.Top="486" Width="841" Height="81" FontSize="30" />
-            <TextBlock x:Name="StrategyExclusionArray" Canvas.Left="34" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="572" Width="841" Height="65"/>
-            <TextBlock x:Name="ResultsTB" Canvas.Left="34" TextWrapping="Wrap" Canvas.Top="642" Width="841" Height="65"/>
-
-
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="ScenarioNumberDispaly"  Canvas.Left="34"  Grid.Row="0" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="10" Width="841" Height="47"/>
+                <TextBlock x:Name="SFactorDisplay" Grid.Row="1" Canvas.Left="34" TextWrapping="Wrap" Canvas.Top="62" Height="65" Width="841"/>
+                <TextBlock x:Name="SFactorDisplayArray" Grid.Row="2" Canvas.Left="34" TextWrapping="Wrap" Canvas.Top="132" Height="65" Width="841"/>
+                <TextBlock Grid.Row="3" Canvas.Left="34" TextWrapping="Wrap" Text="Your Chosen Mitigations Are" Canvas.Top="202" Width="841" Height="65" FontSize="32"/>
+                <TextBlock x:Name="MitigationDisplayArray" Grid.Row="4" Canvas.Left="34" TextWrapping="Wrap" Canvas.Top="272" Width="841" Height="65"/>
+                <TextBlock x:Name="StrategyExclusion" Grid.Row="5" Canvas.Left="34" TextWrapping="Wrap" Text="You Excluded The Following Strategy And Mitigation Options" Canvas.Top="342" Width="841" Height="81" FontSize="30" />
+                <TextBlock x:Name="StrategyExclusionArray" Grid.Row="6" Canvas.Left="34" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="428" Width="841" Height="65"/>
+                <TextBlock x:Name="SFactorTB" Grid.Row="7" Canvas.Left="34" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="498" Width="841" Height="65"/>
+                <TextBlock x:Name="EValueDispaly" Grid.Row="8" Canvas.Left="34" TextWrapping="Wrap" Canvas.Top="577" Width="841" Height="65"/>
+                <TextBlock x:Name="ResultsTB" Grid.Row="9" Canvas.Left="34" TextWrapping="Wrap" Canvas.Top="642" Width="841" Height="65"/>
+            </Grid>
         </Canvas>
         <TextBlock x:Name="Image" TextWrapping="Wrap" Margin="10,25,10,430" Grid.Column="1" TextAlignment="Center" />
         <Image x:Name="ImageHolder" HorizontalAlignment="Center" Height="367" Margin="0,161,0,0" VerticalAlignment="Top" Width="485" Grid.Column="1" Grid.Row="0" />

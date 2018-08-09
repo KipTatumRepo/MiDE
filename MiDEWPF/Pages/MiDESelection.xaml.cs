@@ -142,7 +142,7 @@ namespace MiDEWPF.Pages
 
                 foreach (var item in ds.MiDEEValues)
                 {
-                    //mitigationDisplay.Children.Add(CreateButtons(AlleValueList, i));
+                    mitigationDisplay.Children.Add(CreateButtons(AlleValueList, i));
                     i++;
                 }
                 AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
@@ -582,5 +582,6 @@ namespace MiDEWPF.Pages
 
         }
         #endregion
+
     }
 }

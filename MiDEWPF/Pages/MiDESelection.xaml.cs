@@ -79,48 +79,51 @@ namespace MiDEWPF.Pages
 
             #region Input Scenarios
             //There are budget constraints and there are exclusions selected by the user
-            if (Home.ExclusionBox.Count() >= 1 && Home.isThrottled == 1)
-            {
-                //Select Evalues that do not correspond to the exclusions selected by the user
-                fdt = HomeSelectionFilter(Home.ExclusionBox);
+              if (Home.ExclusionBox.Count() >= 1 && Home.isThrottled == 1)
+              {
+                  //Select Evalues that do not correspond to the exclusions selected by the user
+                  fdt = HomeSelectionFilter(Home.ExclusionBox);
 
-                //Take that datatable sort by ascending, add evariable as KEY and evalue as VALUE to dictionary
-                filteredDictionary = Deal(fdt);
-                
-                foreach(var item in filteredDictionary)
-                {
-                    mitigationDisplay.Children.Add(CreateButtons(KeyList(filteredDictionary), i));
-                    i++;
-                }
-                AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
-            }
+                  //Take that datatable sort by ascending, add evariable as KEY and evalue as VALUE to dictionary
+                  filteredDictionary = Deal(fdt);
 
-            //There are budget constraints, but no exclusions
-            else if (Home.isThrottled == 1)
-            {
-                fdt = NoExclusions(Home.ExclusionBox);
+                  foreach(var item in filteredDictionary)
+                  {
+                      mitigationDisplay.Children.Add(CreateButtons(KeyList(filteredDictionary), i));
+                      i++;
+                  }
+                  AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
+              }
 
-                //Take that datatable sort by ascending, add evariable as KEY and evalue as VALUE to dictionary
-                filteredDictionary = Deal(fdt);
+              //There are budget constraints, but no exclusions
+              else if (Home.isThrottled == 1)
+              {
+                  fdt = NoExclusions(Home.ExclusionBox);
 
-                foreach(var item in filteredDictionary)
-                {
-                    mitigationDisplay.Children.Add(CreateButtons(KeyList(filteredDictionary), i));
-                    i++;
-                }
-                AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
-            }
+                  //Take that datatable sort by ascending, add evariable as KEY and evalue as VALUE to dictionary
+                  filteredDictionary = Deal(fdt);
+
+                  foreach(var item in filteredDictionary)
+                  {
+                      mitigationDisplay.Children.Add(CreateButtons(KeyList(filteredDictionary), i));
+                      i++;
+                  }
+                  AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
+              }
 
             //There is an unlimited budget but there are exclusions selected by the user
             else if (Home.ExclusionBox.Count() >= 1)
             {
                 fdt = HomeSelectionFilter(Home.ExclusionBox);
                 List<string> list = new List<string>();
+                List<string> slist = new List<string>();
                 DataColumn col = fdt.Columns["EVariable"];
+                DataColumn col2 = fdt.Columns["StrategyName"];
 
                 foreach (DataRow row in fdt.Rows)
                 {
                     list.Add(row[col].ToString());
+                    slist.Add(row[col2].ToString());
                 }
 
                 foreach(var item in list)
@@ -135,10 +138,11 @@ namespace MiDEWPF.Pages
             else
             {
                 List<string> AlleValueList = AllEValueList();
+                List<string> slist = new List<string>();
 
                 foreach (var item in ds.MiDEEValues)
                 {
-                    mitigationDisplay.Children.Add(CreateButtons(AlleValueList, i));
+                    //mitigationDisplay.Children.Add(CreateButtons(AlleValueList, i));
                     i++;
                 }
                 AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
@@ -227,16 +231,17 @@ namespace MiDEWPF.Pages
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
             List<string> AllEValues = new List<string>();
-            
+           
+
             string sqlString = "SELECT * FROM MiDEEValues";
             cmd = new SqlCommand(sqlString, conn);
-
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dts = new DataTable("MiDEAllWrite");
 
             da.Fill(dts);
 
             DataColumn col = dts.Columns["EVariable"];
+            
             foreach (DataRow row in dts.Rows)
             {
                 AllEValues.Add(row[col].ToString());

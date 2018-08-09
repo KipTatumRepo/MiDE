@@ -61,8 +61,8 @@
             <GradientStop Color="LightGreen" Offset="1" />
         </LinearGradientBrush>
         <LinearGradientBrush x:Key="mButtonGradientBrush" StartPoint="0,1" EndPoint="0,0">
-            <GradientStop Color="Blue" Offset="0" />
-            <GradientStop Color="LightBlue" Offset="1" />
+            <GradientStop Color="Transparent" Offset="0" />
+            <GradientStop Color="LightSteelBlue" Offset="1" />
         </LinearGradientBrush>
         <Style x:Key="Buttons" TargetType="{x:Type Button}" >
             <Setter Property="Width" Value="125" />

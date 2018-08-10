@@ -21,6 +21,7 @@ namespace MiDEWPF.Pages
     public partial class MiDEResults : Page
     {
         List<string> Values = new List<string>();
+        int NewETotal = MiDESelection.AllEValueSum - MiDESelection.EValuesSum;
         public MiDEResults()
         {
 
@@ -31,16 +32,20 @@ namespace MiDEWPF.Pages
             SFactorDisplay.Text = "MiDE Calculated With The Supplied Parameters Of ";
             SFactorDisplay.FontSize = 32;
             SFactorDisplayArray.Text = string.Join(", ", Home.SelectionBox);
+            StrategyExclusionArray.Text = string.Join(", ", Home.ExclusionBox);
+            MitigationDisplayArray.Text = string.Join(", ", MiDESelection.RemainingMitigationList); 
+
             SFactorTB.Text = "The S Factor total is " + Home.SValuesSum.ToString();
             SFactorTB.FontSize = 32;
-            MitigationDisplayArray.Text = string.Join(", ", MiDESelection.MitigationSelection);
-            EValueDispaly.Text = "Which Have An Enhancement Value of " + MiDESelection.EValuesSum.ToString();
+
+            EValueDispaly.Text = "Which Have An Enhancement Value of " + NewETotal.ToString();
             EValueDispaly.FontSize = 32;
-            StrategyExclusionArray.Text = string.Join(", ", Home.ExclusionBox);
-            ResultsTB.Text = "These Selections Will Lower Your S Factor To " + (Home.SValuesSum - MiDESelection.EValuesSum).ToString();
+            
+            
+            ResultsTB.Text = "These Selections Will Lower Your S Factor To " + (Home.SValuesSum - NewETotal).ToString();
             ResultsTB.FontSize = 32;
 
-            if (Home.SValuesSum - MiDESelection.EValuesSum <= 5)
+            if (Home.SValuesSum - NewETotal <= 5)
             {
                 Image.Text = "Great Job";
                 Image.FontSize = 32;
@@ -50,7 +55,7 @@ namespace MiDEWPF.Pages
             }
             else
             {
-                Image.Text = "Try Harder";
+                Image.Text = "Not Quite The Result We Are Looking For";
                 Image.FontSize = 32;
                 var uri = new Uri("pack://application:,,,/SadDonkey.png", UriKind.Absolute);
 

@@ -4,44 +4,35 @@
              xmlns:local="clr-namespace:MiDEWPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ControlTemplate x:Key="NavButton" TargetType="Frame">
-            <DockPanel Margin="7">
-                <StackPanel 
-            Margin="7"
-            Orientation="Horizontal"
-            DockPanel.Dock="Top"
-            >
-                    <Button 
-                Content="Avast! Go back!" 
-                Command="{x:Static NavigationCommands.BrowseBack}" 
-                IsEnabled="{TemplateBinding CanGoBack}" 
-                />
-                    <Button 
-                Content="Forward you dogs!" 
-                Command="{x:Static NavigationCommands.BrowseForward}" 
-                IsEnabled="{TemplateBinding CanGoForward}" 
-                />
-                </StackPanel>
-
-                <Border 
-            BorderBrush="Green"
-            Margin="7"
-            BorderThickness="7"
-            Padding="7"
-            CornerRadius="7"
-            Background="White"
-            >
-                    <ContentPresenter />
-                </Border>
-            </DockPanel>
-        </ControlTemplate>
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="6" />
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="{x:Type ComboBox}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="6"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="{x:Type ListBox}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="6"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        
         <LinearGradientBrush x:Key="ButtonGradientBrush" StartPoint="0,1" EndPoint="0,0">
             <GradientStop Color="ForestGreen" Offset="0" />
             <GradientStop Color="LightGreen" Offset="1" />
         </LinearGradientBrush>
         <LinearGradientBrush x:Key="mButtonGradientBrush" StartPoint="0,1" EndPoint="0,0">
-            <GradientStop Color="Blue" Offset="0" />
-            <GradientStop Color="LightBlue" Offset="1" />
+            <GradientStop Color="Transparent" Offset="0" />
+            <GradientStop Color="LightSteelBlue" Offset="1" />
         </LinearGradientBrush>
         <Style x:Key="Buttons" TargetType="{x:Type Button}" >
             <Setter Property="Width" Value="125" />
@@ -110,6 +101,35 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="NavButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Image RenderTransformOrigin="0.5,0.5" Source="/MiDEWPF;component/leftArrow.png" Stretch="Fill">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform AngleX="-0.379"/>
+                                        <RotateTransform/>
+                                        <TranslateTransform X="-0.993"/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                            </Image>
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True"/>
+                            <Trigger Property="IsDefaulted" Value="True"/>
+                            <Trigger Property="IsMouseOver" Value="True"/>
+                            <Trigger Property="IsPressed" Value="True"/>
+                            <Trigger Property="IsEnabled" Value="False"/>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
 
     </Application.Resources>
 </Application>

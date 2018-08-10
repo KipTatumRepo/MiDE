@@ -29,6 +29,7 @@ namespace MiDEWPF.Pages
         #region Global Variables
         public static List<string> SelectionBox = new List<string>();
         public static List<string> ExclusionBox = new List<string>();
+        
         public MiDEDataSet ds = new MiDEDataSet();
         public static int SValuesSum;
         public int ScenarioNumber;
@@ -98,12 +99,11 @@ namespace MiDEWPF.Pages
             #endregion
 
             #region Generate ScenarioNumber
-            //For generating a scenario number, get the last value in the MiDEWrite and add 1
+            //For generating a scenario number, get the last value in the MiDEWrite and add 1.  And get sum of all evalues
             DataTable last;
             last = wadapter.GetDataByLast();
             int lastvalue = (int)last.Rows[0][1];
             ScenarioNumber = lastvalue + 1;
-           
             #endregion
 
         }
@@ -325,7 +325,8 @@ namespace MiDEWPF.Pages
             sFactorCB.Text = "Compression Factors";
             strategyExclusionCB.Text = "Select Strategy Exclusions";
             mitigationExclusionCB.Text = "Select Mitigation Exclusions";
-           
+
+            
             SValuesSum = SValues.Sum();
             isThrottled = Throttle;
             NavigationService.Navigate(
@@ -368,6 +369,8 @@ namespace MiDEWPF.Pages
 
             return mitigationExclusionCB;
         }
+
+        
         
     }
 }

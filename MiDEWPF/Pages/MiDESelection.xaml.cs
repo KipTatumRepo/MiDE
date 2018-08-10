@@ -28,7 +28,11 @@ namespace MiDEWPF.Pages
         public static int EValuesSum;
         public List<int> EValues = new List<int>();
         public static List<string> MitigationSelection = new List<string>();
+        public static List<string> AllCurrentMitigations = new List<string>();
+        public static List<string> RemainingMitigationList = new List<string>();
         Home newhome = new Home();
+        public static int AllEValueSum;
+
         #endregion
 
         #region Local Variables
@@ -38,6 +42,7 @@ namespace MiDEWPF.Pages
         int SValue;
         List<string> content = new List<string>();
         MiDEDataSet ds = new MiDEDataSet();
+       
         #endregion
 
         public MiDESelection()
@@ -50,12 +55,12 @@ namespace MiDEWPF.Pages
             #region Get Data
             MiDEDataSetTableAdapters.MiDEEValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
             eadapter.Fill(ds.MiDEEValues);
-            
 
             //Get sum of S values and current Scenario Number from Home page.  
             SValue = Home.SValuesSum;
             ScenarioNumber = newhome.ScenarioNumber;
             
+
             //Connection stuff
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
@@ -81,12 +86,13 @@ namespace MiDEWPF.Pages
             //There are budget constraints and there are exclusions selected by the user
             if (Home.ExclusionBox.Count() >= 1 && Home.isThrottled == 1)
             {
-                //Select Evalues that do not correspond to the exclusions selected by the user
-                fdt = HomeSelectionFilter(Home.ExclusionBox);
+            //Select Evalues that do not correspond to the exclusions selected by the user
+            fdt = HomeSelectionFilter(Home.ExclusionBox);
+            AllEValueSum = getAvailableEValue(fdt);
 
-                //Take that datatable sort by ascending, add evariable as KEY and evalue as VALUE to dictionary
-                filteredDictionary = Deal(fdt);
-                
+            //Take that datatable sort by ascending, add evariable as KEY and evalue as VALUE to dictionary
+            filteredDictionary = Deal(fdt);
+
                 foreach(var item in filteredDictionary)
                 {
                     mitigationDisplay.Children.Add(CreateButtons(KeyList(filteredDictionary), i));
@@ -98,10 +104,11 @@ namespace MiDEWPF.Pages
             //There are budget constraints, but no exclusions
             else if (Home.isThrottled == 1)
             {
-                fdt = NoExclusions(Home.ExclusionBox);
+            fdt = NoExclusions(Home.ExclusionBox);
+            AllEValueSum = getAvailableEValue(fdt);
 
-                //Take that datatable sort by ascending, add evariable as KEY and evalue as VALUE to dictionary
-                filteredDictionary = Deal(fdt);
+            //Take that datatable sort by ascending, add evariable as KEY and evalue as VALUE to dictionary
+            filteredDictionary = Deal(fdt);
 
                 foreach(var item in filteredDictionary)
                 {
@@ -116,11 +123,15 @@ namespace MiDEWPF.Pages
             {
                 fdt = HomeSelectionFilter(Home.ExclusionBox);
                 List<string> list = new List<string>();
+                List<string> slist = new List<string>();
                 DataColumn col = fdt.Columns["EVariable"];
+                DataColumn col2 = fdt.Columns["StrategyName"];
+                AllEValueSum = getAvailableEValue(fdt);
 
                 foreach (DataRow row in fdt.Rows)
                 {
                     list.Add(row[col].ToString());
+                    slist.Add(row[col2].ToString());
                 }
 
                 foreach(var item in list)
@@ -135,6 +146,8 @@ namespace MiDEWPF.Pages
             else
             {
                 List<string> AlleValueList = AllEValueList();
+                List<string> slist = new List<string>();
+                AllEValueSum = getAvailableEValue(AllDataTable());
 
                 foreach (var item in ds.MiDEEValues)
                 {
@@ -142,6 +155,7 @@ namespace MiDEWPF.Pages
                     i++;
                 }
                 AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
+
             }
             #endregion
         }
@@ -227,22 +241,63 @@ namespace MiDEWPF.Pages
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
             List<string> AllEValues = new List<string>();
-            
+           
+
             string sqlString = "SELECT * FROM MiDEEValues";
             cmd = new SqlCommand(sqlString, conn);
-
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dts = new DataTable("MiDEAllWrite");
 
             da.Fill(dts);
 
             DataColumn col = dts.Columns["EVariable"];
+            
             foreach (DataRow row in dts.Rows)
             {
                 AllEValues.Add(row[col].ToString());
                 i++;
             }
             return AllEValues;
+        }
+
+        public DataTable AllDataTable()
+        {
+            int i = 0;
+            SqlCommand cmd;
+            SqlConnection conn = ConnectionHelper.GetConn();
+            conn.Open();
+            
+            string sqlString = "SELECT * FROM MiDEEValues";
+            cmd = new SqlCommand(sqlString, conn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dts = new DataTable("TempTable");
+
+            da.Fill(dts);
+
+            return dts;
+        }
+
+        public int getAvailableEValue(DataTable t)
+        {
+            List<int> evalues = new List<int>();
+            int Value = 0;
+            DataColumn col = t.Columns["Evalue"];
+            int i = 0;
+            foreach (DataRow row in t.Rows)
+            {
+                string valueAdd = row[col].ToString();
+                Value += Convert.ToInt32(valueAdd);
+                i++;
+            }
+
+            return Value;
+        }
+
+        public List<string> RemainingMitigations(List<string> AllMitigations, List<string> SelectedMitigations)
+        {
+            List<string> Result = new List<string>();
+            Result.AddRange(AllMitigations.Except(SelectedMitigations));
+            return Result;
         }
 
         //Create buttons
@@ -254,6 +309,7 @@ namespace MiDEWPF.Pages
             button.Content = list[i].ToString();
             button.Style = style;
             content.Add(button.Content.ToString());
+            AllCurrentMitigations.Add(list[i].ToString());
             return button;
         }
         #endregion
@@ -540,11 +596,11 @@ namespace MiDEWPF.Pages
                 wadapter.Insert(ScenarioNumber, null, null, currentIterator);
                 k++;
             }
-            
+
+            RemainingMitigationList = RemainingMitigations(AllCurrentMitigations, MitigationSelection);
 
             NavigationService.Navigate(
                 new Uri("Pages/MiDEResults.xaml", UriKind.Relative));
-
         }
 
         private void ClearSelection_Click(object sender, RoutedEventArgs e)
@@ -552,6 +608,7 @@ namespace MiDEWPF.Pages
             MessageBox.Show("Delete All Current Selections?");
             currentMitigationListBox.Items.Clear();
             EValues.Clear();
+            MitigationSelection.Clear();
             return;
         }
 
@@ -564,6 +621,7 @@ namespace MiDEWPF.Pages
             MessageBox.Show("Remove " + currentMitigationListBox.SelectedItem + "?");
             currentMitigationListBox.Items.RemoveAt(currentMitigationListBox.SelectedIndex);
             EValues.RemoveAt(currentIterator);
+            MitigationSelection.RemoveAt(currentIterator);
             return;
         }
 
@@ -577,5 +635,6 @@ namespace MiDEWPF.Pages
 
         }
         #endregion
+
     }
 }

@@ -21,7 +21,7 @@ namespace MiDEWPF.Pages
     public partial class MiDEResults : Page
     {
         List<string> Values = new List<string>();
-        int NewETotal = Home.AllEValueSum - MiDESelection.EValuesSum;
+        int NewETotal = MiDESelection.AllEValueSum - MiDESelection.EValuesSum;
         public MiDEResults()
         {
 
@@ -33,7 +33,7 @@ namespace MiDEWPF.Pages
             SFactorDisplay.FontSize = 32;
             SFactorDisplayArray.Text = string.Join(", ", Home.SelectionBox);
             StrategyExclusionArray.Text = string.Join(", ", Home.ExclusionBox);
-            MitigationDisplayArray.Text = string.Join(", ", MiDESelection.MitigationSelection);
+            MitigationDisplayArray.Text = string.Join(", ", MiDESelection.RemainingMitigationList); //working here, i think this is where the remaining mitigations should go
 
             SFactorTB.Text = "The S Factor total is " + Home.SValuesSum.ToString();
             SFactorTB.FontSize = 32;
@@ -55,7 +55,7 @@ namespace MiDEWPF.Pages
             }
             else
             {
-                Image.Text = "Try Harder";
+                Image.Text = "Not Quite The Result We Are Looking For";
                 Image.FontSize = 32;
                 var uri = new Uri("pack://application:,,,/SadDonkey.png", UriKind.Absolute);
 

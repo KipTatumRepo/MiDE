@@ -143,8 +143,5 @@
   <ItemGroup>
     <Resource Include="SadDonkey.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="leftArrow.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

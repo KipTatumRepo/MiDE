@@ -29,7 +29,7 @@ namespace MiDEWPF.Pages
         #region Global Variables
         public static List<string> SelectionBox = new List<string>();
         public static List<string> ExclusionBox = new List<string>();
-        public static int AllEValueSum;
+        
         public MiDEDataSet ds = new MiDEDataSet();
         public static int SValuesSum;
         public int ScenarioNumber;
@@ -105,7 +105,7 @@ namespace MiDEWPF.Pages
             int lastvalue = (int)last.Rows[0][1];
             ScenarioNumber = lastvalue + 1;
 
-            AllEValueSum = getAvailableEValue();
+            
             #endregion
 
         }
@@ -372,25 +372,7 @@ namespace MiDEWPF.Pages
             return mitigationExclusionCB;
         }
 
-        public int getAvailableEValue()
-        {
-            List<int> evalues = new List<int>();
-            MiDEDataSetTableAdapters.MiDEEValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
-            
-            eadapter.Fill(ds.MiDEEValues);
-            DataTable dts = new DataTable("TempTable");
-            int Value = 0;
-            DataColumn col = dts.Columns["Evalue"];
-            int i = 0;
-            foreach (var row in ds.MiDEEValues)
-            {
-                string valueAdd = ds.MiDEEValues[i][3].ToString();
-                Value += Convert.ToInt32(valueAdd);
-                i++;
-            }
-
-            return Value;
-        }
+        
         
     }
 }

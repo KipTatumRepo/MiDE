@@ -33,7 +33,7 @@ namespace MiDEWPF.Pages
             SFactorDisplay.FontSize = 32;
             SFactorDisplayArray.Text = string.Join(", ", Home.SelectionBox);
             StrategyExclusionArray.Text = string.Join(", ", Home.ExclusionBox);
-            MitigationDisplayArray.Text = string.Join(", ", MiDESelection.RemainingMitigationList); //working here, i think this is where the remaining mitigations should go
+            MitigationDisplayArray.Text = string.Join(", ", MiDESelection.RemainingMitigationList); 
 
             SFactorTB.Text = "The S Factor total is " + Home.SValuesSum.ToString();
             SFactorTB.FontSize = 32;

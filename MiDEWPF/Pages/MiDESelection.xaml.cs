@@ -42,7 +42,7 @@ namespace MiDEWPF.Pages
         int SValue;
         List<string> content = new List<string>();
         MiDEDataSet ds = new MiDEDataSet();
-        //int AllEValueTotal;
+       
         #endregion
 
         public MiDESelection()
@@ -84,39 +84,39 @@ namespace MiDEWPF.Pages
 
             #region Input Scenarios
             //There are budget constraints and there are exclusions selected by the user
-              if (Home.ExclusionBox.Count() >= 1 && Home.isThrottled == 1)
-              {
-                //Select Evalues that do not correspond to the exclusions selected by the user
-                fdt = HomeSelectionFilter(Home.ExclusionBox);
-                AllEValueSum = getAvailableEValue(fdt);
+            if (Home.ExclusionBox.Count() >= 1 && Home.isThrottled == 1)
+            {
+            //Select Evalues that do not correspond to the exclusions selected by the user
+            fdt = HomeSelectionFilter(Home.ExclusionBox);
+            AllEValueSum = getAvailableEValue(fdt);
 
-                //Take that datatable sort by ascending, add evariable as KEY and evalue as VALUE to dictionary
-                filteredDictionary = Deal(fdt);
+            //Take that datatable sort by ascending, add evariable as KEY and evalue as VALUE to dictionary
+            filteredDictionary = Deal(fdt);
 
-                  foreach(var item in filteredDictionary)
-                  {
-                      mitigationDisplay.Children.Add(CreateButtons(KeyList(filteredDictionary), i));
-                      i++;
-                  }
-                  AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
-              }
+                foreach(var item in filteredDictionary)
+                {
+                    mitigationDisplay.Children.Add(CreateButtons(KeyList(filteredDictionary), i));
+                    i++;
+                }
+                AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
+            }
 
-              //There are budget constraints, but no exclusions
-              else if (Home.isThrottled == 1)
-              {
-                fdt = NoExclusions(Home.ExclusionBox);
-                AllEValueSum = getAvailableEValue(fdt);
+            //There are budget constraints, but no exclusions
+            else if (Home.isThrottled == 1)
+            {
+            fdt = NoExclusions(Home.ExclusionBox);
+            AllEValueSum = getAvailableEValue(fdt);
 
-                //Take that datatable sort by ascending, add evariable as KEY and evalue as VALUE to dictionary
-                filteredDictionary = Deal(fdt);
+            //Take that datatable sort by ascending, add evariable as KEY and evalue as VALUE to dictionary
+            filteredDictionary = Deal(fdt);
 
-                  foreach(var item in filteredDictionary)
-                  {
-                      mitigationDisplay.Children.Add(CreateButtons(KeyList(filteredDictionary), i));
-                      i++;
-                  }
-                  AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
-              }
+                foreach(var item in filteredDictionary)
+                {
+                    mitigationDisplay.Children.Add(CreateButtons(KeyList(filteredDictionary), i));
+                    i++;
+                }
+                AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
+            }
 
             //There is an unlimited budget but there are exclusions selected by the user
             else if (Home.ExclusionBox.Count() >= 1)
@@ -280,17 +280,12 @@ namespace MiDEWPF.Pages
         public int getAvailableEValue(DataTable t)
         {
             List<int> evalues = new List<int>();
-            //MiDEDataSetTableAdapters.MiDEEValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
-
-           // eadapter.Fill(ds.MiDEEValues);
-            //DataTable dts = new DataTable("TempTable");
             int Value = 0;
             DataColumn col = t.Columns["Evalue"];
             int i = 0;
             foreach (DataRow row in t.Rows)
             {
                 string valueAdd = row[col].ToString();
-                //string valueAdd = t.MiDEEValues[i][3].ToString();
                 Value += Convert.ToInt32(valueAdd);
                 i++;
             }

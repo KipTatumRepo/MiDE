@@ -104,8 +104,6 @@ namespace MiDEWPF.Pages
             last = wadapter.GetDataByLast();
             int lastvalue = (int)last.Rows[0][1];
             ScenarioNumber = lastvalue + 1;
-
-            
             #endregion
 
         }

@@ -293,10 +293,10 @@ namespace MiDEWPF.Pages
             return Value;
         }
 
-        public List<string> RemainingMitigations(List<string> AllMitigations, List<string> SelectedMitigations)
+        public List<string> RemainingMitigations(List<string> AllCurrentMitigations, List<string> SelectedMitigations)
         {
             List<string> Result = new List<string>();
-            Result.AddRange(AllMitigations.Except(SelectedMitigations));
+            Result.AddRange(AllCurrentMitigations.Except(SelectedMitigations));
             return Result;
         }
 

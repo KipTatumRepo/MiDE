@@ -25,7 +25,6 @@
                 </Style>
             </Style.Resources>
         </Style>
-        
         <LinearGradientBrush x:Key="ButtonGradientBrush" StartPoint="0,1" EndPoint="0,0">
             <GradientStop Color="ForestGreen" Offset="0" />
             <GradientStop Color="LightGreen" Offset="1" />
@@ -67,9 +66,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
-        
-
         <Style x:Key="mButton" TargetType="{x:Type Button}" >
             <Setter Property="Width" Value="110" />
             <Setter Property="Height" Value="75" />
@@ -78,16 +74,17 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True" RenderTransformOrigin="0.5,0.5" x:Name="ButtonGrid">
-                            <Rectangle x:Name="innerRectangle" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="Transparent" StrokeThickness="5" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
+                            <Rectangle x:Name="innerRectangle" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="black" StrokeThickness="1" Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20"/>
                             <DockPanel Name="myContentPresenterDockPanel">
-                                <TextBlock Text="{TemplateBinding Content}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5,5,5,5"/>
+
+                                <TextBlock Text="{TemplateBinding Content}" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Padding="5,5,5,5"/>
+
                             </DockPanel>
                         </Grid>
-                        
                         <!--what happens at various events-->
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property ="Rectangle.Stroke" TargetName="innerRectangle" Value="LightBlue" />
+                                <Setter Property ="Rectangle.Stroke" TargetName="innerRectangle" Value="LightBlue"  />
                             </Trigger>
                             <Trigger Property ="IsPressed" Value ="True">
                                 <Setter TargetName="ButtonGrid" Property="RenderTransform">
@@ -133,3 +130,4 @@
 
     </Application.Resources>
 </Application>
+<!--Text="{TemplateBinding Content}" -->

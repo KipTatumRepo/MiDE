@@ -13,16 +13,15 @@ namespace MiDEWPF.Models
 
         public int Bid { get; set; }
         
-        public NewButton(int bid)
+        public NewButton()
         {
             Bid = bid;
         }
 
-        public NewButton()
+        public int GetBid()
         {
-
-            //Bid = value;
-
+            return Bid;
         }
+       
     }
 }

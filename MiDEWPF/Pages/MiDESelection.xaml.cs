@@ -597,8 +597,8 @@ namespace MiDEWPF.Pages
                     EValues.Add(Evalue);
                 }
             }
-           
 
+            #region Erase Me
             /*if (idk == bbase + "Food Truck Support")
             {
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[0][2].ToString());
@@ -842,7 +842,7 @@ namespace MiDEWPF.Pages
 
                 EValues.Add(Evalue);
             }*/
-
+            #endregion
             #endregion
         }
 

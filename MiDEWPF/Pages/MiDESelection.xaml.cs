@@ -32,7 +32,6 @@ namespace MiDEWPF.Pages
         public static List<string> RemainingMitigationList = new List<string>();
         Home newhome = new Home();
         public static int AllEValueSum;
-
         #endregion
 
         #region Local Variables
@@ -308,7 +307,8 @@ namespace MiDEWPF.Pages
             Style style = FindResource("mButton") as Style;
             button.Content = list[i].ToString();
             button.Style = style;
-            content.Add(button.Content.ToString());
+            button.Margin = new Thickness(0, 3, 3, 3);
+            //content.Add(button.Content.ToString());
             AllCurrentMitigations.Add(list[i].ToString());
             return button;
         }

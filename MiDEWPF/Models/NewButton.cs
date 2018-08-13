@@ -9,7 +9,7 @@ namespace MiDEWPF.Models
 {
     public class NewButton : Button
     {
-       
+        private int bid;
 
         public int Bid { get; set; }
         
@@ -21,7 +21,7 @@ namespace MiDEWPF.Models
         public NewButton()
         {
 
-            Bid = 0;
+            //Bid = value;
 
         }
     }

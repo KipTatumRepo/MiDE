@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MiDEWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="auto" 
-        WindowState="Maximized" MinWidth="1024" MinHeight="800"
+        MinWidth="1024" MinHeight="800"
         Width="auto"
         FontFamily="Segoe UI Emoji">
     <Grid Background="OldLace">

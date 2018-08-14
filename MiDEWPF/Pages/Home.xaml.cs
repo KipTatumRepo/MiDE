@@ -40,12 +40,14 @@ namespace MiDEWPF.Pages
         //TODO This will be needed for menu style
         //public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
         List<int> SValues = new List<int>();
+        int j = 0;
         int k = 0;
         int l = 0;
         int m = 0;
         int Throttle;
         List<string> StrategyExCB = new List<string>();
         List<string> StrategyExclusion = new List<string>();
+        //char[] charsToTrim = { ' ' };
         #endregion
        
         
@@ -54,25 +56,39 @@ namespace MiDEWPF.Pages
 
             InitializeComponent();
 
+            
+
             #region Get Data
 
             ds = ((MiDEDataSet)(FindResource("mideDataSet")));
-            MiDEDataSetTableAdapters.MiDEBuildingsTableAdapter adapter = new MiDEDataSetTableAdapters.MiDEBuildingsTableAdapter();
+            //MiDEDataSetTableAdapters.MiDEBuildingsTableAdapter adapter = new MiDEDataSetTableAdapters.MiDEBuildingsTableAdapter();
             MiDEDataSetTableAdapters.MiDEPopulationTableAdapter padapter = new MiDEDataSetTableAdapters.MiDEPopulationTableAdapter();
             MiDEDataSetTableAdapters.MiDEPopTypeTableAdapter ptadapter = new MiDEDataSetTableAdapters.MiDEPopTypeTableAdapter();
             MiDEDataSetTableAdapters.MiDESValuesTableAdapter sadapter = new MiDEDataSetTableAdapters.MiDESValuesTableAdapter();
             MiDEDataSetTableAdapters.MiDEStrategyGroupsTableAdapter stadapter = new MiDEDataSetTableAdapters.MiDEStrategyGroupsTableAdapter();
             MiDEDataSetTableAdapters.MiDEEValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
             MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
+            MiDEDataSetTableAdapters.MasterBuildingListTableAdapter adapter = new MiDEDataSetTableAdapters.MasterBuildingListTableAdapter();
 
-            adapter.Fill(ds.MiDEBuildings);
+            
+
+            adapter.Fill(ds.MasterBuildingList);
             padapter.Fill(ds.MiDEPopulation);
             ptadapter.Fill(ds.MiDEPopType);
             sadapter.Fill(ds.MiDESValues);
             stadapter.Fill(ds.MiDEStrategyGroups);
             eadapter.Fill(ds.MiDEEValues);
 
-            //these loops initially populates sFactorCB, strategyExclusionCB, and mitigationExclusionCB
+            //these loops initially populates selectedVacatingBuildingCB, sFactorCB, strategyExclusionCB, and mitigationExclusionCB
+            foreach (var item in ds.MasterBuildingList)
+            {
+                string comboboxtext = ds.MasterBuildingList.Rows[j][1].ToString();
+                string tcombotext =  comboboxtext.Trim();
+                selectedVacatingBuildingCB.Items.Add(tcombotext);
+                selectBuildingCB.Items.Add(tcombotext);
+                j++;
+            }
+
             foreach (var item in ds.MiDESValues)
             {
                 string comboboxtext = ds.MiDESValues.Rows[k][1].ToString();

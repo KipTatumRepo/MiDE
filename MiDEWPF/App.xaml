@@ -126,8 +126,5 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
-
     </Application.Resources>
 </Application>
-<!--Text="{TemplateBinding Content}" -->

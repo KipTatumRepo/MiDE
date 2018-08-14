@@ -187,7 +187,7 @@ namespace MiDEWPF.Pages
             }
             string add = sFactorCB.SelectedValue.ToString();
             string svariable = ds.MiDESValues.Rows[0][1].ToString();
-            var svalue = ds.MiDESValues.Rows[0][2].ToString();
+            var svalue = ds.MiDESValues.Rows[sFactorCB.SelectedIndex][2].ToString();
             int Svalue = int.Parse(svalue);
             
             SValues.Add(Svalue);

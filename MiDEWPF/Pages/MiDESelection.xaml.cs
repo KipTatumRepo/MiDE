@@ -51,6 +51,12 @@ namespace MiDEWPF.Pages
             Style style = FindResource("mButton") as Style;
 
             InitializeComponent();
+
+            //Check to see if there budget throttle is applied
+            if (Home.isThrottled == 1)
+            {
+                Home.SelectionBox.Add("There are Budget Considerations");
+            }
             
             #region Get Data
             MiDEDataSetTableAdapters.MiDEEValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
@@ -86,33 +92,56 @@ namespace MiDEWPF.Pages
             //There are budget constraints and there are exclusions selected by the user
             if (Home.ExclusionBox.Count() >= 1 && Home.isThrottled == 1)
             {
-            //Select Evalues that do not correspond to the exclusions selected by the user
-            fdt = HomeSelectionFilter(Home.ExclusionBox);
-            AllEValueSum = getAvailableEValue(fdt);
+                //Select Evalues that do not correspond to the exclusions selected by the user
+                List<string> list = new List<string>();
+                fdt = HomeSelectionFilter(Home.ExclusionBox);
+                AllEValueSum = getAvailableEValue(fdt);
+                DataView dv = fdt.DefaultView;
+                dv.Sort = "Evalue";
+                DataTable SortedTable = dv.ToTable();
 
-            //Take that datatable sort by ascending, add evariable as KEY and evalue as VALUE to dictionary
-            filteredDictionary = Deal(fdt);
-
-                foreach(var item in filteredDictionary)
+                DataColumn col = SortedTable.Columns["EVariable"];
+                foreach (DataRow row in SortedTable.Rows)
                 {
-                    mitigationDisplay.Children.Add(CreateButtons(KeyList(filteredDictionary), fdt, i));
-                    i++;
+                    list.Add(row[col].ToString());
                 }
-                AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
+
+
+                //Take that datatable sort by ascending, add evariable as KEY and evalue as VALUE to dictionary
+                //filteredDictionary = Deal(fdt);
+
+                    foreach(DataRow row in SortedTable.Rows)
+                    {
+                        mitigationDisplay.Children.Add(CreateButtons(list, SortedTable, i));
+                        i++;
+                    }
+                    AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
             }
 
             //There are budget constraints, but no exclusions
             else if (Home.isThrottled == 1)
             {
-            fdt = NoExclusions(Home.ExclusionBox);
-            AllEValueSum = getAvailableEValue(fdt);
+                //Select Evalues that do not correspond to the exclusions selected by the user
+                List<string> list = new List<string>();
+                fdt = HomeSelectionFilter(Home.ExclusionBox);
+                AllEValueSum = getAvailableEValue(fdt);
+                DataView dv = fdt.DefaultView;
+                dv.Sort = "Evalue";
+                DataTable SortedTable = dv.ToTable();
 
-            //Take that datatable sort by ascending, add evariable as KEY and evalue as VALUE to dictionary
-            filteredDictionary = Deal(fdt);
-
-                foreach(var item in filteredDictionary)
+                DataColumn col = SortedTable.Columns["EVariable"];
+                foreach (DataRow row in SortedTable.Rows)
                 {
-                    mitigationDisplay.Children.Add(CreateButtons(KeyList(filteredDictionary), fdt, i));
+                    list.Add(row[col].ToString());
+                }
+
+
+                //Take that datatable sort by ascending, add evariable as KEY and evalue as VALUE to dictionary
+                //filteredDictionary = Deal(fdt);
+
+                foreach (DataRow row in SortedTable.Rows)
+                {
+                    mitigationDisplay.Children.Add(CreateButtons(list, SortedTable, i));
                     i++;
                 }
                 AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
@@ -174,13 +203,24 @@ namespace MiDEWPF.Pages
 
             exclusionBox = Home.ExclusionBox;
 
-            string sqlString = "SELECT * FROM MiDEEValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable})";
-            cmd = new SqlCommand(sqlString, conn);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            cmd.AddArrayParameters("StrategyName", exclusionBox);
-            cmd.AddArrayParameters("EVariable", exclusionBox);
-            da.Fill(dts);
-           
+            if (exclusionBox.Count() == 0)
+            {
+                string sqlString = "SELECT * FROM MiDEEValues";
+                cmd = new SqlCommand(sqlString, conn);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dts);
+            }
+
+            else
+            { 
+                string sqlString = "SELECT * FROM MiDEEValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable})";
+                cmd = new SqlCommand(sqlString, conn);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                cmd.AddArrayParameters("StrategyName", exclusionBox);
+                cmd.AddArrayParameters("EVariable", exclusionBox);
+                da.Fill(dts);
+            }
+
             return dts;
         }
 
@@ -291,7 +331,6 @@ namespace MiDEWPF.Pages
                 Value += Convert.ToInt32(valueAdd);
                 i++;
             }
-
             return Value;
         }
 
@@ -306,36 +345,16 @@ namespace MiDEWPF.Pages
         public NewButton CreateButtons(List<string> list, DataTable dt, int i)
         {
             string eid = dt.Rows[i][0].ToString();
-            //string sGroup = dt.Rows[i][1].ToString();
-            //int j = 0;
             NewButton button = new NewButton();
             Style style = FindResource("mButton") as Style;
             button.Tag = Int32.Parse(eid);
             button.Content = list[i].ToString();
             button.Style = style;
             button.Margin = new Thickness(0, 3, 3, 3);
-            //content.Add(button.Content.ToString());
             AllCurrentMitigations.Add(list[i].ToString());
-            //j++;
             return button;
         }
 
-       /* public NewButton CreateButtonsTest(List<string> list, DataTable dt, int i)
-        {
-            
-            string eid = dt.Rows[i][0].ToString();
-            //string sGroup = listb[i].ToString();
-            NewButton button = new NewButton();
-            Style style = FindResource("mButton") as Style;
-            button.Tag = Int32.Parse(eid);
-            button.Content = list[i].ToString();
-            button.Style = style;
-            button.Margin = new Thickness(0, 3, 3, 3);
-            //content.Add(button.Content.ToString());
-            AllCurrentMitigations.Add(list[i].ToString());
-            j++;
-            return button;
-        }*/
         #endregion
 
         #region Button Events

@@ -22,33 +22,40 @@ namespace MiDEWPF.Pages
     {
         List<string> Values = new List<string>();
         int NewETotal = MiDESelection.AllEValueSum - MiDESelection.EValuesSum;
+       
+
         public MiDEResults()
         {
 
             InitializeComponent();
 
             ScenarioNumberDispaly.Text = "For Scenario # " + MiDESelection.ScenarioNumber;
-            ScenarioNumberDispaly.FontSize = 32;
+            ScenarioNumberDispaly.FontSize = 30;
             SFactorDisplay.Text = "MiDE Calculated With The Supplied Parameters Of ";
-            SFactorDisplay.FontSize = 32;
+            SFactorDisplay.FontSize = 30;
             SFactorDisplayArray.Text = string.Join(", ", Home.SelectionBox);
             StrategyExclusionArray.Text = string.Join(", ", Home.ExclusionBox);
             MitigationDisplayArray.Text = string.Join(", ", MiDESelection.RemainingMitigationList); 
 
             SFactorTB.Text = "The S Factor total is " + Home.SValuesSum.ToString();
-            SFactorTB.FontSize = 32;
+            SFactorTB.FontSize = 30;
 
             EValueDispaly.Text = "Which Have An Enhancement Value of " + NewETotal.ToString();
-            EValueDispaly.FontSize = 32;
-            
-            
-            ResultsTB.Text = "These Selections Will Lower Your S Factor To " + (Home.SValuesSum - NewETotal).ToString();
-            ResultsTB.FontSize = 32;
+            EValueDispaly.FontSize = 30;
+
+            int SFactorResult = Home.SValuesSum - NewETotal;
+            if (SFactorResult < 0)
+            {
+                SFactorResult = 0;
+            }
+
+            ResultsTB.Text = "These Selections Will Lower Your S Factor To " + SFactorResult.ToString();
+            ResultsTB.FontSize = 30;
 
             if (Home.SValuesSum - NewETotal <= 5)
             {
                 Image.Text = "Great Job";
-                Image.FontSize = 32;
+                Image.FontSize = 30;
                 var uri = new Uri("pack://application:,,,/thumbsUp.jpg", UriKind.Absolute);
 
                 ImageHolder.Source = new BitmapImage(uri);

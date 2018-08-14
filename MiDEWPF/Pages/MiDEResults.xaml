@@ -19,30 +19,50 @@
             <RowDefinition Height="14*"/>
         </Grid.RowDefinitions>
         <TextBox Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="50" Margin="18,13,18,0" TextAlignment="Center" FontSize="30" Text="MiDE Scenario Builder Results Summary" VerticalAlignment="Top" Width="1364" Background="LemonChiffon" BorderBrush="#FFABADB3"/>
-        <Canvas HorizontalAlignment="Left" Height="717" VerticalAlignment="Top" Width="885" Grid.Row="1" Grid.Column="0" Margin="0,2,0,10" Grid.RowSpan="2">
-            <Grid Height="707" Width="875" >
+        <Canvas HorizontalAlignment="Left" Height="717" VerticalAlignment="Top" Width="885" Grid.Row="1" Grid.Column="0" Margin="0,2,0,10" Grid.RowSpan="1">
+            <Grid Height="717" Width="875" >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="75*"/>
-                    <RowDefinition Height="56*"/>
-                    <RowDefinition Height="74*"/>
-                    <RowDefinition Height="56*"/>
-                    <RowDefinition Height="103*"/>
-                    <RowDefinition Height="45*"/>
-                    <RowDefinition Height="49*"/>
-                    <RowDefinition Height="85*"/>
+                    <RowDefinition Height="51*"/>
+                    <RowDefinition Height="66*"/>
+                    <RowDefinition Height="110*"/>
+                    <RowDefinition Height="61*"/>
                     <RowDefinition Height="81*"/>
-                    <RowDefinition Height="83*"/>
+                    <RowDefinition Height="46*"/>
+                    <RowDefinition Height="50*"/>
+                    <RowDefinition Height="86*"/>
+                    <RowDefinition Height="62*"/>
+                    <RowDefinition Height="104*"/>
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="ScenarioNumberDispaly" Grid.Row="0" TextWrapping="Wrap" Text="TextBlock" Margin="17,12"/>
-                <TextBlock x:Name="SFactorDisplay" Grid.Row="1" TextWrapping="Wrap" Margin="17,3"/>
-                <TextBlock x:Name="SFactorDisplayArray" Grid.Row="2" TextWrapping="Wrap" Margin="17,0"/>
-                <TextBlock Grid.Row="3" TextWrapping="Wrap" Text="Your Chosen Mitigations Are" FontSize="32" Margin="17,3"/>
-                <TextBlock x:Name="MitigationDisplayArray" Grid.Row="4" TextWrapping="Wrap" Margin="17,0"/>
-                <TextBlock x:Name="StrategyExclusion" Grid.Row="5" TextWrapping="Wrap" Text="You Excluded The Following Strategy And Mitigation Options" FontSize="30" Margin="17,0" />
-                <TextBlock x:Name="StrategyExclusionArray" Grid.Row="6" TextWrapping="Wrap" Text="TextBlock" Margin="17,3"/>
-                <TextBlock x:Name="SFactorTB" Grid.Row="7" TextWrapping="Wrap" Text="TextBlock" Margin="17,3"/>
-                <TextBlock x:Name="EValueDispaly" Grid.Row="8" TextWrapping="Wrap" Margin="17,2"/>
-                <TextBlock x:Name="ResultsTB" Grid.Row ="9" TextWrapping="Wrap" Margin="17,3"/>
+                <Border BorderBrush="LightSlateGray" BorderThickness="1" CornerRadius="8" Grid.Row="0" Margin="5,0,0,2">
+                    <TextBlock x:Name="ScenarioNumberDispaly" Grid.Row="0" TextWrapping="Wrap" Text="TextBlock" Margin="17,0,17,0"/>
+                </Border>
+                <Border BorderBrush="LightSlateGray" BorderThickness="1" CornerRadius="8" Grid.Row="1" Margin="5,2,0,2">
+                    <TextBlock x:Name="SFactorDisplay" Grid.Row="1" TextWrapping="Wrap" Margin="17,3"/>
+                </Border>
+                <Border BorderBrush="LightSlateGray" BorderThickness="1" CornerRadius="8" Grid.Row="2" Margin="5,2,0,2">
+                    <TextBlock x:Name="SFactorDisplayArray" Grid.Row="2" TextWrapping="Wrap" Margin="17,0"/>
+                </Border>
+                <Border BorderBrush="LightSlateGray" BorderThickness="1" CornerRadius="8" Grid.Row="3" Margin="5,2,0,2">
+                    <TextBlock Grid.Row="3" TextWrapping="Wrap" Text="Your Chosen Mitigations Are" FontSize="32" Margin="17,3"/>
+                </Border>
+                <Border BorderBrush="LightSlateGray" BorderThickness="1" CornerRadius="8" Grid.Row="4" Margin="5,2,0,2">
+                    <TextBlock x:Name="MitigationDisplayArray" Grid.Row="4" TextWrapping="Wrap" Margin="17,0"/>
+                </Border>
+                <Border BorderBrush="LightSlateGray" BorderThickness="1" CornerRadius="8" Grid.Row="5" Margin="5,2,0,2">
+                    <TextBlock x:Name="StrategyExclusion" Grid.Row="5" TextWrapping="Wrap" Text="You Excluded The Following Strategy And Mitigation Options" FontSize="30" Margin="17,0" />
+                </Border>
+                <Border BorderBrush="LightSlateGray" BorderThickness="1" CornerRadius="8" Grid.Row="6" Margin="5,2,0,2">
+                    <TextBlock x:Name="StrategyExclusionArray" Grid.Row="6" TextWrapping="Wrap" Text="TextBlock" Margin="17,3"/>
+                </Border>
+                <Border BorderBrush="LightSlateGray" BorderThickness="1" CornerRadius="8" Grid.Row="7" Margin="5,2,0,2">
+                    <TextBlock x:Name="SFactorTB" Grid.Row="7" TextWrapping="Wrap" Text="TextBlock" Margin="17,3"/>
+                </Border>
+                <Border BorderBrush="LightSlateGray" BorderThickness="1" CornerRadius="8" Grid.Row="8" Margin="5,2,0,2">
+                    <TextBlock x:Name="EValueDispaly" Grid.Row="8" TextWrapping="Wrap" Margin="17,2"/>
+                </Border>
+                <Border BorderBrush="LightSlateGray" BorderThickness="1" CornerRadius="8" Grid.Row="9" Margin="5,2,0,55">
+                    <TextBlock x:Name="ResultsTB" Grid.Row ="9" TextWrapping="Wrap" Margin="17,3,17,9"/>
+                </Border>
             </Grid>
         </Canvas>
         <TextBlock x:Name="Image" TextWrapping="Wrap" Margin="10,25,10,42" Grid.Column="1" Grid.Row="1" TextAlignment="Center" />

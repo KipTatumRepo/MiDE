@@ -38,10 +38,10 @@ namespace MiDEWPF.Pages
             StrategyExclusionArray.Text = string.Join(", ", Home.ExclusionBox);
             MitigationDisplayArray.Text = string.Join(", ", MiDESelection.RemainingMitigationList); 
 
-            SFactorTB.Text = "The S Factor total is " + Home.SValuesSum.ToString();
+            SFactorTB.Text = "The S Factor Total Is " + Home.SValuesSum.ToString();
             SFactorTB.FontSize = 30;
 
-            EValueDispaly.Text = "Which Have An Enhancement Value of " + NewETotal.ToString();
+            EValueDispaly.Text = "Your Selected Enhancements Have A Value Of  " + NewETotal.ToString();
             EValueDispaly.FontSize = 30;
 
             int SFactorResult = Home.SValuesSum - NewETotal;

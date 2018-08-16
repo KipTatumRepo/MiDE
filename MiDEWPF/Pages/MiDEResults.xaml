@@ -26,10 +26,10 @@
                     <RowDefinition Height="66*"/>
                     <RowDefinition Height="110*"/>
                     <RowDefinition Height="61*"/>
-                    <RowDefinition Height="81*"/>
-                    <RowDefinition Height="46*"/>
-                    <RowDefinition Height="50*"/>
-                    <RowDefinition Height="86*"/>
+                    <RowDefinition Height="87*"/>
+                    <RowDefinition Height="51*"/>
+                    <RowDefinition Height="55*"/>
+                    <RowDefinition Height="70*"/>
                     <RowDefinition Height="62*"/>
                     <RowDefinition Height="104*"/>
                 </Grid.RowDefinitions>
@@ -54,8 +54,16 @@
                 <Border BorderBrush="LightSlateGray" BorderThickness="1" CornerRadius="8" Grid.Row="6" Margin="5,2,0,2">
                     <TextBlock x:Name="StrategyExclusionArray" Grid.Row="6" TextWrapping="Wrap" Text="TextBlock" Margin="17,3"/>
                 </Border>
-                <Border BorderBrush="LightSlateGray" BorderThickness="1" CornerRadius="8" Grid.Row="7" Margin="5,2,0,2">
-                    <TextBlock x:Name="SFactorTB" Grid.Row="7" TextWrapping="Wrap" Text="TextBlock" Margin="17,3"/>
+                <Border BorderBrush="LightSlateGray" BorderThickness="1" CornerRadius="8" Grid.Row="7" Margin="5,2,0,2" RenderTransformOrigin="0.5,0.5">
+                    <Border.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-0.151"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Border.RenderTransform>
+                    <TextBlock x:Name="SFactorTB" Grid.Row="7" TextWrapping="Wrap" Text="TextBlock" Margin="17,22,17,3"/>
                 </Border>
                 <Border BorderBrush="LightSlateGray" BorderThickness="1" CornerRadius="8" Grid.Row="8" Margin="5,2,0,2">
                     <TextBlock x:Name="EValueDispaly" Grid.Row="8" TextWrapping="Wrap" Margin="17,2"/>

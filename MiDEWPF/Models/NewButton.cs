@@ -9,20 +9,19 @@ namespace MiDEWPF.Models
 {
     public class NewButton : Button
     {
-       
+        private int bid;
 
         public int Bid { get; set; }
         
-        public NewButton(int bid)
+        public NewButton()
         {
             Bid = bid;
         }
 
-        public NewButton()
+        public int GetBid()
         {
-
-            Bid = 0;
-
+            return Bid;
         }
+       
     }
 }

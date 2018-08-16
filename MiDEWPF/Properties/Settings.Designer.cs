@@ -32,5 +32,15 @@ namespace MiDEWPF.Properties {
                 return ((string)(this["MiDEConnection"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=compasspowerbi;Initial Catalog=BI;Integrated Security=True")]
+        public string BIConnectionString {
+            get {
+                return ((string)(this["BIConnectionString"]));
+            }
+        }
     }
 }

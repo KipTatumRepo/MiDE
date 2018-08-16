@@ -13,13 +13,14 @@
 
     <Page.Resources>
         <local1:MiDEDataSet x:Key="mideDataSet"/>
-        <CollectionViewSource x:Key="buildingMenuViewSource" Source="{Binding MiDEBuildings, Source={StaticResource mideDataSet}}"/>
-        <CollectionViewSource x:Key="vbuildingMenuViewSource" Source="{Binding MiDEBuildings, Source={StaticResource mideDataSet}}"/>
+        <CollectionViewSource x:Key="buildingMenuViewSource" Source="{Binding MasterBuildingList, Source={StaticResource mideDataSet}}"/>
+        <CollectionViewSource x:Key="vbuildingMenuViewSource" Source="{Binding MasterBuildingList, Source={StaticResource mideDataSet}}"/>
         <CollectionViewSource x:Key="populationViewSource" Source="{Binding MiDEPopulation, Source={StaticResource mideDataSet}}"/>
         <CollectionViewSource x:Key="sFactorViewSource" Source="{Binding MiDESValues, Source={StaticResource mideDataSet}}"/>
         <CollectionViewSource x:Key="sGFactorViewSource" Source="{Binding MiDEStrategyGroups, Source={StaticResource mideDataSet}}"/>
         <CollectionViewSource x:Key="eFactorViewSource" Source="{Binding MiDEEValues, Source={StaticResource mideDataSet}}"/>
         <CollectionViewSource x:Key="popTypeViewSource" Source="{Binding MiDEPopType, Source={StaticResource mideDataSet}}"/>
+        
     </Page.Resources>
 
     <Grid x:Name="ParentGrid" Margin="5,5,5,5" Width="{Binding Path=ViewportWidth}">
@@ -62,9 +63,11 @@
                 </HierarchicalDataTemplate>
             </Menu.ItemTemplate>
             </Menu>-->
+                    <!--ItemsSource="{Binding NotifyOnSourceUpdated=True, Source={StaticResource vbuildingMenuViewSource}, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="BuildingName" SelectedValuePath="BuildingName" 
+                    ItemsSource="{Binding NotifyOnSourceUpdated=True, Source={StaticResource buildingMenuViewSource}, UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="BuildingName" SelectedValuePath="BuildingName"-->
                     <ComboBox x:Name="selectedVacatingBuildingCB" Text = "Select Building" Width="200" IsEditable="True" IsReadOnly="True" Height="28" HorizontalAlignment="Left" 
-                      ItemsSource="{Binding NotifyOnSourceUpdated=True, Source={StaticResource vbuildingMenuViewSource}, UpdateSourceTrigger=PropertyChanged}" 
-                      DisplayMemberPath="BuildingName" SelectedValuePath="BuildingName" SelectionChanged="selectedVacatingBuildingCB_SelectionChanged"/>
+                      SelectionChanged="selectedVacatingBuildingCB_SelectionChanged"/>
                     <ComboBox x:Name="selectedPopRangeCB" Text="Select Population Range" Width="200" IsEditable="True" IsReadOnly="True" Height="28" HorizontalAlignment="Left" 
                       ItemsSource="{Binding NotifyOnSourceUpdated=True, Source={StaticResource populationViewSource}, UpdateSourceTrigger=PropertyChanged}"
                       DisplayMemberPath="PopAmount" SelectedValuePath="PopAmount" SelectionChanged="selectedPopRangeCB_SelectionChanged" Canvas.Left="221"/>
@@ -72,8 +75,6 @@
                       ItemsSource="{Binding NotifyOnSourceUpdated=True, Source={StaticResource popTypeViewSource}, UpdateSourceTrigger=PropertyChanged}" 
                       DisplayMemberPath="popType" SelectedValuePath="popType" SelectionChanged="selectedPopTypeCB_SelectionChanged" Canvas.Left="446"/>
                     <ComboBox x:Name="selectBuildingCB" Text="Select Building" Width="200" IsEditable="True" IsReadOnly="True" Height="26" HorizontalAlignment="Left" 
-                       ItemsSource="{Binding NotifyOnSourceUpdated=True, Source={StaticResource buildingMenuViewSource}, UpdateSourceTrigger=PropertyChanged}"
-                      DisplayMemberPath="BuildingName" SelectedValuePath="BuildingName"
                       SelectionChanged="selectBuildingCB_SelectionChanged" Canvas.Top="33"/>
                     <DatePicker x:Name="datePicker" VerticalAlignment="Top" Width="200" HorizontalAlignment="Left" SelectedDateChanged="DatePicker_SelectedDateChanged" Canvas.Top="64" />
                     <ComboBox x:Name="sFactorCB" Text="Compression Factors" Width="600" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Left"

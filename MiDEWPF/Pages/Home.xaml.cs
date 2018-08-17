@@ -47,7 +47,6 @@ namespace MiDEWPF.Pages
         int Throttle;
         List<string> StrategyExCB = new List<string>();
         List<string> StrategyExclusion = new List<string>();
-        //char[] charsToTrim = { ' ' };
         #endregion
        
         
@@ -55,8 +54,6 @@ namespace MiDEWPF.Pages
         {
 
             InitializeComponent();
-
-            
 
             #region Get Data
 

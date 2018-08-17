@@ -35,14 +35,17 @@ namespace MiDEWPF.Pages
         #endregion
 
         #region Local Variables
-        int b = 0;
         public static int ScenarioNumber;
+        int i = 0;
         SqlCommand Cmd;
         int SValue;
         List<string> content = new List<string>();
         MiDEDataSet ds = new MiDEDataSet();
-        int j = 0;
         DataTable rdt = new DataTable();
+        DataTable sortedTable = new DataTable();
+        DataTable fdt = new DataTable("FilteredDataTable");
+        List<string> list = new List<string>();
+       
         #endregion
 
         public MiDESelection()
@@ -83,75 +86,35 @@ namespace MiDEWPF.Pages
             currentScenarioLB.ItemsSource = Home.SelectionBox;
 
             #endregion
+            fdt = HomeSelectionFilter(Home.ExclusionBox);
 
-            DataTable fdt  = new DataTable("FilteredDataTable");
-            Dictionary<string, int> filteredDictionary = new Dictionary<string, int>();
-            int i = 0;
+            sortedTable = SortedTable(fdt);
+               
+            rdt = Deal(sortedTable, SValue);
 
-            #region Input Scenarios
-            //There are budget constraints and there are exclusions selected by the user
-            if (Home.isThrottled == 1)
+            AllEValueSum = getAvailableEValue(rdt);
+
+            DataColumn col = rdt.Columns["EVariable"];
+
+            foreach (DataRow row in rdt.Rows)
             {
-                //Select Evalues that do not correspond to the exclusions selected by the user
-                List<string> list = new List<string>();
-                fdt = HomeSelectionFilter(Home.ExclusionBox);
-               
-                DataView dv = fdt.DefaultView;
-                dv.Sort = "CostMoney ASC, Evalue DESC, CostEffort ASC";
-                DataTable SortedTable = dv.ToTable();
-               
-                rdt = Deal(SortedTable, SValue);
-                DataColumn col = rdt.Columns["EVariable"];
-
-                foreach (DataRow row in rdt.Rows)
-                {
-                    list.Add(row[col].ToString());
-                }
-                AllEValueSum = getAvailableEValue(rdt);
-                foreach (var item in list)
-                {
-                    mitigationDisplay.Children.Add(CreateButtons(list, rdt, i));
-                    i++;
-                }
-                AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
+                list.Add(row[col].ToString());
+            }
+            
+            foreach (var item in list)
+            {
+                mitigationDisplay.Children.Add(CreateButtons(list, rdt, i));
+                i++;
+            }
+            AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
                 
-            }
-
-            //There is an unlimited budget but there are exclusions selected by the user
-            else
-            {
-                fdt = HomeSelectionFilter(Home.ExclusionBox);
-                DataView dv = fdt.DefaultView;
-                dv.Sort = "CostMoney ASC, Evalue DESC, CostEffort ASC";
-                DataTable SortedTable = dv.ToTable();
-
-                rdt = Deal(SortedTable, SValue);
-                List<string> list = new List<string>();
-                List<string> slist = new List<string>();
-                DataColumn col = rdt.Columns["EVariable"];
-                DataColumn col2 = rdt.Columns["StrategyName"];
-                AllEValueSum = getAvailableEValue(rdt);
-
-                foreach (DataRow row in rdt.Rows)
-                {
-                    list.Add(row[col].ToString());
-                }
-                foreach (var item in list)
-                {
-                    mitigationDisplay.Children.Add(CreateButtons(list, rdt, i));
-                    i++;
-                }
-                AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
-
-            }
-            #endregion
         }
 
         #region Algorithmic Functions
-        //Get a datatable based on Strategies or Evariables that are selected by the user as exclusions from Home page
+        //Get a datatable that filters out Strategies or Evariables that are selected by the user as exclusions from Home page
         public DataTable HomeSelectionFilter(List<string> exclusionBox)
         {
-            DataTable dts = new DataTable("MiDEFilterWrite");
+            DataTable dts = new DataTable("MiDEExclusionReturnedTable");
            
             SqlCommand cmd;
             SqlConnection conn = ConnectionHelper.GetConn();
@@ -187,7 +150,6 @@ namespace MiDEWPF.Pages
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     da.Fill(dts);
                 }
-
                 else
                 {
                     string sqlString = "SELECT * FROM MiDEEValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable})";
@@ -197,30 +159,18 @@ namespace MiDEWPF.Pages
                     cmd.AddArrayParameters("EVariable", exclusionBox);
                     da.Fill(dts);
                 }
-
             }
             return dts;
         }
 
-        //Get all Evariables because there are not any exclusions added be the user but budget is constrained so we order by ASC
-        public DataTable NoExclusions(List<string> exclusionBox)
+        //Take DataTable returned by HomeSelectionFilter and Sort
+        public DataTable SortedTable(DataTable FilteredTable)
         {
-            DataTable dts = new DataTable("MiDEFilterWrite");
-
-            SqlCommand cmd;
-            SqlConnection conn = ConnectionHelper.GetConn();
-            conn.Open();
-
-            exclusionBox = Home.ExclusionBox;
-
-            string sqlString = "Select * FROM MiDEEValues ORDER BY CostMoney ASC";
-
-            cmd = new SqlCommand(sqlString, conn);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-
-            da.Fill(dts);
-
-            return dts;
+            DataTable SortedTable = new DataTable("MiDESortedTable");
+            DataView dv = FilteredTable.DefaultView;
+            dv.Sort = "CostMoney ASC, Evalue DESC, CostEffort ASC";
+            SortedTable = dv.ToTable();
+            return SortedTable;
         }
 
         //Load a DataTable and sum of S values.  Create 2 new DataTables 1 for legit values, one for throw away.  Look at E Value in each DataRow and add to EValueSum
@@ -242,16 +192,19 @@ namespace MiDEWPF.Pages
                
                 evalue = row[col].ToString();
                 EValue = int.Parse(evalue);
-                if (EValue >= SValueSum)
+                if (EValue > SValueSum)
                 {
-                    
+                    otherTable.Rows.Add(row.ItemArray);
+                }
+                else if (EValue == SValueSum)
+                {
                     table.Rows.Add(row.ItemArray);
                     return table;
                 }
-                else
+                else 
                 {
                     EValueSum += EValue;
-                  
+
                     if (EValueSum < SValueSum)
                     {
                         table.Rows.Add(row.ItemArray);
@@ -259,7 +212,6 @@ namespace MiDEWPF.Pages
 
                     else if (EValueSum > SValueSum)
                     {
-                        
                         otherTable.Rows.Add(row.ItemArray);
                         EValueSum -= EValue;
 
@@ -272,61 +224,6 @@ namespace MiDEWPF.Pages
                 }
             }
             return table;
-        }
-
-        //Create a List<string> of keys from dictionary so we can put text in buttons
-        public List<string> KeyList(Dictionary<string, int> dictionary)
-        {
-            List<string> keys = new List<string>();
-
-            foreach (KeyValuePair<string, int> kvp in dictionary )
-            {
-                keys.Add(kvp.Key);
-            }
-            return keys;
-        }
-
-        public List<string> AllEValueList()
-        {
-            int i = 0;
-            SqlCommand cmd;
-            SqlConnection conn = ConnectionHelper.GetConn();
-            conn.Open();
-            List<string> AllEValues = new List<string>();
-           
-
-            string sqlString = "SELECT * FROM MiDEEValues";
-            cmd = new SqlCommand(sqlString, conn);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dts = new DataTable("MiDEAllWrite");
-
-            da.Fill(dts);
-
-            DataColumn col = dts.Columns["EVariable"];
-            
-            foreach (DataRow row in dts.Rows)
-            {
-                AllEValues.Add(row[col].ToString());
-                i++;
-            }
-            return AllEValues;
-        }
-
-        public DataTable AllDataTable()
-        {
-            int i = 0;
-            SqlCommand cmd;
-            SqlConnection conn = ConnectionHelper.GetConn();
-            conn.Open();
-            
-            string sqlString = "SELECT * FROM MiDEEValues";
-            cmd = new SqlCommand(sqlString, conn);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dts = new DataTable("TempTable");
-
-            da.Fill(dts);
-
-            return dts;
         }
 
         //sum of the Evalue from datatable that results from exclusion selections
@@ -379,8 +276,6 @@ namespace MiDEWPF.Pages
                 string Bid = b.Tag.ToString();
                 int bid;
                 bid = int.Parse(Bid);
-                //string idk = e.OriginalSource.ToString();
-                //string bbase = "MiDEWPF.Models.NewButton: ";
 
                 #region check for string match to Button RoutedEventArgs
                 if (bid == 1)

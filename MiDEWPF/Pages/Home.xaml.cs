@@ -288,6 +288,7 @@ namespace MiDEWPF.Pages
             MessageBox.Show("Delete All Current Selections?");
             SelectionListBox.Items.Clear();
             SelectionBox.Clear();
+            SValues.Clear();
             return;
         }
 
@@ -386,7 +387,5 @@ namespace MiDEWPF.Pages
             return mitigationExclusionCB;
         }
 
-        
-        
     }
 }

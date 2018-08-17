@@ -53,7 +53,7 @@ namespace MiDEWPF.Pages
             InitializeComponent();
 
             //Check to see if there budget throttle is applied
-            if (Home.isThrottled == 1)
+            if (Home.isThrottled == 1 && currentScenarioLB.Items.Count == 0)
             {
                 Home.SelectionBox.Add("There are Budget Considerations");
             }
@@ -97,7 +97,7 @@ namespace MiDEWPF.Pages
                 fdt = HomeSelectionFilter(Home.ExclusionBox);
                
                 DataView dv = fdt.DefaultView;
-                dv.Sort = "CostMoney ASC, Evalue DESC";
+                dv.Sort = "CostMoney ASC, Evalue DESC, CostEffort ASC";
                 DataTable SortedTable = dv.ToTable();
                
                 rdt = Deal(SortedTable, SValue);
@@ -106,7 +106,6 @@ namespace MiDEWPF.Pages
                 foreach (DataRow row in rdt.Rows)
                 {
                     list.Add(row[col].ToString());
-                    //slist.Add(row[col2].ToString());
                 }
                 AllEValueSum = getAvailableEValue(rdt);
                 foreach (var item in list)
@@ -120,15 +119,15 @@ namespace MiDEWPF.Pages
 
             //There is an unlimited budget but there are exclusions selected by the user
             else
-            //else if (Home.ExclusionBox.Count() >= 1)
             {
                 fdt = HomeSelectionFilter(Home.ExclusionBox);
-                rdt = Deal(fdt, SValue);
+                DataView dv = fdt.DefaultView;
+                dv.Sort = "CostMoney ASC, Evalue DESC, CostEffort ASC";
+                DataTable SortedTable = dv.ToTable();
+
+                rdt = Deal(SortedTable, SValue);
                 List<string> list = new List<string>();
                 List<string> slist = new List<string>();
-                //DataColumn col = fdt.Columns["EVariable"];
-                //DataColumn col2 = fdt.Columns["StrategyName"];
-                //AllEValueSum = getAvailableEValue(fdt);
                 DataColumn col = rdt.Columns["EVariable"];
                 DataColumn col2 = rdt.Columns["StrategyName"];
                 AllEValueSum = getAvailableEValue(rdt);
@@ -145,24 +144,6 @@ namespace MiDEWPF.Pages
                 AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
 
             }
-
-            //Otherwise there is an unlimited budget and no exclusions
-            /*else
-            {
-                DataTable ftd = new DataTable();
-                List<string> AlleValueList = AllEValueList();
-                List<string> slist = new List<string>();
-                AllEValueSum = getAvailableEValue(AllDataTable());
-                ftd = AllDataTable();
-                rdt = Deal(ftd, SValue);
-                foreach (var item in ds.MiDEEValues)
-                {
-                    mitigationDisplay.Children.Add(CreateButtons(AlleValueList, rdt, i));
-                    i++;
-                }
-                AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
-
-            }*/
             #endregion
         }
 

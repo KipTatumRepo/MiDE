@@ -47,9 +47,10 @@ namespace MiDEWPF.Pages
         int Throttle;
         List<string> StrategyExCB = new List<string>();
         List<string> StrategyExclusion = new List<string>();
+        string BudgetThrottleText;
         #endregion
-       
-        
+
+
         public Home()
         {
 
@@ -332,6 +333,13 @@ namespace MiDEWPF.Pages
         //Navigate to next page
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            //Check to see if there budget throttle is applied
+            if (Throttle == 1)
+            {
+                BudgetThrottleText = "There are Budget Considerations";
+                SelectionBox.Add(BudgetThrottleText);
+            }
+
             selectedVacatingBuildingCB.Text = "Select Building";
             selectedPopRangeCB.Text = "Select Population Range";
             selectedPopTypeCB.Text = "Select Population Type";

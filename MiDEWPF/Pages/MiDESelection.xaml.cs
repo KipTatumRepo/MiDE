@@ -45,7 +45,7 @@ namespace MiDEWPF.Pages
         DataTable sortedTable = new DataTable();
         DataTable fdt = new DataTable("FilteredDataTable");
         List<string> list = new List<string>();
-       
+        
         #endregion
 
         public MiDESelection()
@@ -55,12 +55,6 @@ namespace MiDEWPF.Pages
 
             InitializeComponent();
 
-            //Check to see if there budget throttle is applied
-            if (Home.isThrottled == 1 && currentScenarioLB.Items.Count == 0)
-            {
-                Home.SelectionBox.Add("There are Budget Considerations");
-            }
-            
             #region Get Data
             MiDEDataSetTableAdapters.MiDEEValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
             eadapter.Fill(ds.MiDEEValues);
@@ -84,8 +78,10 @@ namespace MiDEWPF.Pages
 
             currentExclusionLB.ItemsSource = Home.ExclusionBox;
             currentScenarioLB.ItemsSource = Home.SelectionBox;
+            
 
             #endregion
+
             fdt = HomeSelectionFilter(Home.ExclusionBox);
 
             sortedTable = SortedTable(fdt);
@@ -260,6 +256,7 @@ namespace MiDEWPF.Pages
             button.Style = style;
             button.Margin = new Thickness(0, 3, 3, 3);
             AllCurrentMitigations.Add(list[i].ToString());
+            
             return button;
         }
 

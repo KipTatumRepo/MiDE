@@ -106,7 +106,6 @@ namespace MiDEWPF.Pages
                 foreach (DataRow row in rdt.Rows)
                 {
                     list.Add(row[col].ToString());
-                    //slist.Add(row[col2].ToString());
                 }
                 AllEValueSum = getAvailableEValue(rdt);
                 foreach (var item in list)

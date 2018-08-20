@@ -47,6 +47,7 @@ namespace MiDEWPF.Pages
         int Throttle;
         List<string> StrategyExCB = new List<string>();
         List<string> StrategyExclusion = new List<string>();
+        List<string> MitigationExclusion = new List<string>();
         string BudgetThrottleText;
         #endregion
 
@@ -233,7 +234,7 @@ namespace MiDEWPF.Pages
            
             StrategyExclusion.Add(add);
 
-            PopulateMitigationExclusion(StrategyExclusion);
+            InitialPopulateMitigationExclusion(StrategyExclusion);
 
             // when a new item is added to Exclusion list box, select it and show it
             // this will keep the last item highlighted and as the list grows beyond
@@ -255,6 +256,8 @@ namespace MiDEWPF.Pages
 
             ExclusionListBox.Items.Add(add);
             ExclusionBox.Add(add);
+            MitigationExclusion.Add(add);
+            PopulateMitigationExclusion(MitigationExclusion, StrategyExclusion);
 
             // when a new item is added to Exclusion list box, select it and show it
             // this will keep the last item highlighted and as the list grows beyond
@@ -358,7 +361,7 @@ namespace MiDEWPF.Pages
         #endregion
 
         //Populate mitigationExclusion Combobox with only items that are not included with strategy exclusions
-        public ComboBox PopulateMitigationExclusion(List<string> se)
+        public ComboBox InitialPopulateMitigationExclusion(List<string> se)
         {
             mitigationExclusionCB.Items.Clear();
             int i = 0;
@@ -383,6 +386,41 @@ namespace MiDEWPF.Pages
             }
 
             foreach(var item in MitigationExclusionText)
+            {
+                string comboboxtext = MitigationExclusionText[i];
+                mitigationExclusionCB.Items.Add(comboboxtext);
+                i++;
+            }
+
+            return mitigationExclusionCB;
+        }
+
+        public ComboBox PopulateMitigationExclusion(List<string> me, List<string> se)
+        {
+            mitigationExclusionCB.Items.Clear();
+            int i = 0;
+            List<string> MitigationExclusionText = new List<string>();
+            DataTable dts = new DataTable("MiDEFilterWrite");
+            SqlCommand cmd;
+            SqlConnection conn = ConnectionHelper.GetConn();
+            conn.Open();
+
+            string sqlString = "SELECT * FROM MiDEEValues WHERE EVariable NOT IN ({MitigationExclusionList}) AND StrategyName NOT IN ({StrategyNameList})";
+            cmd = new SqlCommand(sqlString, conn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            cmd.AddArrayParameters("MitigationExclusionList", me);
+            cmd.AddArrayParameters("StrategyNameList", se);
+
+            da.Fill(dts);
+
+            DataColumn col = dts.Columns["EVariable"];
+
+            foreach (DataRow row in dts.Rows)
+            {
+                MitigationExclusionText.Add(row[col].ToString());
+            }
+
+            foreach (var item in MitigationExclusionText)
             {
                 string comboboxtext = MitigationExclusionText[i];
                 mitigationExclusionCB.Items.Add(comboboxtext);

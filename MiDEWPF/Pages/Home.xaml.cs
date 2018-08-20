@@ -199,6 +199,7 @@ namespace MiDEWPF.Pages
         {
             List<string> SVariable = new List<string>();
             int SValue = 0;
+
             if (sFactorCB.SelectedIndex == -1 || sFactorCB.SelectedValue == null)
             { 
                 return;
@@ -320,7 +321,6 @@ namespace MiDEWPF.Pages
             conn.Open();
 
             string sqlString = "SELECT * FROM MiDESValues WHERE svariable NOT IN ({SelectionBox})";
-            //k = 0;
             SelectionListBox.SelectedIndex = SelectionListBox.Items.Count - 1;
             int currentIterator = SelectionListBox.Items.Count - 1;
             int listIterator = SValues.Count - 1;
@@ -403,8 +403,22 @@ namespace MiDEWPF.Pages
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             cmd.AddArrayParameters("ExclusionBox", ExclusionBox);
 
-            da.Fill(dts);
+            //all user selected exclusions have been removed so we should have a full list
+            //of options in the mitigation exclusion combobox
+            if(ExclusionBox.Count == 0)
+            {
+                m = 0;
+                foreach (var item in ds.MiDEEValues)
+                {
+                    StrategyExclusion.Add(ds.MiDEEValues.Rows[m][2].ToString());
+                    string comboboxtext = ds.MiDEEValues.Rows[m][2].ToString();
+                    mitigationExclusionCB.Items.Add(comboboxtext);
+                    m++;
+                }
+                return;
+            }
 
+            da.Fill(dts);
             DataColumn col = dts.Columns["EVariable"];
 
             foreach (DataRow row in dts.Rows)
@@ -477,6 +491,8 @@ namespace MiDEWPF.Pages
             return mitigationExclusionCB;
         }
 
+        //Repopulate mitigationExclusion Combobox with remaining mitigation exclusion options when a  mitigation
+        // is selected to exclude
         public ComboBox PopulateMitigationExclusion(List<string> me, List<string> se)
         {
             mitigationExclusionCB.Items.Clear();
@@ -512,6 +528,8 @@ namespace MiDEWPF.Pages
             return mitigationExclusionCB;
         }
 
+        //Repopulate sFactorCB, when a scenario S Factor has been chosen, with remaining S Factors
+        //i.e. eliminate already chose S Factor from combobox
         public ComboBox PopulateSFactor(List<string> se)
         {
             sFactorCB.Items.Clear();
@@ -546,6 +564,7 @@ namespace MiDEWPF.Pages
             return sFactorCB;
         }
 
+        //Get S Value of the selected S Factor
         public int GetSValue(DataTable ds, string cbstring)
         {
             int svalue = 0;

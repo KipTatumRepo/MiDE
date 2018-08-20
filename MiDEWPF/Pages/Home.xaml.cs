@@ -48,6 +48,8 @@ namespace MiDEWPF.Pages
         List<string> StrategyExCB = new List<string>();
         List<string> StrategyExclusion = new List<string>();
         List<string> MitigationExclusion = new List<string>();
+        List<string> SVariableExclusion = new List<string>();
+        
         string BudgetThrottleText;
         #endregion
 
@@ -68,6 +70,7 @@ namespace MiDEWPF.Pages
             MiDEDataSetTableAdapters.MiDEEValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
             MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
             MiDEDataSetTableAdapters.MasterBuildingListTableAdapter adapter = new MiDEDataSetTableAdapters.MasterBuildingListTableAdapter();
+            
 
             
 
@@ -194,21 +197,26 @@ namespace MiDEWPF.Pages
 
         private void sFactors_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
             List<string> SVariable = new List<string>();
+            int SValue = 0;
             if (sFactorCB.SelectedIndex == -1 || sFactorCB.SelectedValue == null)
             { 
                 return;
             }
             string add = sFactorCB.SelectedValue.ToString();
             string svariable = ds.MiDESValues.Rows[0][1].ToString();
-            var svalue = ds.MiDESValues.Rows[sFactorCB.SelectedIndex][2].ToString();
-            int Svalue = int.Parse(svalue);
-            
-            SValues.Add(Svalue);
+           
+            //Because of the functionality of removing the selected item from the combobox array this function will
+            //always make sure the correct svalue is being captured
+            SValue = GetSValue(ds.MiDESValues, add);
+           
+            SValues.Add(SValue);
+
             SelectionListBox.Items.Add(add);
             SelectionBox.Add(add);
             SVariable.Add(svariable);
+            SVariableExclusion.Add(add);
+            PopulateSFactor(SVariableExclusion);
 
             // when a new item is added to Selection list box, select it and show it
             // this will keep the last item highlighted and as the list grows beyond
@@ -286,42 +294,101 @@ namespace MiDEWPF.Pages
         //Buttons for clearing boxed and handling click events
         private void ClearAllScenario_Click(object sender, RoutedEventArgs e)
         {
+            k = 0;
             MessageBox.Show("Delete All Current Selections?");
             SelectionListBox.Items.Clear();
             SelectionBox.Clear();
             SValues.Clear();
+            SVariableExclusion.Clear();
+            sFactorCB.Items.Clear();
+
+            foreach (var item in ds.MiDESValues)
+            {
+                string comboboxtext = ds.MiDESValues.Rows[k][1].ToString();
+                sFactorCB.Items.Add(comboboxtext);
+                k++;
+            }
+
             return;
         }
 
         private void ClearLastScenario_Click(object sender, RoutedEventArgs e)
         {
+            DataTable dts = new DataTable("NewSValueList");
+            SqlCommand cmd;
+            SqlConnection conn = ConnectionHelper.GetConn();
+            conn.Open();
 
+            string sqlString = "SELECT * FROM MiDESValues WHERE svariable NOT IN ({SelectionBox})";
+            //k = 0;
             SelectionListBox.SelectedIndex = SelectionListBox.Items.Count - 1;
             int currentIterator = SelectionListBox.Items.Count - 1;
             int listIterator = SValues.Count - 1;
             SelectionListBox.SelectedItem = SelectionListBox.Items.Count - 1;
+            
            
             MessageBox.Show("Remove " + SelectionListBox.SelectedItem + "?");
             SelectionListBox.Items.RemoveAt(SelectionListBox.SelectedIndex);
             SelectionBox.RemoveAt(currentIterator);
-            if(SValues.Count() != 0)
+            sFactorCB.Items.Clear();
+
+            if (SValues.Count() != 0)
             { 
                 SValues.RemoveAt(listIterator);
             }
-            
+           
+            cmd = new SqlCommand(sqlString, conn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            cmd.AddArrayParameters("SelectionBox", SelectionBox);
+
+            da.Fill(dts);
+
+            DataColumn col = dts.Columns["svariable"];
+
+            foreach (DataRow row in dts.Rows)
+            {
+                sFactorCB.Items.Add(row[col].ToString());
+            }
+            conn.Close();
             return;
         }
 
         private void ClearAllExclusion_Click(object sender, RoutedEventArgs e)
         {
+            l = 0;
+            m = 0;
             MessageBox.Show("Delete All Current Selections?");
             ExclusionListBox.Items.Clear();
             ExclusionBox.Clear();
+            strategyExclusionCB.Items.Clear();
+            mitigationExclusionCB.Items.Clear();
+
+            foreach (var item in ds.MiDEStrategyGroups)
+            {
+                StrategyExCB.Add(ds.MiDEStrategyGroups.Rows[l][1].ToString());
+                string comboboxtext = ds.MiDEStrategyGroups.Rows[l][1].ToString();
+                strategyExclusionCB.Items.Add(comboboxtext);
+                l++;
+            }
+
+            foreach (var item in ds.MiDEEValues)
+            {
+                StrategyExclusion.Add(ds.MiDEEValues.Rows[m][2].ToString());
+                string comboboxtext = ds.MiDEEValues.Rows[m][2].ToString();
+                mitigationExclusionCB.Items.Add(comboboxtext);
+                m++;
+            }
             return;
         }
 
         private void ClearLastExclusion_Click(object sender, RoutedEventArgs e)
         {
+            DataTable dts = new DataTable("NewSValueList");
+            SqlCommand cmd;
+            SqlConnection conn = ConnectionHelper.GetConn();
+            conn.Open();
+
+            string sqlString = "SELECT * FROM MiDEEValues WHERE EVariable NOT IN ({ExclusionBox}) AND StrategyName NOT IN ({ExclusionBox})";
 
             ExclusionListBox.SelectedIndex = ExclusionListBox.Items.Count - 1;
             int currentIterator = ExclusionListBox.Items.Count - 1;
@@ -330,6 +397,21 @@ namespace MiDEWPF.Pages
             MessageBox.Show("Remove " + ExclusionListBox.SelectedItem + "?");
             ExclusionListBox.Items.RemoveAt(ExclusionListBox.SelectedIndex);
             ExclusionBox.RemoveAt(currentIterator);
+            mitigationExclusionCB.Items.Clear();
+
+            cmd = new SqlCommand(sqlString, conn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            cmd.AddArrayParameters("ExclusionBox", ExclusionBox);
+
+            da.Fill(dts);
+
+            DataColumn col = dts.Columns["EVariable"];
+
+            foreach (DataRow row in dts.Rows)
+            {
+                mitigationExclusionCB.Items.Add(row[col].ToString());
+            }
+            conn.Close();
             return;
         }
 
@@ -366,7 +448,7 @@ namespace MiDEWPF.Pages
             mitigationExclusionCB.Items.Clear();
             int i = 0;
             List<string> MitigationExclusionText = new List<string>();
-            DataTable dts = new DataTable("MiDEFilterWrite");
+            DataTable dts = new DataTable("InitialMitigationList");
             SqlCommand cmd;
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
@@ -400,7 +482,7 @@ namespace MiDEWPF.Pages
             mitigationExclusionCB.Items.Clear();
             int i = 0;
             List<string> MitigationExclusionText = new List<string>();
-            DataTable dts = new DataTable("MiDEFilterWrite");
+            DataTable dts = new DataTable("NewMitigationList");
             SqlCommand cmd;
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
@@ -430,5 +512,64 @@ namespace MiDEWPF.Pages
             return mitigationExclusionCB;
         }
 
+        public ComboBox PopulateSFactor(List<string> se)
+        {
+            sFactorCB.Items.Clear();
+            int i = 0;
+            List<string> SVariableText = new List<string>();
+            DataTable dts = new DataTable("InitialMitigationList");
+            SqlCommand cmd;
+            SqlConnection conn = ConnectionHelper.GetConn();
+            conn.Open();
+
+            string sqlString = "SELECT * FROM MiDESValues WHERE svariable NOT IN ({SVariableList})";
+            cmd = new SqlCommand(sqlString, conn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            cmd.AddArrayParameters("SVariableList", se);
+
+            da.Fill(dts);
+
+            DataColumn col = dts.Columns["svariable"];
+
+            foreach (DataRow row in dts.Rows)
+            {
+                SVariableText.Add(row[col].ToString());
+            }
+
+            foreach (var item in SVariableText)
+            {
+                string comboboxtext = SVariableText[i];
+                sFactorCB.Items.Add(comboboxtext);
+                i++;
+            }
+
+            return sFactorCB;
+        }
+
+        public int GetSValue(DataTable ds, string cbstring)
+        {
+            int svalue = 0;
+            DataTable dts = new DataTable("GetSValue");
+            SqlCommand cmd;
+            SqlConnection conn = ConnectionHelper.GetConn();
+            conn.Open();
+
+            string sqlString = "SELECT svalue FROM MiDESValues WHERE (svariable = @SVariable)";
+            cmd = new SqlCommand(sqlString, conn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            cmd.Parameters.AddWithValue("SVariable", cbstring);
+
+            da.Fill(dts);
+
+            DataColumn col = dts.Columns["svalue"];
+
+            foreach (DataRow row in dts.Rows)
+            {
+                string Svalue = row[col].ToString();
+                svalue = int.Parse(Svalue);
+            }
+
+            return svalue;
+        }
     }
 }

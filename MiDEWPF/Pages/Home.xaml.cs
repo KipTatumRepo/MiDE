@@ -332,11 +332,30 @@ namespace MiDEWPF.Pages
             SelectionBox.RemoveAt(currentIterator);
             sFactorCB.Items.Clear();
 
+            if (SelectionBox.Count == 0)
+            {
+
+                k = 0;
+
+                if (SValues.Count() != 0)
+                {
+                    SValues.RemoveAt(listIterator);
+                }
+
+                foreach (var item in ds.MiDESValues)
+                {
+                    string comboboxtext = ds.MiDESValues.Rows[k][1].ToString();
+                    sFactorCB.Items.Add(comboboxtext);
+                    k++;
+                }
+                return;
+            }
+
             if (SValues.Count() != 0)
-            { 
+            {
                 SValues.RemoveAt(listIterator);
             }
-           
+
             cmd = new SqlCommand(sqlString, conn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             cmd.AddArrayParameters("SelectionBox", SelectionBox);
@@ -457,7 +476,7 @@ namespace MiDEWPF.Pages
         #endregion
 
         //Populate mitigationExclusion Combobox with only items that are not included with strategy exclusions
-        public ComboBox InitialPopulateMitigationExclusion(List<string> se)
+        private ComboBox InitialPopulateMitigationExclusion(List<string> se)
         {
             mitigationExclusionCB.Items.Clear();
             int i = 0;
@@ -493,7 +512,7 @@ namespace MiDEWPF.Pages
 
         //Repopulate mitigationExclusion Combobox with remaining mitigation exclusion options when a  mitigation
         // is selected to exclude
-        public ComboBox PopulateMitigationExclusion(List<string> me, List<string> se)
+        private ComboBox PopulateMitigationExclusion(List<string> me, List<string> se)
         {
             mitigationExclusionCB.Items.Clear();
             int i = 0;
@@ -530,7 +549,7 @@ namespace MiDEWPF.Pages
 
         //Repopulate sFactorCB, when a scenario S Factor has been chosen, with remaining S Factors
         //i.e. eliminate already chose S Factor from combobox
-        public ComboBox PopulateSFactor(List<string> se)
+        private ComboBox PopulateSFactor(List<string> se)
         {
             sFactorCB.Items.Clear();
             int i = 0;
@@ -565,7 +584,7 @@ namespace MiDEWPF.Pages
         }
 
         //Get S Value of the selected S Factor
-        public int GetSValue(DataTable ds, string cbstring)
+        private int GetSValue(DataTable ds, string cbstring)
         {
             int svalue = 0;
             DataTable dts = new DataTable("GetSValue");

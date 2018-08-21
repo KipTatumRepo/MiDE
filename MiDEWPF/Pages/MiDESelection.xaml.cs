@@ -108,7 +108,7 @@ namespace MiDEWPF.Pages
 
         #region Algorithmic Functions
         //Get a datatable that filters out Strategies or Evariables that are selected by the user as exclusions from Home page
-        public DataTable HomeSelectionFilter(List<string> exclusionBox)
+        private DataTable HomeSelectionFilter(List<string> exclusionBox)
         {
             DataTable dts = new DataTable("MiDEExclusionReturnedTable");
            
@@ -160,7 +160,7 @@ namespace MiDEWPF.Pages
         }
 
         //Take DataTable returned by HomeSelectionFilter and Sort
-        public DataTable SortedTable(DataTable FilteredTable)
+        private DataTable SortedTable(DataTable FilteredTable)
         {
             DataTable SortedTable = new DataTable("MiDESortedTable");
             DataView dv = FilteredTable.DefaultView;
@@ -172,7 +172,7 @@ namespace MiDEWPF.Pages
         //Load a DataTable and sum of S values.  Create 2 new DataTables 1 for legit values, one for throw away.  Look at E Value in each DataRow and add to EValueSum
         //if EValueSum is less than SValueSum and that DataRow to the legit DataTable.  If we come across a value that make EValueSum > SValueSum
         //add that DataRow to throw away table and move on to next value if there is one.
-        public DataTable Deal(DataTable dt, int SValueSum)
+        private DataTable Deal(DataTable dt, int SValueSum)
         {
             DataTable table = new DataTable();
             DataTable otherTable = new DataTable();
@@ -223,7 +223,7 @@ namespace MiDEWPF.Pages
         }
 
         //sum of the Evalue from datatable that results from exclusion selections
-        public int getAvailableEValue(DataTable t)
+        private int getAvailableEValue(DataTable t)
         {
             List<int> evalues = new List<int>();
             int Value = 0;
@@ -238,7 +238,7 @@ namespace MiDEWPF.Pages
             return Value;
         }
 
-        public List<string> RemainingMitigations(List<string> AllCurrentMitigations, List<string> SelectedMitigations)
+        private List<string> RemainingMitigations(List<string> AllCurrentMitigations, List<string> SelectedMitigations)
         {
             List<string> Result = new List<string>();
             Result.AddRange(AllCurrentMitigations.Except(SelectedMitigations));
@@ -246,7 +246,7 @@ namespace MiDEWPF.Pages
         }
 
         //Create buttons
-        public NewButton CreateButtons(List<string> list, DataTable dt, int i)
+        private NewButton CreateButtons(List<string> list, DataTable dt, int i)
         {
             string eid = dt.Rows[i][0].ToString();
             NewButton button = new NewButton();

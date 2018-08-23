@@ -1964,6 +1964,8 @@ namespace MiDEWPF {
             
             private global::System.Data.DataColumn columnsvalue;
             
+            private global::System.Data.DataColumn columndefinition;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public MiDESValuesDataTable() {
@@ -2023,6 +2025,14 @@ namespace MiDEWPF {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn definitionColumn {
+                get {
+                    return this.columndefinition;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2058,12 +2068,13 @@ namespace MiDEWPF {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public MiDESValuesRow AddMiDESValuesRow(string svariable, short svalue) {
+            public MiDESValuesRow AddMiDESValuesRow(string svariable, short svalue, string definition) {
                 MiDESValuesRow rowMiDESValuesRow = ((MiDESValuesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         svariable,
-                        svalue};
+                        svalue,
+                        definition};
                 rowMiDESValuesRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMiDESValuesRow);
                 return rowMiDESValuesRow;
@@ -2089,6 +2100,7 @@ namespace MiDEWPF {
                 this.columnsid = base.Columns["sid"];
                 this.columnsvariable = base.Columns["svariable"];
                 this.columnsvalue = base.Columns["svalue"];
+                this.columndefinition = base.Columns["definition"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2100,12 +2112,15 @@ namespace MiDEWPF {
                 base.Columns.Add(this.columnsvariable);
                 this.columnsvalue = new global::System.Data.DataColumn("svalue", typeof(short), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnsvalue);
+                this.columndefinition = new global::System.Data.DataColumn("definition", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndefinition);
                 this.columnsid.AutoIncrement = true;
                 this.columnsid.AutoIncrementSeed = -1;
                 this.columnsid.AutoIncrementStep = -1;
                 this.columnsid.AllowDBNull = false;
                 this.columnsid.ReadOnly = true;
                 this.columnsvariable.MaxLength = 500;
+                this.columndefinition.MaxLength = 120;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3437,6 +3452,22 @@ namespace MiDEWPF {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string definition {
+                get {
+                    try {
+                        return ((string)(this[this.tableMiDESValues.definitionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'definition\' in table \'MiDESValues\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMiDESValues.definitionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IssvariableNull() {
                 return this.IsNull(this.tableMiDESValues.svariableColumn);
             }
@@ -3457,6 +3488,18 @@ namespace MiDEWPF {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetsvalueNull() {
                 this[this.tableMiDESValues.svalueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsdefinitionNull() {
+                return this.IsNull(this.tableMiDESValues.definitionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetdefinitionNull() {
+                this[this.tableMiDESValues.definitionColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -5409,14 +5452,16 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("sid", "sid");
             tableMapping.ColumnMappings.Add("svariable", "svariable");
             tableMapping.ColumnMappings.Add("svalue", "svalue");
+            tableMapping.ColumnMappings.Add("definition", "definition");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[MiDESValues] ([svariable], [svalue]) VALUES (@svariable, @sval" +
-                "ue)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[MiDESValues] ([svariable], [svalue], [definition]) VALUES (@sv" +
+                "ariable, @svalue, @definition)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@svariable", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "svariable", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@svalue", global::System.Data.SqlDbType.SmallInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "svalue", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@definition", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "definition", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5429,17 +5474,28 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[4];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT sid, svariable, svalue FROM dbo.MiDESValues";
+            this._commandCollection[0].CommandText = "SELECT sid, svariable, svalue, definition FROM dbo.MiDESValues";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "SELECT        svalue\r\nFROM            MiDESValues\r\nWHERE        (svariable = @add" +
-                ")";
+            this._commandCollection[1].CommandText = "SELECT definition FROM dbo.MiDESValues WHERE svariable = @TrimmedSelectedItem";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@add", global::System.Data.SqlDbType.VarChar, 500, global::System.Data.ParameterDirection.Input, 0, 0, "svariable", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TrimmedSelectedItem", global::System.Data.SqlDbType.VarChar, 500, global::System.Data.ParameterDirection.Input, 0, 0, "svariable", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = "SELECT definition, sid, svalue, svariable FROM MiDESValues WHERE (svariable = @ad" +
+                "d)";
+            this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@add", global::System.Data.SqlDbType.VarChar, 500, global::System.Data.ParameterDirection.Input, 0, 0, "svariable", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[3].Connection = this.Connection;
+            this._commandCollection[3].CommandText = "SELECT definition, sid, svalue, svariable FROM MiDESValues WHERE (svariable = @SV" +
+                "alueText)";
+            this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SValueText", global::System.Data.SqlDbType.VarChar, 500, global::System.Data.ParameterDirection.Input, 0, 0, "svariable", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5470,8 +5526,44 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillBySValue(MiDEDataSet.MiDESValuesDataTable dataTable, string add) {
+        public virtual int FillByDefinition(MiDEDataSet.MiDESValuesDataTable dataTable, string TrimmedSelectedItem) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((TrimmedSelectedItem == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(TrimmedSelectedItem));
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual MiDEDataSet.MiDESValuesDataTable GetDataBy1(string TrimmedSelectedItem) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((TrimmedSelectedItem == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(TrimmedSelectedItem));
+            }
+            MiDEDataSet.MiDESValuesDataTable dataTable = new MiDEDataSet.MiDESValuesDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillBySValue(MiDEDataSet.MiDESValuesDataTable dataTable, string add) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
             if ((add == null)) {
                 this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -5490,12 +5582,48 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual MiDEDataSet.MiDESValuesDataTable GetDataBy(string add) {
-            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand = this.CommandCollection[2];
             if ((add == null)) {
                 this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((string)(add));
+            }
+            MiDEDataSet.MiDESValuesDataTable dataTable = new MiDEDataSet.MiDESValuesDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillSValue(MiDEDataSet.MiDESValuesDataTable dataTable, string SValueText) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            if ((SValueText == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(SValueText));
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual MiDEDataSet.MiDESValuesDataTable GetSValue(string SValueText) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            if ((SValueText == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(SValueText));
             }
             MiDEDataSet.MiDESValuesDataTable dataTable = new MiDEDataSet.MiDESValuesDataTable();
             this.Adapter.Fill(dataTable);
@@ -5535,7 +5663,7 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string svariable, global::System.Nullable<short> svalue) {
+        public virtual int Insert(string svariable, global::System.Nullable<short> svalue, string definition) {
             if ((svariable == null)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -5547,6 +5675,12 @@ namespace MiDEWPF.MiDEDataSetTableAdapters {
             }
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((definition == null)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(definition));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 

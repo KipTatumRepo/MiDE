@@ -60,6 +60,7 @@
       <DependentUpon>MiDEDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Models\Cafe.cs" />
+    <Compile Include="Models\ItemWithToolTip.cs" />
     <Compile Include="Models\MenuCommand.cs" />
     <Compile Include="Models\NewButton.cs" />
     <Compile Include="Pages\MiDEResults.xaml.cs">

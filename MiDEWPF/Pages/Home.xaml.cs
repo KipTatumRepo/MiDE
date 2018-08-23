@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -69,7 +70,6 @@ namespace MiDEWPF.Pages
             #region Get Data
 
             ds = ((MiDEDataSet)(FindResource("mideDataSet")));
-            //MiDEDataSetTableAdapters.MiDEBuildingsTableAdapter adapter = new MiDEDataSetTableAdapters.MiDEBuildingsTableAdapter();
             MiDEDataSetTableAdapters.MiDEPopulationTableAdapter padapter = new MiDEDataSetTableAdapters.MiDEPopulationTableAdapter();
             MiDEDataSetTableAdapters.MiDEPopTypeTableAdapter ptadapter = new MiDEDataSetTableAdapters.MiDEPopTypeTableAdapter();
             MiDEDataSetTableAdapters.MiDESValuesTableAdapter sadapter = new MiDEDataSetTableAdapters.MiDESValuesTableAdapter();
@@ -85,18 +85,6 @@ namespace MiDEWPF.Pages
             stadapter.Fill(ds.MiDEStrategyGroups);
             eadapter.Fill(ds.MiDEEValues);
 
-            /*TheItems = new ObservableCollection<ItemWithToolTip>();
-
-            for (int intCounter = 0; intCounter <= ds.MiDESValues.Count() - 1; intCounter++)
-            {
-                TheItems.Add(new ItemWithToolTip()
-                {
-                    TheText = ds.MiDESValues.Rows[intCounter][1].ToString(),
-                    TheToolTip = ds.MiDESValues.Rows[intCounter][2].ToString()
-                });
-            };
-
-            this.DataContext = this;*/
 
             //these loops initially populates selectedVacatingBuildingCB, sFactorCB, strategyExclusionCB, and mitigationExclusionCB
             foreach (var item in ds.MasterBuildingList)
@@ -108,26 +96,15 @@ namespace MiDEWPF.Pages
                 selectBuildingCB.Items.Add(tcombotext);
                 j++;
             }
-
-            // ToolTip toolTip = new ToolTip();
            
             foreach (var item in ds.MiDESValues)
             {
-                ComboBoxItem text = new ComboBoxItem();
-                text.Content = ds.MiDESValues.Rows[k][1].ToString();
-               
-
-                //comboboxlist.Add(ds.MiDESValues.Rows[k][1].ToString());
-                //sFactorCB.Items.Add(comboboxtext);
-                //sFactorCB.Items.Add(text);
-                //text.MouseRightButtonDown += new MouseButtonEventHandler(text_MouseRightButtonDown);
-                sFactorCB.Items.Add(text);
-                
+                //ComboBoxItem text = new ComboBoxItem();
+                //text.Content = ds.MiDESValues.Rows[k][1].ToString();
+                string comboboxtext = ds.MiDESValues.Rows[k][1].ToString();
+                sFactorCB.Items.Add(comboboxtext);
                 k++;
             }
-            //AddHandler(ComboBoxItem.MouseRightButtonDownEvent, new MouseButtonEventHandler(text_MouseRightButtonDown));
-            
-            //sFactorCB.ItemsSource = comboboxlist;
 
             foreach (var item in ds.MiDEStrategyGroups)
             {
@@ -262,6 +239,10 @@ namespace MiDEWPF.Pages
             SelectionListBox.ScrollIntoView(SelectionListBox.SelectedItem);
 
             sFactorCB.SelectedIndex = -1;
+
+            SFactorDef.Text = "";
+            SFactorDef.Background = Brushes.White;
+            SFactorDef.Visibility = Visibility.Hidden;
 
 
         }
@@ -589,8 +570,8 @@ namespace MiDEWPF.Pages
         //i.e. eliminate already chose S Factor from combobox
         private ComboBox PopulateSFactor(List<string> se)
         {
-            sFactorCB.Items.Clear();
-            //comboboxlist.Clear();
+            //sFactorCB.Items.Clear();
+            comboboxlist.Clear();
             int i = 0;
             List<string> SVariableText = new List<string>();
             DataTable dts = new DataTable("InitialMitigationList");
@@ -615,10 +596,10 @@ namespace MiDEWPF.Pages
             foreach (var item in SVariableText)
             {
                 ComboBoxItem text = new ComboBoxItem();
-                sFactorCB.Items.Add(text.Content = SVariableText[i]);
-                //comboboxlist.Add(dts.Rows[i][1].ToString());
-                //string comboboxtext = SVariableText[i];
-                //sFactorCB.Items.Add(comboboxtext);
+                //sFactorCB.Items.Add(text.Content = SVariableText[i]);
+                comboboxlist.Add(dts.Rows[i][1].ToString());
+                string comboboxtext = SVariableText[i];
+                sFactorCB.Items.Add(comboboxtext);
                 i++;
             }
 
@@ -656,7 +637,29 @@ namespace MiDEWPF.Pages
 
         private void cmbItem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Do Something");
+            MiDEDataSetTableAdapters.MiDESValuesTableAdapter adapter = new MiDEDataSetTableAdapters.MiDESValuesTableAdapter();
+
+            MiDEDataSet.MiDESValuesDataTable table = new MiDEDataSet.MiDESValuesDataTable();
+            string SelectedItem = sender.ToString();
+            string TrimmedSelectedItem = SelectedItem.Remove(0, 38);
+            string Definition;
+
+            DataColumn col = table.Columns["definition"];
+
+            adapter.FillByDefinition(table, TrimmedSelectedItem);
+
+
+            Definition = table.Rows[0][col].ToString();
+
+            SFactorDef.Text = Definition;
+            SFactorDef.Background = Brushes.AliceBlue;
+            SFactorDef.Visibility = Visibility.Visible;
+
+        }
+
+        private void sFactorCB_MouseLeave(object sender, MouseEventArgs e)
+        {
+            SFactorDef.Visibility = Visibility.Hidden;
         }
     }
 }

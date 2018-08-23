@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace MiDEWPF.Pages
         #region Global Variables
         public static List<string> SelectionBox = new List<string>();
         public static List<string> ExclusionBox = new List<string>();
-        
+
         public MiDEDataSet ds = new MiDEDataSet();
         public static int SValuesSum;
         public int ScenarioNumber;
@@ -49,15 +50,21 @@ namespace MiDEWPF.Pages
         List<string> StrategyExclusion = new List<string>();
         List<string> MitigationExclusion = new List<string>();
         List<string> SVariableExclusion = new List<string>();
+        ObservableCollection<string> comboboxlist = new ObservableCollection<string>();
         
+
         string BudgetThrottleText;
+       
         #endregion
+
+        public ObservableCollection<ItemWithToolTip> TheItems { get; set; }
 
 
         public Home()
         {
 
             InitializeComponent();
+
 
             #region Get Data
 
@@ -70,9 +77,6 @@ namespace MiDEWPF.Pages
             MiDEDataSetTableAdapters.MiDEEValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
             MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
             MiDEDataSetTableAdapters.MasterBuildingListTableAdapter adapter = new MiDEDataSetTableAdapters.MasterBuildingListTableAdapter();
-            
-
-            
 
             adapter.Fill(ds.MasterBuildingList);
             padapter.Fill(ds.MiDEPopulation);
@@ -81,24 +85,51 @@ namespace MiDEWPF.Pages
             stadapter.Fill(ds.MiDEStrategyGroups);
             eadapter.Fill(ds.MiDEEValues);
 
+            /*TheItems = new ObservableCollection<ItemWithToolTip>();
+
+            for (int intCounter = 0; intCounter <= ds.MiDESValues.Count() - 1; intCounter++)
+            {
+                TheItems.Add(new ItemWithToolTip()
+                {
+                    TheText = ds.MiDESValues.Rows[intCounter][1].ToString(),
+                    TheToolTip = ds.MiDESValues.Rows[intCounter][2].ToString()
+                });
+            };
+
+            this.DataContext = this;*/
+
             //these loops initially populates selectedVacatingBuildingCB, sFactorCB, strategyExclusionCB, and mitigationExclusionCB
             foreach (var item in ds.MasterBuildingList)
             {
+
                 string comboboxtext = ds.MasterBuildingList.Rows[j][1].ToString();
-                string tcombotext =  comboboxtext.Trim();
+                string tcombotext = comboboxtext.Trim();
                 selectedVacatingBuildingCB.Items.Add(tcombotext);
                 selectBuildingCB.Items.Add(tcombotext);
                 j++;
             }
 
+            // ToolTip toolTip = new ToolTip();
+           
             foreach (var item in ds.MiDESValues)
             {
-                string comboboxtext = ds.MiDESValues.Rows[k][1].ToString();
-                sFactorCB.Items.Add(comboboxtext);
+                ComboBoxItem text = new ComboBoxItem();
+                text.Content = ds.MiDESValues.Rows[k][1].ToString();
+               
+
+                //comboboxlist.Add(ds.MiDESValues.Rows[k][1].ToString());
+                //sFactorCB.Items.Add(comboboxtext);
+                //sFactorCB.Items.Add(text);
+                //text.MouseRightButtonDown += new MouseButtonEventHandler(text_MouseRightButtonDown);
+                sFactorCB.Items.Add(text);
+                
                 k++;
             }
+            //AddHandler(ComboBoxItem.MouseRightButtonDownEvent, new MouseButtonEventHandler(text_MouseRightButtonDown));
+            
+            //sFactorCB.ItemsSource = comboboxlist;
 
-            foreach(var item in ds.MiDEStrategyGroups)
+            foreach (var item in ds.MiDEStrategyGroups)
             {
                 StrategyExCB.Add(ds.MiDEStrategyGroups.Rows[l][1].ToString());
                 string comboboxtext = ds.MiDEStrategyGroups.Rows[l][1].ToString();
@@ -111,7 +142,7 @@ namespace MiDEWPF.Pages
                 StrategyExclusion.Add(ds.MiDEEValues.Rows[m][2].ToString());
                 string comboboxtext = ds.MiDEEValues.Rows[m][2].ToString();
                 mitigationExclusionCB.Items.Add(comboboxtext);
-                m++; 
+                m++;
             }
 
             #endregion
@@ -124,6 +155,11 @@ namespace MiDEWPF.Pages
             ScenarioNumber = lastvalue + 1;
             #endregion
 
+        }
+
+        void text_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("something");
         }
         #region TODO
         //int realLastValue = int(lastvalue);
@@ -201,16 +237,16 @@ namespace MiDEWPF.Pages
             int SValue = 0;
 
             if (sFactorCB.SelectedIndex == -1 || sFactorCB.SelectedValue == null)
-            { 
+            {
                 return;
             }
             string add = sFactorCB.SelectedValue.ToString();
             string svariable = ds.MiDESValues.Rows[0][1].ToString();
-           
+
             //Because of the functionality of removing the selected item from the combobox array this function will
             //always make sure the correct svalue is being captured
             SValue = GetSValue(ds.MiDESValues, add);
-           
+
             SValues.Add(SValue);
 
             SelectionListBox.Items.Add(add);
@@ -226,21 +262,23 @@ namespace MiDEWPF.Pages
             SelectionListBox.ScrollIntoView(SelectionListBox.SelectedItem);
 
             sFactorCB.SelectedIndex = -1;
+
+
         }
 
         private void strategyExclusionCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
+
 
             if (strategyExclusionCB.SelectedIndex == -1 || strategyExclusionCB.SelectedValue == null)
             {
                 return;
             }
             string add = strategyExclusionCB.SelectedValue.ToString();
-            
+
             ExclusionListBox.Items.Add(add);
             ExclusionBox.Add(add);
-           
+
             StrategyExclusion.Add(add);
 
             InitialPopulateMitigationExclusion(StrategyExclusion);
@@ -260,7 +298,7 @@ namespace MiDEWPF.Pages
             {
                 return;
             }
-            
+
             string add = mitigationExclusionCB.SelectedValue.ToString();
 
             ExclusionListBox.Items.Add(add);
@@ -279,7 +317,7 @@ namespace MiDEWPF.Pages
 
         private void BudgetThrottle_Checked(object sender, RoutedEventArgs e)
         {
-            if(BudgetThrottle.IsChecked == true)
+            if (BudgetThrottle.IsChecked == true)
             {
                 Throttle = 1;
             }
@@ -287,7 +325,7 @@ namespace MiDEWPF.Pages
             {
                 Throttle = 0;
             }
-            
+
         }
         #endregion
 
@@ -325,8 +363,8 @@ namespace MiDEWPF.Pages
             int currentIterator = SelectionListBox.Items.Count - 1;
             int listIterator = SValues.Count - 1;
             SelectionListBox.SelectedItem = SelectionListBox.Items.Count - 1;
-            
-           
+
+
             MessageBox.Show("Remove " + SelectionListBox.SelectedItem + "?");
             SelectionListBox.Items.RemoveAt(SelectionListBox.SelectedIndex);
             SelectionBox.RemoveAt(currentIterator);
@@ -412,7 +450,7 @@ namespace MiDEWPF.Pages
             ExclusionListBox.SelectedIndex = ExclusionListBox.Items.Count - 1;
             int currentIterator = ExclusionListBox.Items.Count - 1;
             ExclusionListBox.SelectedItem = ExclusionListBox.Items.Count - 1;
-            
+
             MessageBox.Show("Remove " + ExclusionListBox.SelectedItem + "?");
             ExclusionListBox.Items.RemoveAt(ExclusionListBox.SelectedIndex);
             ExclusionBox.RemoveAt(currentIterator);
@@ -424,7 +462,7 @@ namespace MiDEWPF.Pages
 
             //all user selected exclusions have been removed so we should have a full list
             //of options in the mitigation exclusion combobox
-            if(ExclusionBox.Count == 0)
+            if (ExclusionBox.Count == 0)
             {
                 m = 0;
                 foreach (var item in ds.MiDEEValues)
@@ -466,7 +504,7 @@ namespace MiDEWPF.Pages
             strategyExclusionCB.Text = "Select Strategy Exclusions";
             mitigationExclusionCB.Text = "Select Mitigation Exclusions";
 
-            
+
             SValuesSum = SValues.Sum();
             isThrottled = Throttle;
             NavigationService.Navigate(
@@ -490,7 +528,7 @@ namespace MiDEWPF.Pages
             cmd = new SqlCommand(sqlString, conn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             cmd.AddArrayParameters("StrategyName", se);
-           
+
             da.Fill(dts);
 
             DataColumn col = dts.Columns["EVariable"];
@@ -500,7 +538,7 @@ namespace MiDEWPF.Pages
                 MitigationExclusionText.Add(row[col].ToString());
             }
 
-            foreach(var item in MitigationExclusionText)
+            foreach (var item in MitigationExclusionText)
             {
                 string comboboxtext = MitigationExclusionText[i];
                 mitigationExclusionCB.Items.Add(comboboxtext);
@@ -552,6 +590,7 @@ namespace MiDEWPF.Pages
         private ComboBox PopulateSFactor(List<string> se)
         {
             sFactorCB.Items.Clear();
+            //comboboxlist.Clear();
             int i = 0;
             List<string> SVariableText = new List<string>();
             DataTable dts = new DataTable("InitialMitigationList");
@@ -575,10 +614,15 @@ namespace MiDEWPF.Pages
 
             foreach (var item in SVariableText)
             {
-                string comboboxtext = SVariableText[i];
-                sFactorCB.Items.Add(comboboxtext);
+                ComboBoxItem text = new ComboBoxItem();
+                sFactorCB.Items.Add(text.Content = SVariableText[i]);
+                //comboboxlist.Add(dts.Rows[i][1].ToString());
+                //string comboboxtext = SVariableText[i];
+                //sFactorCB.Items.Add(comboboxtext);
                 i++;
             }
+
+            //sFactorCB.ItemsSource = comboboxlist;
 
             return sFactorCB;
         }
@@ -608,6 +652,11 @@ namespace MiDEWPF.Pages
             }
 
             return svalue;
+        }
+
+        private void cmbItem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Do Something");
         }
     }
 }

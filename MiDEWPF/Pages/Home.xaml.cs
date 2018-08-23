@@ -58,9 +58,6 @@ namespace MiDEWPF.Pages
        
         #endregion
 
-        public ObservableCollection<ItemWithToolTip> TheItems { get; set; }
-
-
         public Home()
         {
 
@@ -89,7 +86,6 @@ namespace MiDEWPF.Pages
             //these loops initially populates selectedVacatingBuildingCB, sFactorCB, strategyExclusionCB, and mitigationExclusionCB
             foreach (var item in ds.MasterBuildingList)
             {
-
                 string comboboxtext = ds.MasterBuildingList.Rows[j][1].ToString();
                 string tcombotext = comboboxtext.Trim();
                 selectedVacatingBuildingCB.Items.Add(tcombotext);
@@ -99,8 +95,6 @@ namespace MiDEWPF.Pages
            
             foreach (var item in ds.MiDESValues)
             {
-                //ComboBoxItem text = new ComboBoxItem();
-                //text.Content = ds.MiDESValues.Rows[k][1].ToString();
                 string comboboxtext = ds.MiDESValues.Rows[k][1].ToString();
                 sFactorCB.Items.Add(comboboxtext);
                 k++;
@@ -134,10 +128,6 @@ namespace MiDEWPF.Pages
 
         }
 
-        void text_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            MessageBox.Show("something");
-        }
         #region TODO
         //int realLastValue = int(lastvalue);
         //TODO Figure out how to implement Menu style box for this menu 
@@ -243,8 +233,6 @@ namespace MiDEWPF.Pages
             SFactorDef.Text = "";
             SFactorDef.Background = Brushes.White;
             SFactorDef.Visibility = Visibility.Hidden;
-
-
         }
 
         private void strategyExclusionCB_SelectionChanged(object sender, SelectionChangedEventArgs e)

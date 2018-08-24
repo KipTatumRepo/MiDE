@@ -32,9 +32,7 @@
         <TextBox Grid.Row="0" HorizontalAlignment="Center" Height="50" Margin="10,1,10,1" TextAlignment="Center" FontSize="30" Text="MiDE Scenario Builder" VerticalAlignment="Top" Width="1390" Background="LemonChiffon" />
        
         <Border BorderBrush="LightSlateGray" BorderThickness="2" CornerRadius="8" Grid.Row="1">
-            <Border.Effect>
-                <DropShadowEffect Color="LightGray"/>
-            </Border.Effect>
+           
             <Grid Margin="0,0,0,0" Grid.Row="1" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="134*"/>
@@ -101,9 +99,7 @@
             </Grid>
         </Border>
         <Border Grid.Row="2" BorderBrush="LightSlateGray" BorderThickness="2" CornerRadius="8" Margin="0,1,0,0">
-            <Border.Effect>
-                <DropShadowEffect Color="LightGray"/>
-            </Border.Effect>
+            
             <Grid Grid.Row="2" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="134*"/>

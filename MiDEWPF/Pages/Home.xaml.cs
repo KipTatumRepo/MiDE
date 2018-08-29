@@ -558,8 +558,7 @@ namespace MiDEWPF.Pages
         //i.e. eliminate already chose S Factor from combobox
         private ComboBox PopulateSFactor(List<string> se)
         {
-            //sFactorCB.Items.Clear();
-            comboboxlist.Clear();
+            sFactorCB.Items.Clear();
             int i = 0;
             List<string> SVariableText = new List<string>();
             DataTable dts = new DataTable("InitialMitigationList");

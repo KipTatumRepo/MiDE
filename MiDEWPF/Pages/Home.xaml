@@ -99,7 +99,6 @@
             </Grid>
         </Border>
         <Border Grid.Row="2" BorderBrush="LightSlateGray" BorderThickness="2" CornerRadius="8" Margin="0,1,0,0">
-            
             <Grid Grid.Row="2" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="134*"/>

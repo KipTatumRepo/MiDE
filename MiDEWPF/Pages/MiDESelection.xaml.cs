@@ -273,6 +273,7 @@ namespace MiDEWPF.Pages
                 string Bid = b.Tag.ToString();
                 int bid;
                 bid = int.Parse(Bid);
+                bid -= 1;
 
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[bid][2].ToString());
                 MitigationSelection.Add(ds.MiDEEValues.Rows[bid][2].ToString());

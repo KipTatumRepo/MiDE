@@ -19,7 +19,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MiDEWPF.Models;
 using MiDEWPF.Resources;
-using MiDEWPF.ViewModel;
+
 
 namespace MiDEWPF.Pages
 {

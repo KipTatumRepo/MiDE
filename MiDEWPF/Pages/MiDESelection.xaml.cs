@@ -270,20 +270,23 @@ namespace MiDEWPF.Pages
            
             NewButton b = new NewButton();
             b = e.OriginalSource as NewButton;
-           if(b != null)
-            { 
+            if (b != null)
+            {
                 string Bid = b.Tag.ToString();
                 int bid;
                 bid = int.Parse(Bid);
                 bid -= 1;
 
+
                 #region check for string match to Button RoutedEventArgs
+
 
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[bid][2].ToString());
                 MitigationSelection.Add(ds.MiDEEValues.Rows[bid][2].ToString());
                 var evalue = ds.MiDEEValues.Rows[bid][3].ToString();
                 int Evalue = int.Parse(evalue);
                 EValues.Add(Evalue);
+
                 #region after continued testing, erase me
                 /*if (bid == 1)
                 {
@@ -527,12 +530,14 @@ namespace MiDEWPF.Pages
                     int Evalue = int.Parse(evalue);
 
                     EValues.Add(Evalue);
+
                 }*/
                 #endregion
             }
 
 
             #endregion
+
         }
 
         //Write to DB and navigate to next page

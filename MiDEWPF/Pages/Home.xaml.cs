@@ -514,6 +514,7 @@ namespace MiDEWPF.Pages
                 i++;
             }
 
+            conn.Close();
             return mitigationExclusionCB;
         }
 
@@ -587,6 +588,7 @@ namespace MiDEWPF.Pages
                 i++;
             }
 
+            conn.Close();
             return sFactorCB;
         }
 
@@ -614,6 +616,7 @@ namespace MiDEWPF.Pages
                 svalue = int.Parse(Svalue);
             }
 
+            conn.Close();
             return svalue;
         }
 

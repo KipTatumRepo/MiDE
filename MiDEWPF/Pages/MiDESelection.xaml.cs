@@ -156,6 +156,7 @@ namespace MiDEWPF.Pages
                     da.Fill(dts);
                 }
             }
+            conn.Close();
             return dts;
         }
 
@@ -242,6 +243,7 @@ namespace MiDEWPF.Pages
         {
             List<string> Result = new List<string>();
             Result.AddRange(AllCurrentMitigations.Except(SelectedMitigations));
+            //Result.AddRange()
             return Result;
         }
 
@@ -274,6 +276,10 @@ namespace MiDEWPF.Pages
                 int bid;
                 bid = int.Parse(Bid);
                 bid -= 1;
+
+
+                #region check for string match to Button RoutedEventArgs
+
 
                 currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[bid][2].ToString());
                 MitigationSelection.Add(ds.MiDEEValues.Rows[bid][2].ToString());
@@ -524,11 +530,14 @@ namespace MiDEWPF.Pages
                     int Evalue = int.Parse(evalue);
 
                     EValues.Add(Evalue);
-                }
-            }*/
 
+                }*/
                 #endregion
             }
+
+
+            #endregion
+
         }
 
         //Write to DB and navigate to next page

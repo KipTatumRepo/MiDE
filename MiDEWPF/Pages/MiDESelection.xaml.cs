@@ -156,6 +156,7 @@ namespace MiDEWPF.Pages
                     da.Fill(dts);
                 }
             }
+            conn.Close();
             return dts;
         }
 
@@ -242,6 +243,7 @@ namespace MiDEWPF.Pages
         {
             List<string> Result = new List<string>();
             Result.AddRange(AllCurrentMitigations.Except(SelectedMitigations));
+            //Result.AddRange()
             return Result;
         }
 

@@ -38,7 +38,7 @@
                     <RowDefinition Height="134*"/>
                     <RowDefinition Height="31*"/>
                 </Grid.RowDefinitions>
-                <TextBox Grid.Row="0" HorizontalAlignment="Left" Height="24" Margin="10,1,0,0" TextAlignment="Center" Text="Scenario Options" VerticalAlignment="Top" Width="766" Background="LemonChiffon"/>
+                <TextBox Grid.Row="0" HorizontalAlignment="Left" Height="24" Margin="10,1,0,150" TextAlignment="Center" Text="Scenario Options" VerticalAlignment="Top" Width="" Background="LemonChiffon"/>
                 <!-- Stack Panel to Display Labels -->
                 <StackPanel Grid.Row="0" HorizontalAlignment="Left" Height="179" Margin="10,15,0,0" VerticalAlignment="Top" Width="298" >
                     <TextBlock HorizontalAlignment="Left" Margin="0,15,0,0" TextWrapping="Wrap" Text="Vacating Building Info"/>

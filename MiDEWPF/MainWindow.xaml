@@ -4,13 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MiDEWPF"
+        xmlns:tools="clr-namespace:MiDEWPF.Resources"
         mc:Ignorable="d"
-        Title="MainWindow" Height="auto" 
-        MinWidth="1024" MinHeight="800"
-        Width="auto"
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow"
+        Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={tools:RatioConverter}, ConverterParameter='1' }" 
+        Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='1' }"
+        MinWidth="1450" MinHeight="800"
         FontFamily="Segoe UI Emoji">
     <Grid Background="OldLace">
         <Frame Source="Pages/Home.xaml" />
     </Grid>
 </Window>
- 
+<!--Height="{x:Static SystemParameters.PrimaryScreenHeight}" 
+        Width="{x:Static SystemParameters.PrimaryScreenWidth}" Width="auto"
+        Height="auto" -->

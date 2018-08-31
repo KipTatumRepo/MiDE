@@ -19,7 +19,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MiDEWPF.Models;
 using MiDEWPF.Resources;
-using MiDEWPF.ViewModel;
+
 
 namespace MiDEWPF.Pages
 {
@@ -514,6 +514,7 @@ namespace MiDEWPF.Pages
                 i++;
             }
 
+            conn.Close();
             return mitigationExclusionCB;
         }
 
@@ -587,6 +588,7 @@ namespace MiDEWPF.Pages
                 i++;
             }
 
+            conn.Close();
             return sFactorCB;
         }
 
@@ -614,6 +616,7 @@ namespace MiDEWPF.Pages
                 svalue = int.Parse(Svalue);
             }
 
+            conn.Close();
             return svalue;
         }
 

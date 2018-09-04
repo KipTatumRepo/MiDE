@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MiDEWPF.Pages"
       xmlns:local1="clr-namespace:MiDEWPF"
+     
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1400"
       Title="Home"
@@ -12,13 +13,14 @@
       >
     <Page.Resources>
         <local1:MiDEDataSet x:Key="mideDataSet"/>
-        <CollectionViewSource x:Key="buildingMenuViewSource" Source="{Binding MasterBuildingList, Source={StaticResource mideDataSet}}"/>
-        <CollectionViewSource x:Key="vbuildingMenuViewSource" Source="{Binding MasterBuildingList, Source={StaticResource mideDataSet}}"/>
-        <CollectionViewSource x:Key="populationViewSource" Source="{Binding MiDEPopulation, Source={StaticResource mideDataSet}}"/>
-        <CollectionViewSource x:Key="sFactorViewSource" Source="{Binding MiDESValues, Source={StaticResource mideDataSet}}"/>
-        <CollectionViewSource x:Key="sGFactorViewSource" Source="{Binding MiDEStrategyGroups, Source={StaticResource mideDataSet}}"/>
-        <CollectionViewSource x:Key="eFactorViewSource" Source="{Binding MiDEEValues, Source={StaticResource mideDataSet}}"/>
-        <CollectionViewSource x:Key="popTypeViewSource" Source="{Binding MiDEPopType, Source={StaticResource mideDataSet}}"/>
+        
+        <CollectionViewSource x:Key="buildingMenuViewSource" Source="{Binding Locations, Source={StaticResource mideDataSet}}"/>
+        <CollectionViewSource x:Key="vbuildingMenuViewSource" Source="{Binding Locations, Source={StaticResource mideDataSet}}"/>
+        <CollectionViewSource x:Key="populationViewSource" Source="{Binding Population, Source={StaticResource mideDataSet}}"/>
+        <CollectionViewSource x:Key="sFactorViewSource" Source="{Binding SValues, Source={StaticResource mideDataSet}}"/>
+        <CollectionViewSource x:Key="sGFactorViewSource" Source="{Binding StrategyGroups, Source={StaticResource mideDataSet}}"/>
+        <CollectionViewSource x:Key="eFactorViewSource" Source="{Binding EValues, Source={StaticResource mideDataSet}}"/>
+        <CollectionViewSource x:Key="popTypeViewSource" Source="{Binding PopType, Source={StaticResource mideDataSet}}"/>
     </Page.Resources>
 
     <Grid x:Name="ParentGrid" Margin="5,5,5,5" Width="{Binding Path=ViewportWidth}">

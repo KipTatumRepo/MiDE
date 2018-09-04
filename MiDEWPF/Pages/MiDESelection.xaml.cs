@@ -56,8 +56,8 @@ namespace MiDEWPF.Pages
             InitializeComponent();
 
             #region Get Data
-            MiDEDataSetTableAdapters.MiDEEValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
-            eadapter.Fill(ds.MiDEEValues);
+            MiDEDataSetTableAdapters.EValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.EValuesTableAdapter();
+            eadapter.Fill(ds.EValues);
 
             //Get sum of S values and current Scenario Number from Home page.  
             SValue = Home.SValuesSum;
@@ -67,12 +67,12 @@ namespace MiDEWPF.Pages
             //Connection stuff
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
-            string sqlString = "SELECT ScenarioNumber, SelectionListBox, ExclusionListBox, CurrentMitigationListBox, wid FROM MiDEWrite WHERE(ScenarioNumber = @ScenarioNumber) AND(ExclusionListBox IS NOT NULL)";
+            string sqlString = "SELECT ScenarioNumber, SelectionListBox, ExclusionListBox, CurrentMitigationListBox, wid FROM mide.Write WHERE(ScenarioNumber = @ScenarioNumber) AND(ExclusionListBox IS NOT NULL)";
 
             Cmd = new SqlCommand(sqlString, conn);
             SqlDataAdapter sda = new SqlDataAdapter(Cmd);
             Cmd.Parameters.AddWithValue("@ScenarioNumber", ScenarioNumber);
-            DataTable dt = new DataTable("MiDEWrite");
+            DataTable dt = new DataTable("Write");
 
             sda.Fill(dt);
 
@@ -121,7 +121,7 @@ namespace MiDEWPF.Pages
             {
                 if (exclusionBox.Count() == 0)
                 {
-                    string sqlString = "SELECT * FROM MiDEEValues WHERE CostMoney < 3";
+                    string sqlString = "SELECT * FROM mide.EValues WHERE CostMoney < 3";
                     cmd = new SqlCommand(sqlString, conn);
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     da.Fill(dts);
@@ -129,7 +129,7 @@ namespace MiDEWPF.Pages
 
                 else
                 {
-                    string sqlString = "SELECT * FROM MiDEEValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable}) AND CostMoney < 3";
+                    string sqlString = "SELECT * FROM mide.EValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable}) AND CostMoney < 3";
                     cmd = new SqlCommand(sqlString, conn);
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     cmd.AddArrayParameters("StrategyName", exclusionBox);
@@ -141,14 +141,14 @@ namespace MiDEWPF.Pages
             {
                 if (exclusionBox.Count() == 0)
                 {
-                    string sqlString = "SELECT * FROM MiDEEValues";
+                    string sqlString = "SELECT * FROM mide.EValues";
                     cmd = new SqlCommand(sqlString, conn);
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     da.Fill(dts);
                 }
                 else
                 {
-                    string sqlString = "SELECT * FROM MiDEEValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable})";
+                    string sqlString = "SELECT * FROM mide.EValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable})";
                     cmd = new SqlCommand(sqlString, conn);
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     cmd.AddArrayParameters("StrategyName", exclusionBox);
@@ -281,9 +281,9 @@ namespace MiDEWPF.Pages
                 #region check for string match to Button RoutedEventArgs
 
 
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[bid][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[bid][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[bid][3].ToString();
+                currentMitigationListBox.Items.Add(ds.EValues.Rows[bid][2].ToString());
+                MitigationSelection.Add(ds.EValues.Rows[bid][2].ToString());
+                var evalue = ds.EValues.Rows[bid][3].ToString();
                 int Evalue = int.Parse(evalue);
                 EValues.Add(Evalue);
 
@@ -544,7 +544,7 @@ namespace MiDEWPF.Pages
         private void ShowResults_Click(object sender, RoutedEventArgs e)
         {
             EValuesSum = EValues.Sum();
-            MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
+            MiDEDataSetTableAdapters.WriteTableAdapter wadapter = new MiDEDataSetTableAdapters.WriteTableAdapter();
             int i = 0;
             int j = 0;
             int k = 0;

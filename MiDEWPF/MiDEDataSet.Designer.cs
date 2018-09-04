@@ -5393,48 +5393,38 @@ SELECT sid, svariable, svalue, definition FROM mide.SValues WHERE (sid = @sid)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int ScenarioNumber, string SelectionListBox, string ExclusionListBox, string CurrentMitigationListBox)
-        {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ScenarioNumber));
-            if ((SelectionListBox == null))
-            {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else
-            {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(SelectionListBox));
-            }
-            if ((ExclusionListBox == null))
-            {
+        public virtual int Insert(short wid, int ScenarioNumber, string SelectionListBox, string ExclusionListBox, string CurrentMitigationListBox) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((short)(wid));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(ScenarioNumber));
+            if ((SelectionListBox == null)) {
                 this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            else
-            {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(ExclusionListBox));
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(SelectionListBox));
             }
-            if ((CurrentMitigationListBox == null))
-            {
+            if ((ExclusionListBox == null)) {
                 this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
-            else
-            {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(CurrentMitigationListBox));
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(ExclusionListBox));
+            }
+            if ((CurrentMitigationListBox == null)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(CurrentMitigationListBox));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open)
-                        != global::System.Data.ConnectionState.Open))
-            {
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
                 this.Adapter.InsertCommand.Connection.Open();
             }
-            try
-            {
+            try {
                 int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
                 return returnValue;
             }
-            finally
-            {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed))
-                {
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
                     this.Adapter.InsertCommand.Connection.Close();
                 }
             }

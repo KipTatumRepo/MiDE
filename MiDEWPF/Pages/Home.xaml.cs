@@ -33,7 +33,6 @@ namespace MiDEWPF.Pages
         public static List<string> ExclusionBox = new List<string>();
 
         public MiDEDataSet ds = new MiDEDataSet();
-        public AGNESDataSet ds2 = new AGNESDataSet();
         public static int SValuesSum;
         public int ScenarioNumber;
         public static int isThrottled;
@@ -233,11 +232,11 @@ namespace MiDEWPF.Pages
                 return;
             }
             string add = sFactorCB.SelectedValue.ToString();
-            string svariable = ds.MiDESValues.Rows[0][1].ToString();
+            string svariable = ds.SValues.Rows[0][1].ToString();
 
             //Because of the functionality of removing the selected item from the combobox array this function will
             //always make sure the correct svalue is being captured
-            SValue = GetSValue(ds.MiDESValues, add);
+            SValue = GetSValue(ds.SValues, add);
 
             SValues.Add(SValue);
 
@@ -335,9 +334,9 @@ namespace MiDEWPF.Pages
             SVariableExclusion.Clear();
             sFactorCB.Items.Clear();
 
-            foreach (var item in ds.MiDESValues)
+            foreach (var item in ds.SValues)
             {
-                string comboboxtext = ds.MiDESValues.Rows[k][1].ToString();
+                string comboboxtext = ds.SValues.Rows[k][1].ToString();
                 sFactorCB.Items.Add(comboboxtext);
                 k++;
             }
@@ -374,9 +373,9 @@ namespace MiDEWPF.Pages
                     SValues.RemoveAt(listIterator);
                 }
 
-                foreach (var item in ds.MiDESValues)
+                foreach (var item in ds.SValues)
                 {
-                    string comboboxtext = ds.MiDESValues.Rows[k][1].ToString();
+                    string comboboxtext = ds.SValues.Rows[k][1].ToString();
                     sFactorCB.Items.Add(comboboxtext);
                     k++;
                 }
@@ -414,18 +413,18 @@ namespace MiDEWPF.Pages
             strategyExclusionCB.Items.Clear();
             mitigationExclusionCB.Items.Clear();
 
-            foreach (var item in ds.MiDEStrategyGroups)
+            foreach (var item in ds.StrategyGroups)
             {
-                StrategyExCB.Add(ds.MiDEStrategyGroups.Rows[l][1].ToString());
-                string comboboxtext = ds.MiDEStrategyGroups.Rows[l][1].ToString();
+                StrategyExCB.Add(ds.StrategyGroups.Rows[l][1].ToString());
+                string comboboxtext = ds.StrategyGroups.Rows[l][1].ToString();
                 strategyExclusionCB.Items.Add(comboboxtext);
                 l++;
             }
 
-            foreach (var item in ds.MiDEEValues)
+            foreach (var item in ds.EValues)
             {
-                StrategyExclusion.Add(ds.MiDEEValues.Rows[m][2].ToString());
-                string comboboxtext = ds.MiDEEValues.Rows[m][2].ToString();
+                StrategyExclusion.Add(ds.EValues.Rows[m][2].ToString());
+                string comboboxtext = ds.EValues.Rows[m][2].ToString();
                 mitigationExclusionCB.Items.Add(comboboxtext);
                 m++;
             }
@@ -459,10 +458,10 @@ namespace MiDEWPF.Pages
             if (ExclusionBox.Count == 0)
             {
                 m = 0;
-                foreach (var item in ds.MiDEEValues)
+                foreach (var item in ds.EValues)
                 {
-                    StrategyExclusion.Add(ds.MiDEEValues.Rows[m][2].ToString());
-                    string comboboxtext = ds.MiDEEValues.Rows[m][2].ToString();
+                    StrategyExclusion.Add(ds.EValues.Rows[m][2].ToString());
+                    string comboboxtext = ds.EValues.Rows[m][2].ToString();
                     mitigationExclusionCB.Items.Add(comboboxtext);
                     m++;
                 }
@@ -647,9 +646,9 @@ namespace MiDEWPF.Pages
 
         private void cmbItem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            MiDEDataSetTableAdapters.MiDESValuesTableAdapter adapter = new MiDEDataSetTableAdapters.MiDESValuesTableAdapter();
+            MiDEDataSetTableAdapters.SValuesTableAdapter adapter = new MiDEDataSetTableAdapters.SValuesTableAdapter();
 
-            MiDEDataSet.MiDESValuesDataTable table = new MiDEDataSet.MiDESValuesDataTable();
+            MiDEDataSet.SValuesDataTable table = new MiDEDataSet.SValuesDataTable();
             string SelectedItem = sender.ToString();
             string TrimmedSelectedItem = SelectedItem.Remove(0, 38);
             string Definition;

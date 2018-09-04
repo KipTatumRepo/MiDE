@@ -56,7 +56,7 @@ namespace MiDEWPF.Pages
             InitializeComponent();
 
             #region Get Data
-            MiDEDataSetTableAdapters.MiDEEValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
+            MiDEDataSetTableAdapters.EValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.EValuesTableAdapter();
             eadapter.Fill(ds.EValues);
 
             //Get sum of S values and current Scenario Number from Home page.  
@@ -281,9 +281,9 @@ namespace MiDEWPF.Pages
                 #region check for string match to Button RoutedEventArgs
 
 
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[bid][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[bid][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[bid][3].ToString();
+                currentMitigationListBox.Items.Add(ds.EValues.Rows[bid][2].ToString());
+                MitigationSelection.Add(ds.EValues.Rows[bid][2].ToString());
+                var evalue = ds.EValues.Rows[bid][3].ToString();
                 int Evalue = int.Parse(evalue);
                 EValues.Add(Evalue);
 
@@ -544,7 +544,7 @@ namespace MiDEWPF.Pages
         private void ShowResults_Click(object sender, RoutedEventArgs e)
         {
             EValuesSum = EValues.Sum();
-            MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
+            MiDEDataSetTableAdapters.WriteTableAdapter wadapter = new MiDEDataSetTableAdapters.WriteTableAdapter();
             int i = 0;
             int j = 0;
             int k = 0;

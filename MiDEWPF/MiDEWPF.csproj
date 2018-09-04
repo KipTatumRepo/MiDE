@@ -86,6 +86,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BIDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BIDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="MiDEDataSet.cs">
+      <DependentUpon>MiDEDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="MiDEDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -148,6 +156,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="BIDataSet.xsc">
+      <DependentUpon>BIDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="BIDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>BIDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="BIDataSet.xss">
+      <DependentUpon>BIDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Icons\MiDEIcon.xcf" />
     <None Include="MiDEDataSet.xsc">
       <DependentUpon>MiDEDataSet.xsd</DependentUpon>

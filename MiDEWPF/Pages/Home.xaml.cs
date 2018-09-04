@@ -77,9 +77,9 @@ namespace MiDEWPF.Pages
             MiDEDataSetTableAdapters.EValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.EValuesTableAdapter();
             MiDEDataSetTableAdapters.WriteTableAdapter wadapter = new MiDEDataSetTableAdapters.WriteTableAdapter();
             //MiDEDataSetTableAdapters.MasterBuildingListTableAdapter adapter = new MiDEDataSetTableAdapters.MasterBuildingListTableAdapter();
-            MiDEDataSetTableAdapters.LocationsTableAdapter adapter = new MiDEDataSetTableAdapters.LocationsTableAdapter();
+            BIDataSetTableAdapters.MasterBuildingListTableAdapter adapter = new BIDataSetTableAdapters.MasterBuildingListTableAdapter();
 
-            //adapter.Fill(ds.Locations);
+            adapter.Fill(ds.);
             padapter.Fill(ds.Population);
 
             ptadapter.Fill(ds.PopType);
@@ -129,7 +129,7 @@ namespace MiDEWPF.Pages
             //For generating a scenario number, get the last value in the MiDEWrite and add 1.  And get sum of all evalues
             DataTable last;
             last = wadapter.GetDataByLast();
-            int lastvalue = (int)last.Rows[0][1];
+            int lastvalue = (int)last.Rows[0][0];
             ScenarioNumber = lastvalue + 1;
             #endregion
 
@@ -517,7 +517,7 @@ namespace MiDEWPF.Pages
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
 
-            string sqlString = "SELECT * FROM EValues WHERE StrategyName NOT IN ({StrategyName})";
+            string sqlString = "SELECT * FROM mide.EValues WHERE StrategyName NOT IN ({StrategyName})";
             cmd = new SqlCommand(sqlString, conn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             cmd.AddArrayParameters("StrategyName", se);
@@ -554,7 +554,7 @@ namespace MiDEWPF.Pages
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
 
-            string sqlString = "SELECT * FROM EValues WHERE EVariable NOT IN ({MitigationExclusionList}) AND StrategyName NOT IN ({StrategyNameList})";
+            string sqlString = "SELECT * FROM mide.EValues WHERE EVariable NOT IN ({MitigationExclusionList}) AND StrategyName NOT IN ({StrategyNameList})";
             cmd = new SqlCommand(sqlString, conn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             cmd.AddArrayParameters("MitigationExclusionList", me);
@@ -591,7 +591,7 @@ namespace MiDEWPF.Pages
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
 
-            string sqlString = "SELECT * FROM SValues WHERE svariable NOT IN ({SVariableList})";
+            string sqlString = "SELECT * FROM mide.SValues WHERE svariable NOT IN ({SVariableList})";
             cmd = new SqlCommand(sqlString, conn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             cmd.AddArrayParameters("SVariableList", se);
@@ -625,7 +625,7 @@ namespace MiDEWPF.Pages
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
 
-            string sqlString = "SELECT svalue FROM SValues WHERE (svariable = @SVariable)";
+            string sqlString = "SELECT svalue FROM mide.SValues WHERE (svariable = @SVariable)";
             cmd = new SqlCommand(sqlString, conn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             cmd.Parameters.AddWithValue("SVariable", cbstring);

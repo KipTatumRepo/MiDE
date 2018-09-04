@@ -67,7 +67,7 @@ namespace MiDEWPF.Pages
             //Connection stuff
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
-            string sqlString = "SELECT ScenarioNumber, SelectionListBox, ExclusionListBox, CurrentMitigationListBox, wid FROM Write WHERE(ScenarioNumber = @ScenarioNumber) AND(ExclusionListBox IS NOT NULL)";
+            string sqlString = "SELECT ScenarioNumber, SelectionListBox, ExclusionListBox, CurrentMitigationListBox, wid FROM mide.Write WHERE(ScenarioNumber = @ScenarioNumber) AND(ExclusionListBox IS NOT NULL)";
 
             Cmd = new SqlCommand(sqlString, conn);
             SqlDataAdapter sda = new SqlDataAdapter(Cmd);
@@ -121,7 +121,7 @@ namespace MiDEWPF.Pages
             {
                 if (exclusionBox.Count() == 0)
                 {
-                    string sqlString = "SELECT * FROM EValues WHERE CostMoney < 3";
+                    string sqlString = "SELECT * FROM mide.EValues WHERE CostMoney < 3";
                     cmd = new SqlCommand(sqlString, conn);
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     da.Fill(dts);
@@ -129,7 +129,7 @@ namespace MiDEWPF.Pages
 
                 else
                 {
-                    string sqlString = "SELECT * FROM EValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable}) AND CostMoney < 3";
+                    string sqlString = "SELECT * FROM mide.EValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable}) AND CostMoney < 3";
                     cmd = new SqlCommand(sqlString, conn);
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     cmd.AddArrayParameters("StrategyName", exclusionBox);
@@ -141,14 +141,14 @@ namespace MiDEWPF.Pages
             {
                 if (exclusionBox.Count() == 0)
                 {
-                    string sqlString = "SELECT * FROM EValues";
+                    string sqlString = "SELECT * FROM mide.EValues";
                     cmd = new SqlCommand(sqlString, conn);
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     da.Fill(dts);
                 }
                 else
                 {
-                    string sqlString = "SELECT * FROM EValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable})";
+                    string sqlString = "SELECT * FROM mide.EValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable})";
                     cmd = new SqlCommand(sqlString, conn);
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     cmd.AddArrayParameters("StrategyName", exclusionBox);

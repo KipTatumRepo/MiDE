@@ -67,19 +67,16 @@ namespace MiDEWPF.Pages
             #region Get Data
 
             ds = ((MiDEDataSet)(FindResource("mideDataSet")));
-            //ds2 = ((AGNESDataSet)(FindResource("agnesDataSet")));
-            
-            //MiDEDataSetTableAdapters.MiDEPopulationTableAdapter padapter = new MiDEDataSetTableAdapters.MiDEPopulationTableAdapter();
             MiDEDataSetTableAdapters.PopulationTableAdapter padapter = new MiDEDataSetTableAdapters.PopulationTableAdapter();
             MiDEDataSetTableAdapters.PopTypeTableAdapter ptadapter = new MiDEDataSetTableAdapters.PopTypeTableAdapter();
             MiDEDataSetTableAdapters.SValuesTableAdapter sadapter = new MiDEDataSetTableAdapters.SValuesTableAdapter();
             MiDEDataSetTableAdapters.StrategyGroupsTableAdapter stadapter = new MiDEDataSetTableAdapters.StrategyGroupsTableAdapter();
             MiDEDataSetTableAdapters.EValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.EValuesTableAdapter();
             MiDEDataSetTableAdapters.WriteTableAdapter wadapter = new MiDEDataSetTableAdapters.WriteTableAdapter();
-            //MiDEDataSetTableAdapters.MasterBuildingListTableAdapter adapter = new MiDEDataSetTableAdapters.MasterBuildingListTableAdapter();
-            BIDataSetTableAdapters.MasterBuildingListTableAdapter adapter = new BIDataSetTableAdapters.MasterBuildingListTableAdapter();
+           
+            MiDEDataSetTableAdapters.MasterBuildingListTableAdapter adapter = new MiDEDataSetTableAdapters.MasterBuildingListTableAdapter();
 
-            adapter.Fill(ds.);
+            adapter.Fill(ds.MasterBuildingList);
             padapter.Fill(ds.Population);
 
             ptadapter.Fill(ds.PopType);
@@ -90,10 +87,9 @@ namespace MiDEWPF.Pages
 
             //these loops initially populates selectedVacatingBuildingCB, sFactorCB, strategyExclusionCB, and mitigationExclusionCB
             //foreach (var item in ds.MasterBuildingList)
-            foreach (var item in ds.Locations)
+            foreach (var item in ds.MasterBuildingList)
             {
-                //string comboboxtext = ds.MasterBuildingList.Rows[j][1].ToString();
-                string comboboxtext = ds.Locations.Rows[j][1].ToString();
+                string comboboxtext = ds.MasterBuildingList.Rows[j][1].ToString();
                 string tcombotext = comboboxtext.Trim();
                 selectedVacatingBuildingCB.Items.Add(tcombotext);
                 selectBuildingCB.Items.Add(tcombotext);

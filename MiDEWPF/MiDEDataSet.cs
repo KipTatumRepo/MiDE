@@ -4,6 +4,9 @@
 
     partial class MiDEDataSet
     {
+        partial class DataTable1DataTable
+        {
+        }
     }
 }
 

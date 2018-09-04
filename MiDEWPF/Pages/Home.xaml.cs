@@ -159,6 +159,23 @@ namespace MiDEWPF.Pages
 
             SelectionListBox.Items.Add(add);
             SelectionBox.Add(add);
+
+            if (add == "< 500")
+            {
+                SVariableExclusion.Add("Population Move >1000 People");
+                SVariableExclusion.Add("Population Move 500-999");
+            }
+            else if (add == "500 - 999")
+            {
+                SVariableExclusion.Add("Population Move >1000 People");
+                SVariableExclusion.Add("Population Move <500 People");
+            }
+            else
+            {
+                SVariableExclusion.Add("Population Move 500-999");
+                SVariableExclusion.Add("Population Move <500 People");
+            }
+            PopulateSFactor(SVariableExclusion);
             return;
         }
 
@@ -556,7 +573,7 @@ namespace MiDEWPF.Pages
         }
 
         //Repopulate sFactorCB, when a scenario S Factor has been chosen, with remaining S Factors
-        //i.e. eliminate already chose S Factor from combobox
+        //i.e. eliminate already chosen S Factor from combobox
         private ComboBox PopulateSFactor(List<string> se)
         {
             sFactorCB.Items.Clear();

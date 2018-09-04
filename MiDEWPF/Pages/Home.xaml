@@ -10,7 +10,6 @@
       Title="Home"
       KeepAlive="True"
       >
-
     <Page.Resources>
         <local1:MiDEDataSet x:Key="mideDataSet"/>
         <CollectionViewSource x:Key="buildingMenuViewSource" Source="{Binding MasterBuildingList, Source={StaticResource mideDataSet}}"/>

@@ -147,6 +147,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Icons\MiDEIcon.xcf" />
     <None Include="MiDEDataSet.xsc">
       <DependentUpon>MiDEDataSet.xsd</DependentUpon>
     </None>

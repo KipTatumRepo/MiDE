@@ -11,7 +11,7 @@ namespace MiDEWPF.Resources
     {
         public static SqlConnection GetConn()
         {
-            string connectionStr = "Data Source=compasspowerbi;Initial Catalog=MIDE;Integrated Security=True";
+            string connectionStr = "Data Source=compasspowerbi;Initial Catalog=MiDE;Persist Security Info=True;User ID=MideApplication;Password=$1nCi7y";
             SqlConnection conn = new SqlConnection(connectionStr);
             return conn;
         }

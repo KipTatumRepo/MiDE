@@ -36,21 +36,11 @@ namespace MiDEWPF.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=compasspowerbi;Persist Security Info=True;User ID=MideApplication")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=compasspowerbi;Initial Catalog=MiDE;Persist Security Info=True;User I" +
+            "D=MideApplication;Password=$1nCi7y")]
         public string ConnectionString {
             get {
                 return ((string)(this["ConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=compasspowerbi;Initial Catalog=AGNES;Persist Security Info=True;User " +
-            "ID=MideApplication;Password=$1nCi7y")]
-        public string AGNESConnectionString {
-            get {
-                return ((string)(this["AGNESConnectionString"]));
             }
         }
     }

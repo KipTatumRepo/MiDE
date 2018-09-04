@@ -79,7 +79,7 @@ namespace MiDEWPF.Pages
             //MiDEDataSetTableAdapters.MasterBuildingListTableAdapter adapter = new MiDEDataSetTableAdapters.MasterBuildingListTableAdapter();
             MiDEDataSetTableAdapters.LocationsTableAdapter adapter = new MiDEDataSetTableAdapters.LocationsTableAdapter();
 
-            adapter.Fill(ds.Locations);
+            //adapter.Fill(ds.Locations);
             padapter.Fill(ds.Population);
 
             ptadapter.Fill(ds.PopType);

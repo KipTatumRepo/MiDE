@@ -33,6 +33,7 @@ namespace MiDEWPF.Pages
         public static List<string> ExclusionBox = new List<string>();
 
         public MiDEDataSet ds = new MiDEDataSet();
+        public AGNESDataSet ds2 = new AGNESDataSet();
         public static int SValuesSum;
         public int ScenarioNumber;
         public static int isThrottled;
@@ -67,6 +68,8 @@ namespace MiDEWPF.Pages
             #region Get Data
 
             ds = ((MiDEDataSet)(FindResource("mideDataSet")));
+            //ds2 = ((AGNESDataSet)(FindResource("agnesDataSet")));
+            
             //MiDEDataSetTableAdapters.MiDEPopulationTableAdapter padapter = new MiDEDataSetTableAdapters.MiDEPopulationTableAdapter();
             MiDEDataSetTableAdapters.PopulationTableAdapter padapter = new MiDEDataSetTableAdapters.PopulationTableAdapter();
             MiDEDataSetTableAdapters.PopTypeTableAdapter ptadapter = new MiDEDataSetTableAdapters.PopTypeTableAdapter();
@@ -74,9 +77,10 @@ namespace MiDEWPF.Pages
             MiDEDataSetTableAdapters.StrategyGroupsTableAdapter stadapter = new MiDEDataSetTableAdapters.StrategyGroupsTableAdapter();
             MiDEDataSetTableAdapters.EValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.EValuesTableAdapter();
             MiDEDataSetTableAdapters.WriteTableAdapter wadapter = new MiDEDataSetTableAdapters.WriteTableAdapter();
-            MiDEDataSetTableAdapters.MasterBuildingListTableAdapter adapter = new MiDEDataSetTableAdapters.MasterBuildingListTableAdapter();
+            //MiDEDataSetTableAdapters.MasterBuildingListTableAdapter adapter = new MiDEDataSetTableAdapters.MasterBuildingListTableAdapter();
+            MiDEDataSetTableAdapters.LocationsTableAdapter adapter = new MiDEDataSetTableAdapters.LocationsTableAdapter();
 
-            adapter.Fill(ds.MasterBuildingList);
+            adapter.Fill(ds.Locations);
             padapter.Fill(ds.Population);
 
             ptadapter.Fill(ds.PopType);
@@ -86,9 +90,11 @@ namespace MiDEWPF.Pages
 
 
             //these loops initially populates selectedVacatingBuildingCB, sFactorCB, strategyExclusionCB, and mitigationExclusionCB
-            foreach (var item in ds.MasterBuildingList)
+            //foreach (var item in ds.MasterBuildingList)
+            foreach (var item in ds.Locations)
             {
-                string comboboxtext = ds.MasterBuildingList.Rows[j][1].ToString();
+                //string comboboxtext = ds.MasterBuildingList.Rows[j][1].ToString();
+                string comboboxtext = ds.Locations.Rows[j][1].ToString();
                 string tcombotext = comboboxtext.Trim();
                 selectedVacatingBuildingCB.Items.Add(tcombotext);
                 selectBuildingCB.Items.Add(tcombotext);

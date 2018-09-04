@@ -86,6 +86,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MiDEDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MiDEDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Models\NewButton.cs" />
     <Compile Include="Pages\MiDEResults.xaml.cs">
       <DependentUpon>MiDEResults.xaml</DependentUpon>
@@ -96,6 +101,7 @@
     <Compile Include="Resources\ConnectionHelper.cs" />
     <Compile Include="Resources\RatioConverter.cs" />
     <Compile Include="Resources\SqlCommandExt.cs" />
+    <Compile Include="Settings.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -143,6 +149,17 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Icons\MiDEIcon.xcf" />
+    <None Include="MiDEDataSet.xsc">
+      <DependentUpon>MiDEDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="MiDEDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MiDEDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="MiDEDataSet.xss">
+      <DependentUpon>MiDEDataSet.xsd</DependentUpon>
+    </None>
     <None Include="MiDEWPF_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

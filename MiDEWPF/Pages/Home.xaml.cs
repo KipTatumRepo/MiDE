@@ -40,7 +40,6 @@ namespace MiDEWPF.Pages
 
         #region Page Variables
         //TODO This will be needed for menu style
-        //public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
         List<int> SValues = new List<int>();
         int PopRangeSValue;
         string PopRangeSVariable;
@@ -520,7 +519,6 @@ namespace MiDEWPF.Pages
             strategyExclusionCB.Text = "Select Strategy Exclusions";
             mitigationExclusionCB.Text = "Select Mitigation Exclusions";
 
-
             SValuesSum = SValues.Sum();
             isThrottled = Throttle;
             NavigationService.Navigate(
@@ -670,10 +668,7 @@ namespace MiDEWPF.Pages
         private void cmbItem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             MiDEDataSetTableAdapters.SValuesTableAdapter adapter = new MiDEDataSetTableAdapters.SValuesTableAdapter();
-
-            //DataTable table = new DataTable("DefinitionTable");
             MiDEDataSet.SValuesDataTable table = new MiDEDataSet.SValuesDataTable();
-            //adapter.Fill(table);
             string SelectedItem = sender.ToString();
             string TrimmedSelectedItem = SelectedItem.Remove(0, 38);
             string Definition;
@@ -682,13 +677,11 @@ namespace MiDEWPF.Pages
 
             adapter.FillByDefinition(table, TrimmedSelectedItem);
 
-
             Definition = table.Rows[0][col].ToString();
 
             SFactorDef.Text = Definition;
             SFactorDef.Background = Brushes.AliceBlue;
             SFactorDef.Visibility = Visibility.Visible;
-
         }
 
         private void sFactorCB_MouseLeave(object sender, MouseEventArgs e)

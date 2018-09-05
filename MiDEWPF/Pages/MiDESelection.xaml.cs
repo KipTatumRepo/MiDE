@@ -45,7 +45,7 @@ namespace MiDEWPF.Pages
         DataTable sortedTable = new DataTable();
         DataTable fdt = new DataTable("FilteredDataTable");
         List<string> list = new List<string>();
-        
+       
         #endregion
 
         public MiDESelection()
@@ -63,7 +63,6 @@ namespace MiDEWPF.Pages
             SValue = Home.SValuesSum;
             ScenarioNumber = newhome.ScenarioNumber;
             
-
             //Connection stuff
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();

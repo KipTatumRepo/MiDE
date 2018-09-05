@@ -167,16 +167,29 @@ namespace MiDEWPF.Pages
             {
                 SVariableExclusion.Add("Population Move >1000 People");
                 SVariableExclusion.Add("Population Move 500-999");
+                SVariableExclusion.Add("Population Move <500 People");
+                SValues.Add(1);
+                SelectionListBox.Items.Add("Population Move <500 People");
+                SelectionBox.Add("Population Move <500 People");
+
             }
             else if (add == "500 - 999")
             {
                 SVariableExclusion.Add("Population Move >1000 People");
+                SVariableExclusion.Add("Population Move 500-999");
                 SVariableExclusion.Add("Population Move <500 People");
+                SValues.Add(9);
+                SelectionListBox.Items.Add("Population Move 500-999");
+                SelectionBox.Add("Population Move 500-999");
+
             }
             else
             {
                 SVariableExclusion.Add("Population Move 500-999");
                 SVariableExclusion.Add("Population Move <500 People");
+                SValues.Add(10);
+                SelectionListBox.Items.Add("Population Move >1000 People");
+                SelectionBox.Add("Population Move >1000 People");
             }
             PopulateSFactor(SVariableExclusion);
             return;

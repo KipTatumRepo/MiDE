@@ -42,6 +42,8 @@ namespace MiDEWPF.Pages
         //TODO This will be needed for menu style
         //public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
         List<int> SValues = new List<int>();
+        int PopRangeSValue;
+        string PopRangeSVariable;
         int j = 0;
         int k = 0;
         int l = 0;
@@ -168,28 +170,23 @@ namespace MiDEWPF.Pages
                 SVariableExclusion.Add("Population Move >1000 People");
                 SVariableExclusion.Add("Population Move 500-999");
                 SVariableExclusion.Add("Population Move <500 People");
-                SValues.Add(1);
-                SelectionListBox.Items.Add("Population Move <500 People");
-                SelectionBox.Add("Population Move <500 People");
-
+                PopRangeSValue = 1;
+                PopRangeSVariable = "Population Move <500 People";
             }
             else if (add == "500 - 999")
             {
                 SVariableExclusion.Add("Population Move >1000 People");
                 SVariableExclusion.Add("Population Move 500-999");
                 SVariableExclusion.Add("Population Move <500 People");
-                SValues.Add(9);
-                SelectionListBox.Items.Add("Population Move 500-999");
-                SelectionBox.Add("Population Move 500-999");
-
+                PopRangeSValue = 9;
+                PopRangeSVariable = "Population Move 500-999";
             }
             else
             {
                 SVariableExclusion.Add("Population Move 500-999");
                 SVariableExclusion.Add("Population Move <500 People");
-                SValues.Add(10);
-                SelectionListBox.Items.Add("Population Move >1000 People");
-                SelectionBox.Add("Population Move >1000 People");
+                PopRangeSValue = 10;
+                PopRangeSVariable = "Population Move > 1000 People";
             }
             PopulateSFactor(SVariableExclusion);
             return;
@@ -228,6 +225,9 @@ namespace MiDEWPF.Pages
 
             SelectionListBox.Items.Add(add);
             SelectionBox.Add(add);
+            SelectionListBox.Items.Add(PopRangeSVariable);
+            SelectionBox.Add(PopRangeSVariable);
+            SValues.Add(PopRangeSValue);
             return;
         }
 
@@ -360,7 +360,7 @@ namespace MiDEWPF.Pages
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
 
-            string sqlString = "SELECT * FROM SValues WHERE svariable NOT IN ({SelectionBox})";
+            string sqlString = "SELECT * FROM mide.SValues WHERE svariable NOT IN ({SelectionBox})";
             SelectionListBox.SelectedIndex = SelectionListBox.Items.Count - 1;
             int currentIterator = SelectionListBox.Items.Count - 1;
             int listIterator = SValues.Count - 1;
@@ -447,7 +447,7 @@ namespace MiDEWPF.Pages
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
 
-            string sqlString = "SELECT * FROM EValues WHERE EVariable NOT IN ({ExclusionBox}) AND StrategyName NOT IN ({ExclusionBox})";
+            string sqlString = "SELECT * FROM mide.EValues WHERE EVariable NOT IN ({ExclusionBox}) AND StrategyName NOT IN ({ExclusionBox})";
 
             ExclusionListBox.SelectedIndex = ExclusionListBox.Items.Count - 1;
             int currentIterator = ExclusionListBox.Items.Count - 1;

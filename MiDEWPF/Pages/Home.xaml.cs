@@ -183,6 +183,7 @@ namespace MiDEWPF.Pages
             }
             else
             {
+                SVariableExclusion.Add("Population Move >1000 People");
                 SVariableExclusion.Add("Population Move 500-999");
                 SVariableExclusion.Add("Population Move <500 People");
                 PopRangeSValue = 10;
@@ -220,7 +221,10 @@ namespace MiDEWPF.Pages
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (datePicker.SelectedDate == null)
+            {
+                return;
+            }
             string add = datePicker.SelectedDate.ToString();
 
             SelectionListBox.Items.Add(add);
@@ -341,6 +345,8 @@ namespace MiDEWPF.Pages
             SelectionBox.Clear();
             SValues.Clear();
             SVariableExclusion.Clear();
+            //StrategyExclusion.Clear();
+            //MitigationExclusion.Clear();
             sFactorCB.Items.Clear();
 
             foreach (var item in ds.SValues)
@@ -350,6 +356,13 @@ namespace MiDEWPF.Pages
                 k++;
             }
 
+            //selectedVacatingBuildingCB.SelectedIndex = -1;
+            selectedVacatingBuildingCB.Text = "Select Building";
+            selectedPopRangeCB.Text = "Select Population Range";
+            selectedPopTypeCB.Text = "Select Population Type";
+            selectBuildingCB.Text = "Select Building";
+            sFactorCB.Text = "Compression Factors";
+            datePicker.SelectedDate = null;
             return;
         }
 
@@ -419,6 +432,7 @@ namespace MiDEWPF.Pages
             MessageBox.Show("Delete All Current Selections?");
             ExclusionListBox.Items.Clear();
             ExclusionBox.Clear();
+            MitigationExclusion.Clear();
             strategyExclusionCB.Items.Clear();
             mitigationExclusionCB.Items.Clear();
 
@@ -657,7 +671,9 @@ namespace MiDEWPF.Pages
         {
             MiDEDataSetTableAdapters.SValuesTableAdapter adapter = new MiDEDataSetTableAdapters.SValuesTableAdapter();
 
+            //DataTable table = new DataTable("DefinitionTable");
             MiDEDataSet.SValuesDataTable table = new MiDEDataSet.SValuesDataTable();
+            //adapter.Fill(table);
             string SelectedItem = sender.ToString();
             string TrimmedSelectedItem = SelectedItem.Remove(0, 38);
             string Definition;

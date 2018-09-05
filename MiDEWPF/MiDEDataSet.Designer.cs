@@ -4750,7 +4750,8 @@ SELECT sid, svariable, svalue, definition FROM mide.SValues WHERE (sid = @sid)";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "SELECT definition FROM mide.SValues WHERE svariable = @TrimmedSelectedItem";
+            this._commandCollection[1].CommandText = "SELECT sid, svariable, svalue, definition FROM mide.SValues WHERE svariable = @Tr" +
+                "immedSelectedItem";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TrimmedSelectedItem", global::System.Data.SqlDbType.VarChar, 256, global::System.Data.ParameterDirection.Input, 0, 0, "svariable", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();

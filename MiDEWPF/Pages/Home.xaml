@@ -5,7 +5,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MiDEWPF.Pages"
       xmlns:local1="clr-namespace:MiDEWPF"
-     
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1400"
       Title="Home"
@@ -13,7 +12,6 @@
       >
     <Page.Resources>
         <local1:MiDEDataSet x:Key="mideDataSet"/>
-        
         <CollectionViewSource x:Key="buildingMenuViewSource" Source="{Binding Locations, Source={StaticResource mideDataSet}}"/>
         <CollectionViewSource x:Key="vbuildingMenuViewSource" Source="{Binding Locations, Source={StaticResource mideDataSet}}"/>
         <CollectionViewSource x:Key="populationViewSource" Source="{Binding Population, Source={StaticResource mideDataSet}}"/>
@@ -100,7 +98,6 @@
                         </ComboBox.ItemContainerStyle>
                     </ComboBox>
                     <!-- List box and label for Current Selections -->
-
                 </Grid>
                 <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Height="24" Margin="30,1,10,0" TextAlignment="Center" Text="Current Scenario Selections" VerticalAlignment="Top" Background="LemonChiffon"/>
                 <ListBox Grid.Row="0" x:Name="SelectionListBox" HorizontalAlignment="Stretch" Height="210" Margin="30,38,10,0" VerticalAlignment="Top" Grid.Column="1"/>
@@ -140,15 +137,12 @@
                       SelectionChanged="mitigationExclusion_SelectionChanged" VerticalAlignment="Center" Height="22"/>
                 </Grid>
                 <!--Label and Listbox for exclusions-->
-
                 <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Height="24" Margin="30,10,10,0" TextAlignment="Center" Text="Current Exclusion Selections" VerticalAlignment="Top" Background="LemonChiffon"/>
                 <ListBox Grid.Row="0" Grid.Column="1" Name="ExclusionListBox" HorizontalAlignment="Stretch" Height="210" Margin="30,47,10,0" VerticalAlignment="Top" />
-
                 <Button x:Name="ClearAllExclusion" Grid.Row="1" Grid.Column="1" Content="Clear All Selections" HorizontalAlignment="Right" Margin="0,0,173,0" Style="{StaticResource Buttons}" Height="Auto" Width="152" Click="ClearAllExclusion_Click" RenderTransformOrigin="0.503,-0.012" />
                 <Button x:Name="ClearLastExclusion" Grid.Row="1" Grid.Column="1" Content="Clear Last Selection" HorizontalAlignment="Right" Margin="0,0,10,0" Style="{StaticResource Buttons}" Height="Auto" Width="153" Click="ClearLastExclusion_Click" />
             </Grid>
         </Border>
         <Button x:Name="SaveButton" Grid.Row="3" Content="Save" HorizontalAlignment="Right" Margin="0,4,664,0" Style="{StaticResource Buttons}" Height="Auto" Click="SaveButton_Click" Width="126" />
-
     </Grid>
 </Page>

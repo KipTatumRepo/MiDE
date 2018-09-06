@@ -25,10 +25,9 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>MiDE</ProductName>
-    <PublisherName>Compass Business Intelligence Team</PublisherName>
-    <SuiteName>Compass Business Intelligence</SuiteName>
+    <PublisherName>Compass Business Intelligence</PublisherName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -54,7 +53,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icons\MiDEIconLarge.ico</ApplicationIcon>
+    <ApplicationIcon>Icons\MiDEIconUseThis.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>954636F76F3FA65A492F697C5596E6AEC46A2257</ManifestCertificateThumbprint>

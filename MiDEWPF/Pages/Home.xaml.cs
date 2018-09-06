@@ -39,7 +39,6 @@ namespace MiDEWPF.Pages
         #endregion
 
         #region Page Variables
-        //TODO This will be needed for menu style
         List<int> SValues = new List<int>();
         int PopRangeSValue;
         string PopRangeSVariable;
@@ -74,12 +73,10 @@ namespace MiDEWPF.Pages
             MiDEDataSetTableAdapters.StrategyGroupsTableAdapter stadapter = new MiDEDataSetTableAdapters.StrategyGroupsTableAdapter();
             MiDEDataSetTableAdapters.EValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.EValuesTableAdapter();
             MiDEDataSetTableAdapters.WriteTableAdapter wadapter = new MiDEDataSetTableAdapters.WriteTableAdapter();
-           
             MiDEDataSetTableAdapters.MasterBuildingListTableAdapter adapter = new MiDEDataSetTableAdapters.MasterBuildingListTableAdapter();
 
             adapter.Fill(ds.MasterBuildingList);
             padapter.Fill(ds.Population);
-
             ptadapter.Fill(ds.PopType);
             sadapter.Fill(ds.SValues);
             stadapter.Fill(ds.StrategyGroups);
@@ -596,7 +593,7 @@ namespace MiDEWPF.Pages
                 mitigationExclusionCB.Items.Add(comboboxtext);
                 i++;
             }
-
+            conn.Close();
             return mitigationExclusionCB;
         }
 

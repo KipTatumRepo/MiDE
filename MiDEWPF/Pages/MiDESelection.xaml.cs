@@ -101,7 +101,7 @@ namespace MiDEWPF.Pages
                 mitigationDisplay.Children.Add(CreateButtons(list, rdt, i));
                 i++;
             }
-            AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
+            AddHandler(NewButton.ClickEvent, new RoutedEventHandler(MitigationOptionButton_Click));
                 
         }
 
@@ -264,7 +264,7 @@ namespace MiDEWPF.Pages
         #endregion
 
         #region Button Events
-        void button_Click(object sender, RoutedEventArgs e)
+        void MitigationOptionButton_Click(object sender, RoutedEventArgs e)
         {
            
             NewButton b = new NewButton();

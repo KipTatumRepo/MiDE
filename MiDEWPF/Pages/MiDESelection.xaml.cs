@@ -45,7 +45,7 @@ namespace MiDEWPF.Pages
         DataTable sortedTable = new DataTable();
         DataTable fdt = new DataTable("FilteredDataTable");
         List<string> list = new List<string>();
-        
+       
         #endregion
 
         public MiDESelection()
@@ -56,23 +56,22 @@ namespace MiDEWPF.Pages
             InitializeComponent();
 
             #region Get Data
-            MiDEDataSetTableAdapters.MiDEEValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.MiDEEValuesTableAdapter();
-            eadapter.Fill(ds.MiDEEValues);
+            MiDEDataSetTableAdapters.EValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.EValuesTableAdapter();
+            eadapter.Fill(ds.EValues);
 
             //Get sum of S values and current Scenario Number from Home page.  
             SValue = Home.SValuesSum;
             ScenarioNumber = newhome.ScenarioNumber;
             
-
             //Connection stuff
             SqlConnection conn = ConnectionHelper.GetConn();
             conn.Open();
-            string sqlString = "SELECT ScenarioNumber, SelectionListBox, ExclusionListBox, CurrentMitigationListBox, wid FROM MiDEWrite WHERE(ScenarioNumber = @ScenarioNumber) AND(ExclusionListBox IS NOT NULL)";
+            string sqlString = "SELECT ScenarioNumber, SelectionListBox, ExclusionListBox, CurrentMitigationListBox, wid FROM mide.Write WHERE(ScenarioNumber = @ScenarioNumber) AND(ExclusionListBox IS NOT NULL)";
 
             Cmd = new SqlCommand(sqlString, conn);
             SqlDataAdapter sda = new SqlDataAdapter(Cmd);
             Cmd.Parameters.AddWithValue("@ScenarioNumber", ScenarioNumber);
-            DataTable dt = new DataTable("MiDEWrite");
+            DataTable dt = new DataTable("Write");
 
             sda.Fill(dt);
 
@@ -102,7 +101,7 @@ namespace MiDEWPF.Pages
                 mitigationDisplay.Children.Add(CreateButtons(list, rdt, i));
                 i++;
             }
-            AddHandler(NewButton.ClickEvent, new RoutedEventHandler(button_Click));
+            AddHandler(NewButton.ClickEvent, new RoutedEventHandler(MitigationOptionButton_Click));
                 
         }
 
@@ -121,7 +120,7 @@ namespace MiDEWPF.Pages
             {
                 if (exclusionBox.Count() == 0)
                 {
-                    string sqlString = "SELECT * FROM MiDEEValues WHERE CostMoney < 3";
+                    string sqlString = "SELECT * FROM mide.EValues WHERE CostMoney < 3";
                     cmd = new SqlCommand(sqlString, conn);
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     da.Fill(dts);
@@ -129,7 +128,7 @@ namespace MiDEWPF.Pages
 
                 else
                 {
-                    string sqlString = "SELECT * FROM MiDEEValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable}) AND CostMoney < 3";
+                    string sqlString = "SELECT * FROM mide.EValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable}) AND CostMoney < 3";
                     cmd = new SqlCommand(sqlString, conn);
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     cmd.AddArrayParameters("StrategyName", exclusionBox);
@@ -141,14 +140,14 @@ namespace MiDEWPF.Pages
             {
                 if (exclusionBox.Count() == 0)
                 {
-                    string sqlString = "SELECT * FROM MiDEEValues";
+                    string sqlString = "SELECT * FROM mide.EValues";
                     cmd = new SqlCommand(sqlString, conn);
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     da.Fill(dts);
                 }
                 else
                 {
-                    string sqlString = "SELECT * FROM MiDEEValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable})";
+                    string sqlString = "SELECT * FROM mide.EValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable})";
                     cmd = new SqlCommand(sqlString, conn);
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     cmd.AddArrayParameters("StrategyName", exclusionBox);
@@ -156,6 +155,7 @@ namespace MiDEWPF.Pages
                     da.Fill(dts);
                 }
             }
+            conn.Close();
             return dts;
         }
 
@@ -242,6 +242,7 @@ namespace MiDEWPF.Pages
         {
             List<string> Result = new List<string>();
             Result.AddRange(AllCurrentMitigations.Except(SelectedMitigations));
+            //Result.AddRange()
             return Result;
         }
 
@@ -263,19 +264,30 @@ namespace MiDEWPF.Pages
         #endregion
 
         #region Button Events
-        void button_Click(object sender, RoutedEventArgs e)
+        void MitigationOptionButton_Click(object sender, RoutedEventArgs e)
         {
            
             NewButton b = new NewButton();
             b = e.OriginalSource as NewButton;
-           if(b != null)
-            { 
+            if (b != null)
+            {
                 string Bid = b.Tag.ToString();
                 int bid;
                 bid = int.Parse(Bid);
+                bid -= 1;
+
 
                 #region check for string match to Button RoutedEventArgs
-                if (bid == 1)
+
+
+                currentMitigationListBox.Items.Add(ds.EValues.Rows[bid][2].ToString());
+                MitigationSelection.Add(ds.EValues.Rows[bid][2].ToString());
+                var evalue = ds.EValues.Rows[bid][3].ToString();
+                int Evalue = int.Parse(evalue);
+                EValues.Add(Evalue);
+
+                #region after continued testing, erase me
+                /*if (bid == 1)
                 {
                     currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[0][2].ToString());
                     MitigationSelection.Add(ds.MiDEEValues.Rows[0][2].ToString());
@@ -517,262 +529,21 @@ namespace MiDEWPF.Pages
                     int Evalue = int.Parse(evalue);
 
                     EValues.Add(Evalue);
-                }
+
+                }*/
+                #endregion
             }
 
-            #region Erase Me
-            /*if (idk == bbase + "Food Truck Support")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[0][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[0][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[0][3].ToString();
-                int Evalue = int.Parse(evalue);
 
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Permanent Pop-Up")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[1][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[1][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[1][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Food Delivery Service")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[2][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[2][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[2][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Increase DTO Offerings/Stations")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[3][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[3][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[3][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Market@ Product Expansion")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[4][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[4][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[4][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Grab & Go ")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[5][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[5][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[5][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Simplify Existing Concepts")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[6][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[6][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[6][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Customer/Stakeholder Pre-Meetings")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[7][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[7][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[7][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Station Awareness Comms")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[8][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[8][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[8][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Readiness Tours")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[9][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[9][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[9][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "LTO Beverages")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[10][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[10][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[10][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Dedicated Shuttles")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[11][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[11][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[11][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Temp/Additional Water Stations")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[12][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[12][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[12][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Extended Service Times")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[13][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[13][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[13][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Discounts for Off-Time Service")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[14][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[14][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[14][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Replace Static Station(Local Brand)")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[15][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[15][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[15][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Welcome Events")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[16][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[16][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[16][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Goodbye Parties")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[17][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[17][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[17][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Welcome Parties")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[18][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[18][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[18][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Move Survival Kit")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[19][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[19][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[19][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Station Sampling")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[20][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[20][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[20][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Utilize Atrium & Non-Standard Spaces")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[21][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[21][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[21][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Replace Static Station(Our Concept)")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[26][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[26][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[26][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Temporary Pop-Up")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[22][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[22][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[22][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Mobile Pop-Up")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[24][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[24][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[24][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Nextep Bank Install")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[25][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[25][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[25][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }
-            else if (idk == bbase + "Linebusting")
-            {
-                currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[23][2].ToString());
-                MitigationSelection.Add(ds.MiDEEValues.Rows[23][2].ToString());
-                var evalue = ds.MiDEEValues.Rows[23][3].ToString();
-                int Evalue = int.Parse(evalue);
-
-                EValues.Add(Evalue);
-            }*/
             #endregion
-            #endregion
+
         }
 
         //Write to DB and navigate to next page
         private void ShowResults_Click(object sender, RoutedEventArgs e)
         {
             EValuesSum = EValues.Sum();
-            MiDEDataSetTableAdapters.MiDEWriteTableAdapter wadapter = new MiDEDataSetTableAdapters.MiDEWriteTableAdapter();
+            MiDEDataSetTableAdapters.WriteTableAdapter wadapter = new MiDEDataSetTableAdapters.WriteTableAdapter();
             int i = 0;
             int j = 0;
             int k = 0;

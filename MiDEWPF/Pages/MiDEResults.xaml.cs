@@ -57,7 +57,8 @@ namespace MiDEWPF.Pages
             {
                 Image.Text = "Great Job";
                 Image.FontSize = 30;
-                var uri = new Uri("pack://application:,,,/Resources/emoji-thumbsup.jpg", UriKind.Absolute);
+                //change to emoji-thumbsup.jpg for release after demo
+                var uri = new Uri("pack://application:,,,/Resources/Demoji-thumbsup.png", UriKind.Absolute);
 
                 ImageHolder.Source = new BitmapImage(uri);
             }
@@ -65,7 +66,8 @@ namespace MiDEWPF.Pages
             {
                 Image.Text = "Not Quite The Result We Are Looking For";
                 Image.FontSize = 32;
-                var uri = new Uri("pack://application:,,,/Resources/emoji-thumbsdown.jpg", UriKind.Absolute);
+                //change to emoji-thumbsdown.jpg for release after demo
+                var uri = new Uri("pack://application:,,,/Resources/Demoji-thumbsdown.png", UriKind.Absolute);
 
                 ImageHolder.Source = new BitmapImage(uri);
             }

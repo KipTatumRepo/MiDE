@@ -27,7 +27,7 @@
     <ProductName>MiDE</ProductName>
     <PublisherName>Compass Business Intelligence</PublisherName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -202,6 +202,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\emoji-thumbsdown.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Demoji-thumbsup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Demoji-thumbsdown.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

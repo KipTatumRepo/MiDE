@@ -153,7 +153,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Icons\MiDEIcon.xcf" />
     <None Include="MiDEDataSet.xsc">
       <DependentUpon>MiDEDataSet.xsd</DependentUpon>
     </None>
@@ -175,19 +174,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="thumbsUp.jpg" />
+    <Resource Include="Resources\thumbsUp.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="SadDonkey.png" />
+    <Resource Include="Resources\SadDonkey.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\MiDEIconLarge.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="MiDEIconLarge.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -203,6 +196,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\MiDEIconUseThis.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\emoji-thumbsup.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\emoji-thumbsdown.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

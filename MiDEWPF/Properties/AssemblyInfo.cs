@@ -7,11 +7,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MiDEWPF")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("MiDE")]
+[assembly: AssemblyDescription("Mitigation Decision Engine")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MiDEWPF")]
+[assembly: AssemblyCompany("Compass Business Intelligence at Microsoft")]
+[assembly: AssemblyProduct("MiDE")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

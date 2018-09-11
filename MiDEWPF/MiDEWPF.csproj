@@ -203,5 +203,11 @@
   <ItemGroup>
     <Resource Include="Resources\emoji-thumbsdown.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Demoji-thumbsup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Demoji-thumbsdown.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

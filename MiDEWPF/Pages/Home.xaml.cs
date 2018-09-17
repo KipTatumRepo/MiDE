@@ -373,7 +373,6 @@ namespace MiDEWPF.Pages
             int listIterator = SValues.Count - 1;
             SelectionListBox.SelectedItem = SelectionListBox.Items.Count - 1;
 
-
             MessageBox.Show("Remove " + SelectionListBox.SelectedItem + "?");
             SelectionListBox.Items.RemoveAt(SelectionListBox.SelectedIndex);
             SelectionBox.RemoveAt(currentIterator);
@@ -381,7 +380,6 @@ namespace MiDEWPF.Pages
 
             if (SelectionBox.Count == 0)
             {
-
                 k = 0;
 
                 if (SValues.Count() != 0)

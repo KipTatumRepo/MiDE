@@ -52,7 +52,6 @@ namespace MiDEWPF.Pages
         List<string> MitigationExclusion = new List<string>();
         List<string> SVariableExclusion = new List<string>();
         ObservableCollection<string> comboboxlist = new ObservableCollection<string>();
-        
 
         string BudgetThrottleText;
        
@@ -62,7 +61,6 @@ namespace MiDEWPF.Pages
         {
 
             InitializeComponent();
-
 
             #region Get Data
 
@@ -501,6 +499,56 @@ namespace MiDEWPF.Pages
         //Navigate to next page
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            //The following if's check to make sure there are valid entries
+            if (SelectionBox.Count == 0)
+            {
+                MessageBox.Show("There Are No Entries For This Scenario, Please Enter Some Scenario Variables");
+                return;
+            }
+
+            if (selectedVacatingBuildingCB.SelectedIndex == -1)
+            {
+                var MessageBoxResult =
+                BiMessageBox.Show("No Selection Check", "There Is No Selection For a Vacating Building, Is That Correct?", MessageBoxButton.YesNo);
+                if (MessageBoxResult != MessageBoxResult.Yes)
+                {
+                    return;
+                }
+            }
+            if (selectedPopRangeCB.SelectedIndex == -1)
+            {
+                var MessageBoxResult =
+                BiMessageBox.Show("No Selection Check", "There Is No Selection For a Population Range, Is That Correct?", MessageBoxButton.YesNo);
+                if (MessageBoxResult != MessageBoxResult.Yes)
+                {
+                    return;
+                }
+            }
+            if (selectedPopTypeCB.SelectedIndex == -1)
+            {
+                var MessageBoxResult =
+                BiMessageBox.Show("No Selection Check", "There Is No Selection For a Population Type, Is That Correct?", MessageBoxButton.YesNo);
+                if (MessageBoxResult != MessageBoxResult.Yes)
+                {
+                    return;
+                }
+            }
+            if (selectBuildingCB.SelectedIndex == -1)
+            {
+                var MessageBoxResult =
+                BiMessageBox.Show("No Selection Check", "There Is No Selection For What Building The Population Is Moving To, Is That Correct?", MessageBoxButton.YesNo);
+                if (MessageBoxResult != MessageBoxResult.Yes)
+                {
+                    return;
+                }
+            }
+            if (datePicker.SelectedDate == null)
+            {
+                var MessageBoxResult =
+                BiMessageBox.Show("No Selection Check", "There Is No Selection For When This Scenario Will Start, Please Enter a Date");
+                return;
+            }
+
             //Check to see if there budget throttle is applied
             if (Throttle == 1)
             {
@@ -518,10 +566,10 @@ namespace MiDEWPF.Pages
 
             SValuesSum = SValues.Sum();
             isThrottled = Throttle;
+
             NavigationService.Navigate(
                 new Uri("Pages/MiDESelection.xaml", UriKind.Relative));
         }
-
         #endregion
 
         //Populate mitigationExclusion Combobox with only items that are not included with strategy exclusions

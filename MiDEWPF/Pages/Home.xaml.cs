@@ -502,7 +502,7 @@ namespace MiDEWPF.Pages
             //The following if's check to make sure there are valid entries
             if (SelectionBox.Count == 0)
             {
-                MessageBox.Show("There Are No Entries For This Scenario, Please Enter Some Scenario Variables");
+                BiMessageBox.Show("There Are No Entries For This Scenario, Please Enter Some Scenario Variables");
                 return;
             }
 

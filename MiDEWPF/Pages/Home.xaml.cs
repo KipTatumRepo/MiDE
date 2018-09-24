@@ -404,7 +404,6 @@ namespace MiDEWPF.Pages
 
             if (SelectionBox.Count == 0)
             {
-
                 k = 0;
 
                 if (SValues.Count() != 0)

@@ -6,11 +6,9 @@
       xmlns:local="clr-namespace:MiDEWPF"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1400"
-      Title="MiDESelection">
-    <Page.Resources>
-
-    </Page.Resources>
-
+      Title="MiDESelection"
+      KeepAlive="True"
+      >
     <Grid Margin="5,5,5,5" >
         <Grid.RowDefinitions>
             <RowDefinition Height="33*"/>

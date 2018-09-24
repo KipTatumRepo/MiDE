@@ -266,7 +266,6 @@ namespace MiDEWPF.Pages
         #region Button Events
         void MitigationOptionButton_Click(object sender, RoutedEventArgs e)
         {
-           
             NewButton b = new NewButton();
             b = e.OriginalSource as NewButton;
             if (b != null)
@@ -276,10 +275,7 @@ namespace MiDEWPF.Pages
                 bid = int.Parse(Bid);
                 bid -= 1;
 
-
                 #region check for string match to Button RoutedEventArgs
-
-
                 currentMitigationListBox.Items.Add(ds.EValues.Rows[bid][2].ToString());
                 MitigationSelection.Add(ds.EValues.Rows[bid][2].ToString());
                 var evalue = ds.EValues.Rows[bid][3].ToString();
@@ -532,10 +528,8 @@ namespace MiDEWPF.Pages
 
                 }*/
                 #endregion
+                #endregion
             }
-
-
-            #endregion
 
         }
 

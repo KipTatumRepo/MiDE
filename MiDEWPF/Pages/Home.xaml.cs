@@ -598,19 +598,19 @@ namespace MiDEWPF.Pages
             }
 
             //Check to see if there budget throttle is applied
-            if (Throttle == 1)
+            if (Throttle == 1 && !(SelectionBox.Contains(BudgetThrottleText)))
             {
                 BudgetThrottleText = "There are Budget Considerations";
                 SelectionBox.Add(BudgetThrottleText);
             }
 
-            selectedVacatingBuildingCB.Text = "Select Building";
-            selectedPopRangeCB.Text = "Select Population Range";
-            selectedPopTypeCB.Text = "Select Population Type";
-            selectBuildingCB.Text = "Select Building";
-            sFactorCB.Text = "Compression Factors";
-            strategyExclusionCB.Text = "Select Strategy Exclusions";
-            mitigationExclusionCB.Text = "Select Mitigation Exclusions";
+            //selectedVacatingBuildingCB.Text = "Select Building";
+            //selectedPopRangeCB.Text = "Select Population Range";
+            //selectedPopTypeCB.Text = "Select Population Type";
+            //selectBuildingCB.Text = "Select Building";
+            //sFactorCB.Text = "Compression Factors";
+            //strategyExclusionCB.Text = "Select Strategy Exclusions";
+            //mitigationExclusionCB.Text = "Select Mitigation Exclusions";
 
             SValuesSum = SValues.Sum();
             isThrottled = Throttle;

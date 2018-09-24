@@ -333,14 +333,25 @@ namespace MiDEWPF.Pages
         //Buttons for clearing boxed and handling click events
         private void ClearAllScenario_Click(object sender, RoutedEventArgs e)
         {
+            //make sure the selection box is not empty
+            if (SelectionListBox.Items.Count < 1)
+            {
+                BiMessageBox.Show("Delete Confirmation", "There Are No Items To Clear");
+                return;
+            }
             k = 0;
-            MessageBox.Show("Delete All Current Selections?");
+
+            var MessageBoxResult = 
+            BiMessageBox.Show("Delete Confirmation", "Delete All Current Selections?", MessageBoxButton.YesNo);
+
+            if (MessageBoxResult != MessageBoxResult.Yes)
+            {
+                return;
+            }
             SelectionListBox.Items.Clear();
             SelectionBox.Clear();
             SValues.Clear();
             SVariableExclusion.Clear();
-            //StrategyExclusion.Clear();
-            //MitigationExclusion.Clear();
             sFactorCB.Items.Clear();
 
             foreach (var item in ds.SValues)
@@ -350,7 +361,6 @@ namespace MiDEWPF.Pages
                 k++;
             }
 
-            //selectedVacatingBuildingCB.SelectedIndex = -1;
             selectedVacatingBuildingCB.Text = "Select Building";
             selectedPopRangeCB.Text = "Select Population Range";
             selectedPopTypeCB.Text = "Select Population Type";
@@ -362,6 +372,7 @@ namespace MiDEWPF.Pages
 
         private void ClearLastScenario_Click(object sender, RoutedEventArgs e)
         {
+            
             DataTable dts = new DataTable("NewSValueList");
             SqlCommand cmd;
             SqlConnection conn = ConnectionHelper.GetConn();
@@ -373,7 +384,20 @@ namespace MiDEWPF.Pages
             int listIterator = SValues.Count - 1;
             SelectionListBox.SelectedItem = SelectionListBox.Items.Count - 1;
 
-            MessageBox.Show("Remove " + SelectionListBox.SelectedItem + "?");
+            //Make sure there are the selection box is not empty
+            if (SelectionListBox.SelectedIndex == -1)
+            {
+                BiMessageBox.Show("Delete Confirmation", "There Are No Items To Clear");
+                return;
+            }
+
+            var MessageBoxResult =
+            BiMessageBox.Show("Delete Confirmation", "Remove " + SelectionListBox.SelectedItem + "?", MessageBoxButton.YesNo);
+            if (MessageBoxResult != MessageBoxResult.Yes)
+            {
+                return;
+            }
+            
             SelectionListBox.Items.RemoveAt(SelectionListBox.SelectedIndex);
             SelectionBox.RemoveAt(currentIterator);
             sFactorCB.Items.Clear();
@@ -385,6 +409,7 @@ namespace MiDEWPF.Pages
                 if (SValues.Count() != 0)
                 {
                     SValues.RemoveAt(listIterator);
+                    SVariableExclusion.RemoveAt(listIterator);
                 }
 
                 foreach (var item in ds.SValues)
@@ -399,6 +424,7 @@ namespace MiDEWPF.Pages
             if (SValues.Count() != 0)
             {
                 SValues.RemoveAt(listIterator);
+                SVariableExclusion.RemoveAt(listIterator + 2);
             }
 
             cmd = new SqlCommand(sqlString, conn);
@@ -421,7 +447,19 @@ namespace MiDEWPF.Pages
         {
             l = 0;
             m = 0;
-            MessageBox.Show("Delete All Current Selections?");
+            //Make sure exclusion box is not empty
+            if (ExclusionListBox.Items.Count < 1)
+            {
+                BiMessageBox.Show("Delete Confirmation", "There Are No Items To Clear");
+                return;
+            }
+
+            var MessageBoxResult =
+            BiMessageBox.Show("Delete Confirmation", "Delete All Current Selections?", MessageBoxButton.YesNo);
+            if (MessageBoxResult != MessageBoxResult.Yes)
+            {
+                return;
+            }
             ExclusionListBox.Items.Clear();
             ExclusionBox.Clear();
             MitigationExclusion.Clear();
@@ -448,6 +486,7 @@ namespace MiDEWPF.Pages
 
         private void ClearLastExclusion_Click(object sender, RoutedEventArgs e)
         {
+            
             DataTable dts = new DataTable("NewSValueList");
             SqlCommand cmd;
             SqlConnection conn = ConnectionHelper.GetConn();
@@ -459,7 +498,19 @@ namespace MiDEWPF.Pages
             int currentIterator = ExclusionListBox.Items.Count - 1;
             ExclusionListBox.SelectedItem = ExclusionListBox.Items.Count - 1;
 
-            MessageBox.Show("Remove " + ExclusionListBox.SelectedItem + "?");
+            //Make sure exclusion box is not empty
+            if (ExclusionListBox.SelectedIndex == -1)
+            {
+                BiMessageBox.Show("Delete Confirmation", "There Are No Items To Clear");
+                return;
+            }
+
+            var MessageBoxResult =
+            BiMessageBox.Show("Delete Confirmation", "Remove " + ExclusionListBox.SelectedItem + "?", MessageBoxButton.YesNo);
+            if (MessageBoxResult != MessageBoxResult.Yes)
+            {
+                return;
+            }
             ExclusionListBox.Items.RemoveAt(ExclusionListBox.SelectedIndex);
             ExclusionBox.RemoveAt(currentIterator);
             mitigationExclusionCB.Items.Clear();
@@ -548,19 +599,19 @@ namespace MiDEWPF.Pages
             }
 
             //Check to see if there budget throttle is applied
-            if (Throttle == 1)
+            if (Throttle == 1 && !(SelectionBox.Contains(BudgetThrottleText)))
             {
                 BudgetThrottleText = "There are Budget Considerations";
                 SelectionBox.Add(BudgetThrottleText);
             }
 
-            selectedVacatingBuildingCB.Text = "Select Building";
-            selectedPopRangeCB.Text = "Select Population Range";
-            selectedPopTypeCB.Text = "Select Population Type";
-            selectBuildingCB.Text = "Select Building";
-            sFactorCB.Text = "Compression Factors";
-            strategyExclusionCB.Text = "Select Strategy Exclusions";
-            mitigationExclusionCB.Text = "Select Mitigation Exclusions";
+            //selectedVacatingBuildingCB.Text = "Select Building";
+            //selectedPopRangeCB.Text = "Select Population Range";
+            //selectedPopTypeCB.Text = "Select Population Type";
+            //selectBuildingCB.Text = "Select Building";
+            //sFactorCB.Text = "Compression Factors";
+            //strategyExclusionCB.Text = "Select Strategy Exclusions";
+            //mitigationExclusionCB.Text = "Select Mitigation Exclusions";
 
             SValuesSum = SValues.Sum();
             isThrottled = Throttle;

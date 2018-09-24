@@ -35,7 +35,21 @@ namespace MiDEWPF.Pages
             SFactorDisplay.Text = "MiDE Calculated With The Supplied Parameters Of ";
             SFactorDisplay.FontSize = 30;
             SFactorDisplayArray.Text = string.Join(", ", Home.SelectionBox);
-            StrategyExclusionArray.Text = string.Join(", ", Home.ExclusionBox);
+
+            //Here we are formatting the text in the exclusions list, if a mitigation is selected for removal then  . . .
+            if (MiDESelection.MitigationSelection.Count >= 1 && Home.ExclusionBox.Count >= 1)
+            {
+                StrategyExclusionArray.Text = string.Join(", ", Home.ExclusionBox) + ", " + string.Join(", ", MiDESelection.MitigationSelection);
+            }
+            else if (MiDESelection.MitigationSelection.Count >= 1 && Home.ExclusionBox.Count <= 0)
+            {
+                StrategyExclusionArray.Text = string.Join(", ", MiDESelection.MitigationSelection);
+            }
+            else
+            {
+                StrategyExclusionArray.Text = string.Join(", ", Home.ExclusionBox);
+            }
+
             MitigationDisplayArray.Text = string.Join(", ", MiDESelection.RemainingMitigationList); 
 
             SFactorTB.Text = "The S Factor Total Is " + Home.SValuesSum.ToString();

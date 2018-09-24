@@ -45,7 +45,7 @@ namespace MiDEWPF.Pages
         DataTable sortedTable = new DataTable();
         DataTable fdt = new DataTable("FilteredDataTable");
         List<string> list = new List<string>();
-       
+        NewButton b = new NewButton();
         #endregion
 
         public MiDESelection()
@@ -266,8 +266,7 @@ namespace MiDEWPF.Pages
         #region Button Events
         void MitigationOptionButton_Click(object sender, RoutedEventArgs e)
         {
-           
-            NewButton b = new NewButton();
+            
             b = e.OriginalSource as NewButton;
             if (b != null)
             {
@@ -276,15 +275,14 @@ namespace MiDEWPF.Pages
                 bid = int.Parse(Bid);
                 bid -= 1;
 
-
                 #region check for string match to Button RoutedEventArgs
-
-
                 currentMitigationListBox.Items.Add(ds.EValues.Rows[bid][2].ToString());
                 MitigationSelection.Add(ds.EValues.Rows[bid][2].ToString());
                 var evalue = ds.EValues.Rows[bid][3].ToString();
                 int Evalue = int.Parse(evalue);
                 EValues.Add(Evalue);
+                b.Visibility = Visibility.Collapsed;
+
 
                 #region after continued testing, erase me
                 /*if (bid == 1)
@@ -532,10 +530,8 @@ namespace MiDEWPF.Pages
 
                 }*/
                 #endregion
+                #endregion
             }
-
-
-            #endregion
 
         }
 
@@ -576,10 +572,31 @@ namespace MiDEWPF.Pages
 
         private void ClearSelection_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Delete All Current Selections?");
+            i = 0;
+            if (currentMitigationListBox.Items.Count < 1)
+            {
+                BiMessageBox.Show("Delete Confirmation", "There Are No Items To Clear");
+                return;
+            }
+
+            var MessageBoxResult =
+           BiMessageBox.Show("Delete Confirmation", "Delete All Current Selections?", MessageBoxButton.YesNo);
+
+            if (MessageBoxResult != MessageBoxResult.Yes)
+            {
+                return;
+            }
+            //MessageBox.Show("Delete All Current Selections?");
             currentMitigationListBox.Items.Clear();
             EValues.Clear();
             MitigationSelection.Clear();
+            mitigationDisplay.Children.Clear();
+            //b.Visibility = Visibility.Visible; //maybe remove
+            foreach (var item in list)
+            {
+                mitigationDisplay.Children.Add(CreateButtons(list, rdt, i));
+                i++;
+            }
             return;
         }
 
@@ -589,10 +606,24 @@ namespace MiDEWPF.Pages
             int currentIterator = currentMitigationListBox.Items.Count - 1;
             currentMitigationListBox.SelectedItem = currentMitigationListBox.Items.Count - 1;
 
-            MessageBox.Show("Remove " + currentMitigationListBox.SelectedItem + "?");
+            if (currentMitigationListBox.SelectedIndex == -1)
+            {
+                BiMessageBox.Show("Delete Confirmation", "There Are No Items To Clear");
+                return;
+            }
+
+            var MessageBoxResult =
+            BiMessageBox.Show("Delete Confirmation", "Remove " + currentMitigationListBox.SelectedItem + "?", MessageBoxButton.YesNo);
+            if (MessageBoxResult != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            //MessageBox.Show("Remove " + currentMitigationListBox.SelectedItem + "?");
             currentMitigationListBox.Items.RemoveAt(currentMitigationListBox.SelectedIndex);
             EValues.RemoveAt(currentIterator);
             MitigationSelection.RemoveAt(currentIterator);
+            b.Visibility = Visibility.Visible; //maybe remove
             return;
         }
 

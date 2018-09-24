@@ -37,9 +37,13 @@ namespace MiDEWPF.Pages
             SFactorDisplayArray.Text = string.Join(", ", Home.SelectionBox);
 
             //Here we are formatting the text in the exclusions list, if a mitigation is selected for removal then  . . .
-            if (MiDESelection.MitigationSelection.Count >= 1)
+            if (MiDESelection.MitigationSelection.Count >= 1 && Home.ExclusionBox.Count >= 1)
             {
                 StrategyExclusionArray.Text = string.Join(", ", Home.ExclusionBox) + ", " + string.Join(", ", MiDESelection.MitigationSelection);
+            }
+            else if (MiDESelection.MitigationSelection.Count >= 1 && Home.ExclusionBox.Count <= 0)
+            {
+                StrategyExclusionArray.Text = string.Join(", ", MiDESelection.MitigationSelection);
             }
             else
             {

@@ -410,6 +410,7 @@ namespace MiDEWPF.Pages
                 if (SValues.Count() != 0)
                 {
                     SValues.RemoveAt(listIterator);
+                    SVariableExclusion.RemoveAt(listIterator);
                 }
 
                 foreach (var item in ds.SValues)
@@ -424,6 +425,7 @@ namespace MiDEWPF.Pages
             if (SValues.Count() != 0)
             {
                 SValues.RemoveAt(listIterator);
+                SVariableExclusion.RemoveAt(listIterator + 2);
             }
 
             cmd = new SqlCommand(sqlString, conn);

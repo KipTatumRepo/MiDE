@@ -36,6 +36,7 @@ namespace MiDEWPF.Pages
         public static int SValuesSum;
         public int ScenarioNumber;
         public static int isThrottled;
+       
         #endregion
 
         #region Page Variables
@@ -61,6 +62,9 @@ namespace MiDEWPF.Pages
         {
 
             InitializeComponent();
+            
+            string applicationName = Properties.Settings.Default.ApplicationName;
+            
 
             #region Get Data
 

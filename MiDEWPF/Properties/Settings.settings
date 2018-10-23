@@ -26,5 +26,8 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=compasspowerbi;Initial Catalog=BI;Persist Security Info=True;User ID=MideApplication;Password=$1nCi7y</Value>
     </Setting>
+    <Setting Name="ApplicationName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">MiDE</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

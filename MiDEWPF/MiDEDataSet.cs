@@ -10,9 +10,12 @@
     }
 }
 
-namespace MiDEWPF.MiDEDataSetTableAdapters {
-    
-    
+namespace MiDEWPF.MiDEDataSetTableAdapters
+{
+    partial class ApplicationSessionsTableAdapter
+    {
+    }
+
     public partial class WriteTableAdapter {
     }
 }

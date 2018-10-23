@@ -54,5 +54,14 @@ namespace MiDEWPF.Properties {
                 return ((string)(this["BIConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("MiDE")]
+        public string ApplicationName {
+            get {
+                return ((string)(this["ApplicationName"]));
+            }
+        }
     }
 }

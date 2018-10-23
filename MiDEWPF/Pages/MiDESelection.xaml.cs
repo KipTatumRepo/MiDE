@@ -540,6 +540,7 @@ namespace MiDEWPF.Pages
         {
             EValuesSum = EValues.Sum();
             MiDEDataSetTableAdapters.WriteTableAdapter wadapter = new MiDEDataSetTableAdapters.WriteTableAdapter();
+           
             int i = 0;
             int j = 0;
             int k = 0;
@@ -563,6 +564,8 @@ namespace MiDEWPF.Pages
                 wadapter.Insert(ScenarioNumber, null, null, currentIterator);
                 k++;
             }
+
+           
 
             RemainingMitigationList = RemainingMitigations(AllCurrentMitigations, MitigationSelection);
 

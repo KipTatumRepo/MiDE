@@ -12,7 +12,9 @@
         Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={tools:RatioConverter}, ConverterParameter='.8' }"
         MinWidth="1200" MinHeight="800"
         FontFamily="Segoe UI Emoji"
-        Icon="Icons\MiDEIconUseThis.ico">
+        Icon="Icons\MiDEIconUseThis.ico"
+        Closing="Window_Closing"
+        Loaded="Window_Loaded">
     <Grid Background="OldLace">
         <Frame Source="Pages/Home.xaml" />
     </Grid>

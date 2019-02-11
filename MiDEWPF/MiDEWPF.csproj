@@ -182,15 +182,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\thumbsUp.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\SadDonkey.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
@@ -205,12 +197,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\MiDEIconUseThis.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\emoji-thumbsup.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\emoji-thumbsdown.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Demoji-thumbsup.png" />

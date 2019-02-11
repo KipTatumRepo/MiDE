@@ -102,7 +102,6 @@ namespace MiDEWPF.Pages
                 i++;
             }
             AddHandler(NewButton.ClickEvent, new RoutedEventHandler(MitigationOptionButton_Click));
-                
         }
 
         #region Algorithmic Functions
@@ -238,11 +237,11 @@ namespace MiDEWPF.Pages
             return Value;
         }
 
+		//Remove Selected Mitigations
         private List<string> RemainingMitigations(List<string> AllCurrentMitigations, List<string> SelectedMitigations)
         {
             List<string> Result = new List<string>();
             Result.AddRange(AllCurrentMitigations.Except(SelectedMitigations));
-            //Result.AddRange()
             return Result;
         }
 
@@ -282,254 +281,6 @@ namespace MiDEWPF.Pages
                 int Evalue = int.Parse(evalue);
                 EValues.Add(Evalue);
                 b.Visibility = Visibility.Collapsed;
-
-
-                #region after continued testing, erase me
-                /*if (bid == 1)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[0][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[0][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[0][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 2)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[1][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[1][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[1][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 3)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[2][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[2][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[2][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 4)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[3][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[3][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[3][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 5)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[4][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[4][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[4][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 6)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[5][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[5][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[5][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 7)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[6][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[6][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[6][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 8)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[7][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[7][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[7][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 9)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[8][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[8][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[8][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 10)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[9][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[9][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[9][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 11)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[10][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[10][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[10][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 12)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[11][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[11][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[11][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 13)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[12][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[12][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[12][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 14)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[13][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[13][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[13][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 15)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[14][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[14][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[14][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 16)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[15][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[15][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[15][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 17)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[16][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[16][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[16][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 18)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[17][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[17][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[17][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 19)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[18][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[18][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[18][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 20)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[19][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[19][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[19][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 21)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[20][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[20][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[20][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 22)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[21][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[21][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[21][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 27)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[26][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[26][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[26][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 23)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[22][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[22][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[22][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 25)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[24][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[24][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[24][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 26)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[25][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[25][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[25][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-                }
-                else if (bid == 24)
-                {
-                    currentMitigationListBox.Items.Add(ds.MiDEEValues.Rows[23][2].ToString());
-                    MitigationSelection.Add(ds.MiDEEValues.Rows[23][2].ToString());
-                    var evalue = ds.MiDEEValues.Rows[23][3].ToString();
-                    int Evalue = int.Parse(evalue);
-
-                    EValues.Add(Evalue);
-
-                }*/
-                #endregion
                 #endregion
             }
 
@@ -565,8 +316,6 @@ namespace MiDEWPF.Pages
                 k++;
             }
 
-           
-
             RemainingMitigationList = RemainingMitigations(AllCurrentMitigations, MitigationSelection);
 
             NavigationService.Navigate(
@@ -589,12 +338,12 @@ namespace MiDEWPF.Pages
             {
                 return;
             }
-            //MessageBox.Show("Delete All Current Selections?");
+            
             currentMitigationListBox.Items.Clear();
             EValues.Clear();
             MitigationSelection.Clear();
             mitigationDisplay.Children.Clear();
-            //b.Visibility = Visibility.Visible; //maybe remove
+            
             foreach (var item in list)
             {
                 mitigationDisplay.Children.Add(CreateButtons(list, rdt, i));
@@ -621,8 +370,6 @@ namespace MiDEWPF.Pages
             {
                 return;
             }
-
-            //MessageBox.Show("Remove " + currentMitigationListBox.SelectedItem + "?");
             currentMitigationListBox.Items.RemoveAt(currentMitigationListBox.SelectedIndex);
             EValues.RemoveAt(currentIterator);
             MitigationSelection.RemoveAt(currentIterator);
@@ -637,7 +384,6 @@ namespace MiDEWPF.Pages
             Home.ExclusionBox.Clear();
             NavigationService.Navigate(
                 new Uri("Pages/Home.xaml", UriKind.Relative));
-
         }
         #endregion
 

@@ -1,18 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using MiDEWPF.Resources;
 
 namespace MiDEWPF.Pages
 {
@@ -26,7 +17,6 @@ namespace MiDEWPF.Pages
 
         public MiDEResults()
         {
-
             InitializeComponent();
 
             ScenarioNumberDispaly.Text = "For Scenario # " + MiDESelection.ScenarioNumber;
@@ -70,7 +60,7 @@ namespace MiDEWPF.Pages
             {
                 Image.Text = "Great Job";
                 Image.FontSize = 30;
-                //change to emoji-thumbsup.jpg for release after demo
+                
                 var uri = new Uri("pack://application:,,,/Resources/Demoji-thumbsup.png", UriKind.Absolute);
 
                 ImageHolder.Source = new BitmapImage(uri);
@@ -79,7 +69,7 @@ namespace MiDEWPF.Pages
             {
                 Image.Text = "Not Quite The Result We Are Looking For";
                 Image.FontSize = 32;
-                //change to emoji-thumbsdown.jpg for release after demo
+                
                 var uri = new Uri("pack://application:,,,/Resources/Demoji-thumbsdown.png", UriKind.Absolute);
 
                 ImageHolder.Source = new BitmapImage(uri);
@@ -96,7 +86,6 @@ namespace MiDEWPF.Pages
 
             NavigationService.Navigate(
                 new Uri("Pages/Home.xaml", UriKind.Relative));
-
         }
     }
 }

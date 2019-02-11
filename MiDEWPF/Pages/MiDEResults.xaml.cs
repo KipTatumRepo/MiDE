@@ -23,7 +23,6 @@ namespace MiDEWPF.Pages
     {
         List<string> Values = new List<string>();
         int NewETotal = MiDESelection.AllEValueSum - MiDESelection.EValuesSum;
-       
 
         public MiDEResults()
         {

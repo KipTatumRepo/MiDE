@@ -64,7 +64,6 @@ namespace MiDEWPF.Pages
             InitializeComponent();
             
             string applicationName = Properties.Settings.Default.ApplicationName;
-            
 
             #region Get Data
 

@@ -109,8 +109,12 @@
       <DependentUpon>BiMessageBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\ConnectionHelper.cs" />
+    <Compile Include="Resources\Data.cs" />
+    <Compile Include="Resources\EValue.cs" />
+    <Compile Include="Resources\PopulationType.cs" />
     <Compile Include="Resources\RatioConverter.cs" />
     <Compile Include="Resources\SqlCommandExt.cs" />
+    <Compile Include="Resources\SValue.cs" />
     <Compile Include="Settings.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

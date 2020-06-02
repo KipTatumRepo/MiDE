@@ -36,15 +36,15 @@ namespace MiDEWPF
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            MiDEDataSetTableAdapters.ApplicationSessionsTableAdapter infoAdapter = new MiDEDataSetTableAdapters.ApplicationSessionsTableAdapter();
-            infoAdapter.Insert(Properties.Settings.Default.ApplicationName, userId, sessionStart, null);
+            //MiDEDataSetTableAdapters.ApplicationSessionsTableAdapter infoAdapter = new MiDEDataSetTableAdapters.ApplicationSessionsTableAdapter();
+            //infoAdapter.Insert(Properties.Settings.Default.ApplicationName, userId, sessionStart, null);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            sessionEnd = DateTime.Now;
-            MiDEDataSetTableAdapters.ApplicationSessionsTableAdapter infoAdapter = new MiDEDataSetTableAdapters.ApplicationSessionsTableAdapter();
-            infoAdapter.UpdateQuery(sessionEnd, sessionStart, sessionStart);
+            //sessionEnd = DateTime.Now;
+            //MiDEDataSetTableAdapters.ApplicationSessionsTableAdapter infoAdapter = new MiDEDataSetTableAdapters.ApplicationSessionsTableAdapter();
+            //infoAdapter.UpdateQuery(sessionEnd, sessionStart, sessionStart);
             
             BiMessageBox.Show("Close MiDE?");
         }

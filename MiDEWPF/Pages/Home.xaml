@@ -28,9 +28,9 @@
             <RowDefinition Height="1.5*"/>
             <RowDefinition Height=".3*"/>
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" HorizontalAlignment="Center" Height="50" Margin="10,1,10,1" TextAlignment="Center" FontSize="30" Text="MiDE Scenario Builder" VerticalAlignment="Top" Width="1390" Background="LemonChiffon" />
+        <TextBox Grid.Row="0" HorizontalAlignment="Stretch" Height="50" Margin="0,1" TextAlignment="Center" FontSize="30" Text="MiDE Scenario Builder" VerticalAlignment="Top" Background="LemonChiffon" />
         <Border BorderBrush="LightSlateGray" BorderThickness="2" CornerRadius="8" Grid.Row="1">
-            <Grid Grid.Row="0" x:Name="TopGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,4,0,8" >
+            <Grid Grid.Row="0" x:Name="TopGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,4,0,8" Width="1386" Height="318" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="134*"/>
                     <RowDefinition Height="31*"/>
@@ -39,7 +39,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Grid Margin="0,0,0,0" Grid.Row="0" >
+                <Grid Margin="0,0,0,0" Grid.Row="0" Width="693" Height="258" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="144*"/>
                         <ColumnDefinition Width="178*" />
@@ -54,7 +54,7 @@
                         <RowDefinition Height="43*"/>
                         <RowDefinition Height="43*"/>
                     </Grid.RowDefinitions>
-                    <TextBox Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="24" Margin="10,1,0,0" TextAlignment="Center" Text="Scenario Options" VerticalAlignment="Top" Background="LemonChiffon"/>
+                    <TextBox Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="24" Margin="5,1,0,0" TextAlignment="Center" Text="Scenario Options" VerticalAlignment="Top" Background="LemonChiffon"/>
                     <TextBlock HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" Text="Vacating Building Info" VerticalAlignment="Center" Margin="5,0,0,12" Height="16" Width="116"/>
                     <TextBlock HorizontalAlignment="Left" Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" Text="Occupying Building" VerticalAlignment="Center" Margin="5,0,0,15" Height="16" Width="103"/>
                     <TextBlock HorizontalAlignment="Left" Grid.Column="0" Grid.Row="3" TextWrapping="Wrap" Text="Expected Move Date" VerticalAlignment="Center" Margin="5,0,0,14" Height="16" Width="109"/>
@@ -80,11 +80,13 @@
                     <ComboBox x:Name="selectedVacatingBuildingCB" Grid.Column="1" Grid.Row="1" Margin="2,0,2,8" Text="Select Building" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Stretch" 
                       SelectionChanged="selectedVacatingBuildingCB_SelectionChanged" VerticalAlignment="Center"/>
                     <ComboBox x:Name="selectedPopRangeCB" Grid.Column="2" Grid.Row="1" Text="Select Population Range" Margin="2,0,2,8" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Stretch" 
-                      ItemsSource="{Binding NotifyOnSourceUpdated=True, Source={StaticResource populationViewSource}, UpdateSourceTrigger=PropertyChanged}"
-                      DisplayMemberPath="PopAmount" SelectedValuePath="PopAmount" SelectionChanged="selectedPopRangeCB_SelectionChanged" Canvas.Left="221" VerticalAlignment="Center"/>
+                      
+                       SelectionChanged="selectedPopRangeCB_SelectionChanged" Canvas.Left="221" VerticalAlignment="Center"/>
+					<!--DisplayMemberPath="PopAmount" SelectedValuePath="PopAmount" ItemsSource="{Binding NotifyOnSourceUpdated=True, Source={StaticResource populationViewSource}, UpdateSourceTrigger=PropertyChanged}"-->
                     <ComboBox x:Name="selectedPopTypeCB" Grid.Column="3" Grid.Row="1" Text="Select Population Type" Margin="2,0,2,8" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Stretch" 
-                      ItemsSource="{Binding NotifyOnSourceUpdated=True, Source={StaticResource popTypeViewSource}, UpdateSourceTrigger=PropertyChanged}" 
-                      DisplayMemberPath="popType" SelectedValuePath="popType" SelectionChanged="selectedPopTypeCB_SelectionChanged" Canvas.Left="446" VerticalAlignment="Center"/>
+                       SelectionChanged="selectedPopTypeCB_SelectionChanged" Canvas.Left="446" VerticalAlignment="Center"/>
+					<!-- ItemsSource="{Binding NotifyOnSourceUpdated=True, Source={StaticResource popTypeViewSource}, UpdateSourceTrigger=PropertyChanged}" 
+                      DisplayMemberPath="popType" SelectedValuePath="popType"-->
                     <ComboBox x:Name="selectBuildingCB" Grid.Row="2" Grid.Column="1" Text="Select Building" Margin="2,0,2,8" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Stretch" 
                       SelectionChanged="selectBuildingCB_SelectionChanged" VerticalAlignment="Center" />
                     <DatePicker x:Name="datePicker" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Margin="2,0,2,10" HorizontalAlignment="Stretch" SelectedDateChanged="DatePicker_SelectedDateChanged" Height="24" />
@@ -99,15 +101,15 @@
                     </ComboBox>
                     <!-- List box and label for Current Selections -->
                 </Grid>
-                <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Height="24" Margin="30,1,10,0" TextAlignment="Center" Text="Current Scenario Selections" VerticalAlignment="Top" Background="LemonChiffon"/>
-                <ListBox Grid.Row="0" x:Name="SelectionListBox" HorizontalAlignment="Stretch" Height="210" Margin="30,38,10,0" VerticalAlignment="Top" Grid.Column="1"/>
+                <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Height="24" Margin="30,1,5,0" TextAlignment="Center" Text="Current Scenario Selections" VerticalAlignment="Top" Background="LemonChiffon"/>
+                <ListBox Grid.Row="0" x:Name="SelectionListBox" HorizontalAlignment="Stretch" Height="210" Margin="30,38,5,0" VerticalAlignment="Top" Grid.Column="1" Width="653"/>
                 <TextBox x:Name="SFactorDef" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Height="24" Margin="10,15,0,0" TextWrapping="Wrap" VerticalAlignment="Bottom" Visibility="Hidden"/>
                 <Button x:Name="clearAllScenario" Grid.Row="1" Grid.Column="1" Content="Clear All Selections" HorizontalAlignment="Right" Margin="0,0,173,0" Style="{StaticResource Buttons}" Height="Auto" Width="153" Click="ClearAllScenario_Click" />
-                <Button x:Name="clearLastScenario" Grid.Row="1"  Grid.Column="1" Content="Clear Last Selection" HorizontalAlignment="Right" Margin="0,0,10,0" Style="{StaticResource Buttons}" Height="Auto" Width="153" Click="ClearLastScenario_Click" />
+                <Button x:Name="clearLastScenario" Grid.Row="1"  Grid.Column="1" Content="Clear Last Selection" HorizontalAlignment="Right" Margin="0,0,5,0" Style="{StaticResource Buttons}" Height="Auto" Width="153" Click="ClearLastScenario_Click" />
             </Grid>
         </Border>
-        <Border Grid.Row="2" BorderBrush="LightSlateGray" BorderThickness="2" CornerRadius="8" Margin="0,1,0,0">
-            <Grid Name="LowerGrid" Grid.Row="2" >
+        <Border Grid.Row="2" BorderBrush="LightSlateGray" BorderThickness="2" CornerRadius="8" Margin="0,5,0,0">
+            <Grid Name="LowerGrid" Grid.Row="2" Margin="0,8,0,0" Height="318" Width="1386" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="134*"/>
                     <RowDefinition Height="31*"/>
@@ -116,7 +118,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Height="179" Margin="10,10,0,0" VerticalAlignment="Top" >
+                <Grid Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Height="258" Margin="0,0,0,0" VerticalAlignment="Top" Width="693" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="143*"/>
                         <ColumnDefinition Width="177*" />
@@ -128,7 +130,7 @@
                         <RowDefinition Height="58*"/>
                         <RowDefinition Height="87*"/>
                     </Grid.RowDefinitions>
-                    <TextBox Grid.Row="0" Grid.ColumnSpan="4" Height="24" Margin="10,1,0,0" TextAlignment="Center" Text="Exclusion Options" VerticalAlignment="Top" Background="LemonChiffon"/>
+                    <TextBox Grid.Row="0" Grid.ColumnSpan="4" Height="24" Margin="5,1,0,0" TextAlignment="Center" Text="Exclusion Options" VerticalAlignment="Top" Background="LemonChiffon"/>
                     <TextBlock HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" Text="Strategy Exclusions" VerticalAlignment="Center" Margin="5,12,0,0" Height="16" Width="116"/>
                     <TextBlock HorizontalAlignment="Left" Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" Text="Mitigation Exclusions" VerticalAlignment="Center" Margin="5,28,0,43" Height="16" Width="116"/>
                     <ComboBox Name="strategyExclusionCB" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="Select Strategy Exclusions" Margin="2,12,2,0" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Stretch" 
@@ -137,12 +139,12 @@
                       SelectionChanged="mitigationExclusion_SelectionChanged" VerticalAlignment="Center" Height="22"/>
                 </Grid>
                 <!--Label and Listbox for exclusions-->
-                <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Height="24" Margin="30,10,10,0" TextAlignment="Center" Text="Current Exclusion Selections" VerticalAlignment="Top" Background="LemonChiffon"/>
-                <ListBox Grid.Row="0" Grid.Column="1" Name="ExclusionListBox" HorizontalAlignment="Stretch" Height="210" Margin="30,47,10,0" VerticalAlignment="Top" />
+				<TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Height="24" Margin="30,1,5,0" TextAlignment="Center" Text="Current Exclusion Selections" VerticalAlignment="Top" Background="LemonChiffon"/>
+				<ListBox Grid.Row="0" Grid.Column="1" Name="ExclusionListBox" HorizontalAlignment="Stretch" Height="210" Margin="30,38,5,0" VerticalAlignment="Top" Width="653" />
                 <Button x:Name="ClearAllExclusion" Grid.Row="1" Grid.Column="1" Content="Clear All Selections" HorizontalAlignment="Right" Margin="0,0,173,0" Style="{StaticResource Buttons}" Height="Auto" Width="152" Click="ClearAllExclusion_Click" RenderTransformOrigin="0.503,-0.012" />
-                <Button x:Name="ClearLastExclusion" Grid.Row="1" Grid.Column="1" Content="Clear Last Selection" HorizontalAlignment="Right" Margin="0,0,10,0" Style="{StaticResource Buttons}" Height="Auto" Width="153" Click="ClearLastExclusion_Click" />
+                <Button x:Name="ClearLastExclusion" Grid.Row="1" Grid.Column="1" Content="Clear Last Selection" HorizontalAlignment="Right" Margin="0,0,5,0" Style="{StaticResource Buttons}" Height="Auto" Width="153" Click="ClearLastExclusion_Click" />
             </Grid>
         </Border>
-        <Button x:Name="SaveButton" Grid.Row="3" Content="Save" HorizontalAlignment="Right" Margin="0,4,664,0" Style="{StaticResource Buttons}" Height="Auto" Click="SaveButton_Click" Width="126" />
+        <Button x:Name="SaveButton" Grid.Row="3" Content="Save" HorizontalAlignment="Right" Margin="0,4,664,0" Style="{StaticResource Buttons}" Height="60" Click="SaveButton_Click" Width="126" />
     </Grid>
 </Page>

@@ -1,4 +1,5 @@
-﻿using MiDEWPF.Models;
+﻿using MiDEWPF.MiDEDataSetTableAdapters;
+using MiDEWPF.Models;
 using MiDEWPF.Resources;
 using System;
 using System.Collections.Generic;
@@ -40,12 +41,13 @@ namespace MiDEWPF.Pages
         SqlCommand Cmd;
         int SValue;
         List<string> content = new List<string>();
-        MiDEDataSet ds = new MiDEDataSet();
-        DataTable rdt = new DataTable();
+        //MiDEDataSet ds = new MiDEDataSet();
+        List<EValue> rdt = new List<EValue>();
         DataTable sortedTable = new DataTable();
-        DataTable fdt = new DataTable("FilteredDataTable");
-        List<string> list = new List<string>();
+        List<EValue> fdt = new List<EValue>(); //new DataTable("FilteredDataTable");
+        List<EValue> list = new List<EValue>();
         NewButton b = new NewButton();
+        Data ds = new Data();
         #endregion
 
         public MiDESelection()
@@ -56,49 +58,22 @@ namespace MiDEWPF.Pages
             InitializeComponent();
 
             #region Get Data
-            MiDEDataSetTableAdapters.EValuesTableAdapter eadapter = new MiDEDataSetTableAdapters.EValuesTableAdapter();
-            eadapter.Fill(ds.EValues);
-
             //Get sum of S values and current Scenario Number from Home page.  
             SValue = Home.SValuesSum;
             ScenarioNumber = newhome.ScenarioNumber;
-            
-            //Connection stuff
-            SqlConnection conn = ConnectionHelper.GetConn();
-            conn.Open();
-            string sqlString = "SELECT ScenarioNumber, SelectionListBox, ExclusionListBox, CurrentMitigationListBox, wid FROM mide.Write WHERE(ScenarioNumber = @ScenarioNumber) AND(ExclusionListBox IS NOT NULL)";
-
-            Cmd = new SqlCommand(sqlString, conn);
-            SqlDataAdapter sda = new SqlDataAdapter(Cmd);
-            Cmd.Parameters.AddWithValue("@ScenarioNumber", ScenarioNumber);
-            DataTable dt = new DataTable("Write");
-
-            sda.Fill(dt);
-
             currentExclusionLB.ItemsSource = Home.ExclusionBox;
             currentScenarioLB.ItemsSource = Home.SelectionBox;
-            
-
             #endregion
 
             fdt = HomeSelectionFilter(Home.ExclusionBox);
 
-            sortedTable = SortedTable(fdt);
-               
-            rdt = Deal(sortedTable, SValue);
+            rdt = Deal(fdt, SValue);//sortedTable, SValue);
 
             AllEValueSum = getAvailableEValue(rdt);
 
-            DataColumn col = rdt.Columns["EVariable"];
-
-            foreach (DataRow row in rdt.Rows)
+            foreach (var item in rdt)
             {
-                list.Add(row[col].ToString());
-            }
-            
-            foreach (var item in list)
-            {
-                mitigationDisplay.Children.Add(CreateButtons(list, rdt, i));
+                mitigationDisplay.Children.Add(CreateButtons(rdt, i));
                 i++;
             }
             AddHandler(NewButton.ClickEvent, new RoutedEventHandler(MitigationOptionButton_Click));
@@ -106,114 +81,69 @@ namespace MiDEWPF.Pages
 
         #region Algorithmic Functions
         //Get a datatable that filters out Strategies or Evariables that are selected by the user as exclusions from Home page
-        private DataTable HomeSelectionFilter(List<string> exclusionBox)
+        private List<EValue> HomeSelectionFilter(List<string> exclusionBox)
         {
-            DataTable dts = new DataTable("MiDEExclusionReturnedTable");
-           
-            SqlCommand cmd;
-            SqlConnection conn = ConnectionHelper.GetConn();
-            conn.Open();
-
-            exclusionBox = Home.ExclusionBox;
-            if (Home.isThrottled == 1)
-            {
-                if (exclusionBox.Count() == 0)
-                {
-                    string sqlString = "SELECT * FROM mide.EValues WHERE CostMoney < 3";
-                    cmd = new SqlCommand(sqlString, conn);
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    da.Fill(dts);
-                }
-
-                else
-                {
-                    string sqlString = "SELECT * FROM mide.EValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable}) AND CostMoney < 3";
-                    cmd = new SqlCommand(sqlString, conn);
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    cmd.AddArrayParameters("StrategyName", exclusionBox);
-                    cmd.AddArrayParameters("EVariable", exclusionBox);
-                    da.Fill(dts);
-                }
-            }
-            else
-            {
-                if (exclusionBox.Count() == 0)
-                {
-                    string sqlString = "SELECT * FROM mide.EValues";
-                    cmd = new SqlCommand(sqlString, conn);
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    da.Fill(dts);
-                }
-                else
-                {
-                    string sqlString = "SELECT * FROM mide.EValues WHERE StrategyName NOT IN ({StrategyName}) AND EVariable NOT IN ({EVariable})";
-                    cmd = new SqlCommand(sqlString, conn);
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    cmd.AddArrayParameters("StrategyName", exclusionBox);
-                    cmd.AddArrayParameters("EVariable", exclusionBox);
-                    da.Fill(dts);
-                }
-            }
-            conn.Close();
-            return dts;
+            int i = 0;
+            List<string> dts = new List<string>();
+            var allSGroups = ds.EValue();
+            
+            var list = allSGroups.Where(j => !exclusionBox.Contains(j.StrategyName)).ToList();
+            var updatedList = list.Where(j => !exclusionBox.Contains(j.EName)).ToList();
+                
+            return updatedList;
         }
 
         //Take DataTable returned by HomeSelectionFilter and Sort
-        private DataTable SortedTable(DataTable FilteredTable)
-        {
-            DataTable SortedTable = new DataTable("MiDESortedTable");
-            DataView dv = FilteredTable.DefaultView;
-            dv.Sort = "CostMoney ASC, Evalue DESC, CostEffort ASC";
-            SortedTable = dv.ToTable();
-            return SortedTable;
-        }
+        //private DataTable SortedTable(DataTable FilteredTable)
+        //{
+        //    DataTable SortedTable = new DataTable("MiDESortedTable");
+        //    DataView dv = FilteredTable.DefaultView;
+        //    dv.Sort = "CostMoney ASC, Evalue DESC, CostEffort ASC";
+        //    SortedTable = dv.ToTable();
+        //    return SortedTable;
+        //}
 
         //Load a DataTable and sum of S values.  Create 2 new DataTables 1 for legit values, one for throw away.  Look at E Value in each DataRow and add to EValueSum
         //if EValueSum is less than SValueSum and that DataRow to the legit DataTable.  If we come across a value that make EValueSum > SValueSum
         //add that DataRow to throw away table and move on to next value if there is one.
-        private DataTable Deal(DataTable dt, int SValueSum)
+        private List<EValue> Deal(List<EValue> dt, int SValueSum)
         {
-            DataTable table = new DataTable();
-            DataTable otherTable = new DataTable();
-            otherTable = dt.Clone();
-            table = dt.Clone();
-            DataColumn col = dt.Columns["Evalue"];
+            dt.Sort();
+            List<EValue> table = new List<EValue>();
+            List<EValue> otherList = new List<EValue>();
             string evalue;
             int EValue;
             int EValueSum = 0;
-           
-            foreach (DataRow row in dt.Rows)
+
+            foreach (var item in dt)
             {
-               
-                evalue = row[col].ToString();
-                EValue = int.Parse(evalue);
+                EValue = item.EScore;
                 if (EValue > SValueSum)
                 {
-                    otherTable.Rows.Add(row.ItemArray);
+                    otherList.Add(item);
                 }
                 else if (EValue == SValueSum)
                 {
-                    table.Rows.Add(row.ItemArray);
+                    table.Add(item);
                     return table;
                 }
-                else 
+                else
                 {
                     EValueSum += EValue;
-
                     if (EValueSum < SValueSum)
                     {
-                        table.Rows.Add(row.ItemArray);
+                        table.Add(item);
                     }
 
                     else if (EValueSum > SValueSum)
                     {
-                        otherTable.Rows.Add(row.ItemArray);
+                        otherList.Add(item);
                         EValueSum -= EValue;
 
                     }
                     else if (EValueSum == SValueSum)
                     {
-                        table.Rows.Add(row.ItemArray);
+                        table.Add(item);
                         return table;
                     }
                 }
@@ -222,17 +152,14 @@ namespace MiDEWPF.Pages
         }
 
         //sum of the Evalue from datatable that results from exclusion selections
-        private int getAvailableEValue(DataTable t)
+        private int getAvailableEValue(List<EValue> t)
         {
             List<int> evalues = new List<int>();
             int Value = 0;
-            DataColumn col = t.Columns["Evalue"];
-            int i = 0;
-            foreach (DataRow row in t.Rows)
+           
+            foreach (var item in t)
             {
-                string valueAdd = row[col].ToString();
-                Value += Convert.ToInt32(valueAdd);
-                i++;
+                Value += item.EScore;
             }
             return Value;
         }
@@ -240,22 +167,22 @@ namespace MiDEWPF.Pages
 		//Remove Selected Mitigations
         private List<string> RemainingMitigations(List<string> AllCurrentMitigations, List<string> SelectedMitigations)
         {
-            List<string> Result = new List<string>();
-            Result.AddRange(AllCurrentMitigations.Except(SelectedMitigations));
-            return Result;
+            List<string> result = new List<string>();
+            result = AllCurrentMitigations.Except(SelectedMitigations).ToList();
+            return result;
         }
 
         //Create buttons
-        private NewButton CreateButtons(List<string> list, DataTable dt, int i)
+        private NewButton CreateButtons(List<EValue> list, int i)
         {
-            string eid = dt.Rows[i][0].ToString();
+            string eid = list[i].EName;
             NewButton button = new NewButton();
             Style style = FindResource("mButton") as Style;
-            button.Tag = Int32.Parse(eid);
-            button.Content = list[i].ToString();
+            button.Tag = eid;
+            button.Content = list[i].EName;
             button.Style = style;
             button.Margin = new Thickness(0, 3, 3, 3);
-            AllCurrentMitigations.Add(list[i].ToString());
+            AllCurrentMitigations.Add(eid);
             
             return button;
         }
@@ -267,19 +194,17 @@ namespace MiDEWPF.Pages
         {
             
             b = e.OriginalSource as NewButton;
+            List<EValue> allEValues = ds.EValue();
             if (b != null)
             {
                 string Bid = b.Tag.ToString();
-                int bid;
-                bid = int.Parse(Bid);
-                bid -= 1;
 
                 #region check for string match to Button RoutedEventArgs
-                currentMitigationListBox.Items.Add(ds.EValues.Rows[bid][2].ToString());
-                MitigationSelection.Add(ds.EValues.Rows[bid][2].ToString());
-                var evalue = ds.EValues.Rows[bid][3].ToString();
-                int Evalue = int.Parse(evalue);
-                EValues.Add(Evalue);
+                currentMitigationListBox.Items.Add(Bid);
+                
+                EValue evalue = allEValues.FirstOrDefault(j => Bid == j.EName);
+                MitigationSelection.Add(evalue.EName);
+                EValues.Add(evalue.EScore);
                 b.Visibility = Visibility.Collapsed;
                 #endregion
             }
@@ -291,30 +216,6 @@ namespace MiDEWPF.Pages
         {
             EValuesSum = EValues.Sum();
             MiDEDataSetTableAdapters.WriteTableAdapter wadapter = new MiDEDataSetTableAdapters.WriteTableAdapter();
-           
-            int i = 0;
-            int j = 0;
-            int k = 0;
-
-            foreach (var item in Home.SelectionBox)
-            {
-                string currentIterator = Home.SelectionBox[i].ToString();
-                wadapter.Insert(ScenarioNumber, currentIterator, null, null);
-                i++;
-            }
-
-            foreach (var item in Home.ExclusionBox)
-            {
-                string currentIterator = Home.ExclusionBox[j].ToString();
-                wadapter.Insert(ScenarioNumber, null, currentIterator, null);
-                j++;
-            }
-            foreach( var item in MitigationSelection)
-            {
-                string currentIterator = MitigationSelection[k].ToString();
-                wadapter.Insert(ScenarioNumber, null, null, currentIterator);
-                k++;
-            }
 
             RemainingMitigationList = RemainingMitigations(AllCurrentMitigations, MitigationSelection);
 
@@ -344,9 +245,9 @@ namespace MiDEWPF.Pages
             MitigationSelection.Clear();
             mitigationDisplay.Children.Clear();
             
-            foreach (var item in list)
+            foreach (var item in rdt)
             {
-                mitigationDisplay.Children.Add(CreateButtons(list, rdt, i));
+                mitigationDisplay.Children.Add(CreateButtons(rdt, i));
                 i++;
             }
             return;
@@ -371,8 +272,17 @@ namespace MiDEWPF.Pages
                 return;
             }
             currentMitigationListBox.Items.RemoveAt(currentMitigationListBox.SelectedIndex);
-            EValues.RemoveAt(currentIterator);
-            MitigationSelection.RemoveAt(currentIterator);
+            
+            if (EValues.Count > 0)
+            {
+                EValues.RemoveAt(currentIterator);
+            }
+
+            if (MitigationSelection.Count > 0)
+            {
+                MitigationSelection.RemoveAt(currentIterator);
+            }
+            
             b.Visibility = Visibility.Visible; //maybe remove
             return;
         }
